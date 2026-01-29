@@ -10,7 +10,7 @@ npm install
 
 2. BD.
 
-- MySQL
+- PostgreSQL
 
 3. Graficas.
 

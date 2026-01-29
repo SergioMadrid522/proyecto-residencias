@@ -1,9 +1,11 @@
 import { LoginValidationProps } from "@/types/users.type";
 import { isEmpty } from "@/utils/isEmpty";
 
-export function userLoginValidation({ data }: LoginValidationProps): string[] {
+export function userLoginValidation({
+  email,
+  password,
+}: LoginValidationProps): string[] {
   const errors = [];
-  const { email, password } = data;
 
   if (isEmpty(email)) {
     errors.push("Email is required");
