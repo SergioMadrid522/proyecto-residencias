@@ -6,15 +6,21 @@ npm install
 
 # Stack
 
-1. Aplicación Full-Stack usando Next.js + TypeScript
+1. Aplicación Full-Stack usando Next.js con React.js + TypeScript
+
+- Next.js v16.1.5
 
 2. BD.
 
-- PostgreSQL
+- PostgreSQL v17
 
 3. Graficas.
 
 - Recharts
+
+4. ORM
+
+- Prisma v6.2.1
 
 # Roles:
 

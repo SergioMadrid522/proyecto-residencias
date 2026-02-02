@@ -1,15 +1,10 @@
 import { getData } from "@/app/actions";
 import { userLoginValidation } from "@/utils/login.validation";
 import { NextResponse } from "next/server";
-
+import { prisma } from "@/lib/prisma";
 export async function POST(request: Request) {
   const body = await request.json();
-  const errors = userLoginValidation(body);
-  const { email, password } = body;
 
-  if (errors.length > 0) {
-    return NextResponse.json({ errors }, { status: 400 });
-  }
   try {
     return NextResponse.json(
       { message: "Server Internal Error" },
@@ -24,14 +19,21 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  const data = await getData();
+  try {
+    const roles = await prisma.rol.findMany();
 
-  if (!data) {
+    if (roles.length === 0) {
+      return NextResponse.json(
+        { message: "No hay datos para mostrar." },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json(roles, { status: 200 });
+  } catch (error) {
     return NextResponse.json(
-      { message: "No hay datos para mostrar." },
-      { status: 400 },
+      { message: "Error del servidor", error },
+      { status: 500 },
     );
   }
-
-  return NextResponse.json({ data }, { status: 200 });
 }
