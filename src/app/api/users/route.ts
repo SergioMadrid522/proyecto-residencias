@@ -1,26 +1,10 @@
-import { getData } from "@/app/actions";
-import { userLoginValidation } from "@/utils/login.validation";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-export async function POST(request: Request) {
-  const body = await request.json();
-
-  try {
-    return NextResponse.json(
-      { message: "Server Internal Error" },
-      { status: 200 },
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Server Internal Error" },
-      { status: 500 },
-    );
-  }
-}
 
 export async function GET() {
   try {
     const roles = await prisma.rol.findMany();
+    console.log(roles);
 
     if (roles.length === 0) {
       return NextResponse.json(

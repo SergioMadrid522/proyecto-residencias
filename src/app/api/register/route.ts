@@ -1,24 +1,28 @@
-import { FindUserByEmail, LoginUser } from "@/app/actions";
+import { FindUserByEmail, RegisterUser } from "@/app/actions";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const validation = await LoginUser(body);
-    const userEmail = await FindUserByEmail(validation.data?.email);
+    const { email } = body;
+    const validation = await RegisterUser(body);
+    const existedEmail = await FindUserByEmail(body);
 
     if (!validation?.success) {
       return NextResponse.json({ errors: validation?.errors }, { status: 400 });
     }
 
-    if (!userEmail) {
+    if (email === existedEmail) {
       return NextResponse.json(
-        { message: "Correo no registrado" },
+        { message: "El correo ya está registrado" },
         { status: 400 },
       );
     }
 
-    return NextResponse.json({ data: validation.data }, { status: 200 });
+    return NextResponse.json(
+      { messsage: "Usuario creado con éxito" },
+      { status: 200 },
+    );
   } catch {
     return NextResponse.json(
       { message: "Server Internal Error" },
