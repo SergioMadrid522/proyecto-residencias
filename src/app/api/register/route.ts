@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { findUserByEmail, registerUser } from "@/app/actions";
+import { registerUser } from "@/app/actions";
 import { prisma } from "@/lib/prisma";
+import { findUserByEmail } from "@/utils/findUserByEmail";
 
 export async function POST(request: Request) {
   try {

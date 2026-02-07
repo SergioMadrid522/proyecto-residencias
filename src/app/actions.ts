@@ -9,12 +9,6 @@ import { setSessionCookie } from "@/utils/setSessionCookies";
 import { hashPassword } from "@/utils/hashPassword";
 import { RegisterResult } from "@/types/users.type";
 
-export async function findUserByEmail(email: string | undefined) {
-  return await prisma.usuario.findUnique({
-    where: { email },
-  });
-}
-
 export async function loginUser(data: unknown) {
   const result = loginSchema.safeParse(data);
 

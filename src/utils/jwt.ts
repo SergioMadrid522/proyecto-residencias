@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import * as jose from "jose";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);

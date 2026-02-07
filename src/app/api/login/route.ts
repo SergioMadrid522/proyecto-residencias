@@ -1,4 +1,5 @@
-import { findUserByEmail, loginUser } from "@/app/actions";
+import { loginUser } from "@/app/actions";
+import { findUserByEmail } from "@/utils/findUserByEmail";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -7,8 +8,8 @@ export async function POST(request: Request) {
     const { email } = body;
     const validation = await loginUser(body);
 
-    if (!validation?.success) {
-      return NextResponse.json({ errors: validation?.errors }, { status: 400 });
+    if (!validation.success) {
+      return NextResponse.json({ errors: validation.errors }, { status: 400 });
     }
 
     const userEmail = await findUserByEmail(email);
