@@ -1,29 +1,33 @@
-import { FindUserByEmail, RegisterUser } from "@/app/actions";
 import { NextResponse } from "next/server";
+import { findUserByEmail, registerUser } from "@/app/actions";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email } = body;
-    const validation = await RegisterUser(body);
-    const existedEmail = await FindUserByEmail(body);
 
-    if (!validation?.success) {
-      return NextResponse.json({ errors: validation?.errors }, { status: 400 });
+    const validation = await registerUser(body);
+    if (!validation.success) {
+      return NextResponse.json({ errors: validation.errors }, { status: 400 });
     }
 
-    if (email === existedEmail) {
+    const existedEmail = await findUserByEmail(validation.data.email);
+    if (existedEmail) {
       return NextResponse.json(
         { message: "El correo ya está registrado" },
-        { status: 400 },
+        { status: 409 },
       );
     }
 
-    return NextResponse.json(
-      { messsage: "Usuario creado con éxito" },
-      { status: 200 },
-    );
-  } catch {
+    await prisma.usuario.create({
+      data: {
+        ...validation.data,
+      },
+    });
+
+    return NextResponse.json({ success: true }, { status: 201 });
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { message: "Server Internal Error" },
       { status: 500 },

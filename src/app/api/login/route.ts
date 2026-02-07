@@ -1,16 +1,17 @@
-import { FindUserByEmail, LoginUser } from "@/app/actions";
+import { findUserByEmail, loginUser } from "@/app/actions";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const validation = await LoginUser(body);
-    const userEmail = await FindUserByEmail(validation.data?.email);
+    const { email } = body;
+    const validation = await loginUser(body);
 
     if (!validation?.success) {
       return NextResponse.json({ errors: validation?.errors }, { status: 400 });
     }
 
+    const userEmail = await findUserByEmail(email);
     if (!userEmail) {
       return NextResponse.json(
         { message: "Correo no registrado" },
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ data: validation.data }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch {
     return NextResponse.json(
       { message: "Server Internal Error" },
