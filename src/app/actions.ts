@@ -5,9 +5,10 @@ import { prisma } from "@/lib/prisma";
 import { loginSchema } from "@/schemas/login.schema";
 import { registerSchema } from "@/schemas/register.schema";
 import { signJwt } from "@/utils/jwt";
-import { setSessionCookie } from "@/utils/setSessionCookies";
+import { setSessionCookie } from "@/utils/setSessionCookie";
 import { hashPassword } from "@/utils/hashPassword";
 import { RegisterResult } from "@/types/users.type";
+import { cookies } from "next/headers";
 
 export async function loginUser(data: unknown) {
   const result = loginSchema.safeParse(data);
@@ -73,4 +74,8 @@ export async function registerUser(data: unknown): Promise<RegisterResult> {
       password: hashedPassword,
     },
   };
+}
+
+export async function signOut() {
+  (await cookies()).delete("session");
 }

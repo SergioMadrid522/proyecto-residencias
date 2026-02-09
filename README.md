@@ -51,7 +51,10 @@ npm install
 - **/src**. Contiene los archivos de la app.
   - **/app**. Contiene las distintas páginas de la aplicación.
     - **/api**. Contiene las rutas del backend.
-      - **/users**. Contiene el APIs de los usuarios
-  - **/components**. contiene los archivos bases de las páginas como header, footer, etc.
+      - **/login**. Contiene el endpoint tipo POST para el inicio de sesión.
+      - **/Register**. Contiene el endpoint tipo POST para el registro de usuarios.
+  - **/components**. Contiene los archivos bases de las páginas como header, footer, etc.
+  - **/lib**. Contiene la configuración del cliente de prisma.
+  - **/schemas**. Contiene los zod schemas
   - **/types**. Contiene los tipos para renderizar los datos de manera segura.
-- **/utils**. Contiene funciones reutilizables.
+  - **/utils**. Contiene funciones reutilizables.
