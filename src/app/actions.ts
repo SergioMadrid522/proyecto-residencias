@@ -54,7 +54,6 @@ export async function loginUser(data: unknown) {
 
 export async function registerUser(data: unknown): Promise<RegisterResult> {
   const result = registerSchema.safeParse(data);
-
   if (!result.success) {
     return {
       success: false,

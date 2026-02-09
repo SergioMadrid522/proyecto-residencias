@@ -1,4 +1,4 @@
-Para instalar todos las dependencias
+Para instalar todas las dependencias
 
 ```bash
 npm install
@@ -55,4 +55,3 @@ npm install
   - **/components**. contiene los archivos bases de las páginas como header, footer, etc.
   - **/types**. Contiene los tipos para renderizar los datos de manera segura.
 - **/utils**. Contiene funciones reutilizables.
--

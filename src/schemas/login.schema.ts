@@ -10,6 +10,7 @@ export const loginSchema = z
   })
   .superRefine((data, ctx) => {
     const { password } = data;
+
     if (password.length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

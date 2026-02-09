@@ -13,10 +13,11 @@ export const registerSchema = z
       .email({ message: "Introduce un correo válido." })
       .max(320),
     password: z.string().max(50),
-    rol: z.coerce.number().int().gte(1).lte(3),
+    rol: z.number().int(),
   })
   .superRefine((data, ctx) => {
-    const { nombre, password } = data;
+    const { nombre, password, rol } = data;
+
     if (nombre.length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -43,6 +44,13 @@ export const registerSchema = z
         code: z.ZodIssueCode.custom,
         message: "La contraseña es muy corta.",
         path: ["password"],
+      });
+    }
+    if (rol <= 0 || rol > 3) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Ingresa un rol valido.",
+        path: ["rol"],
       });
     }
   });
