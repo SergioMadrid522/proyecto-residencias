@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 const ticketSchema = z.object({
   titulo: z.string().min(1, { message: "Ingresa un titulo." }).max(100),
   descripcion: z
