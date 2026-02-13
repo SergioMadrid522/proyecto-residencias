@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { registerUser } from "@/app/actions";
 import { prisma } from "@/lib/prisma";
-import { findUserByEmail } from "@/utils/findUserByEmail";
+import { findUserByEmail } from "@/utils/findByFunctions";
 
 export async function POST(request: Request) {
   try {
@@ -21,9 +21,7 @@ export async function POST(request: Request) {
     }
 
     await prisma.usuario.create({
-      data: {
-        ...validation.data,
-      },
+      data: { ...validation.data },
     });
 
     return NextResponse.json({ success: true }, { status: 201 });

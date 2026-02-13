@@ -5,3 +5,9 @@ export async function findUserByEmail(email: string | undefined) {
     where: { email },
   });
 }
+
+export async function findProyectByName(nombreProyecto: string | undefined) {
+  return await prisma.proyecto.findUnique({
+    where: { nombreProyecto },
+  });
+}

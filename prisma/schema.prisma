@@ -63,7 +63,7 @@ model Usuario {
 
 model Proyecto {
   id              Int       @id @default(autoincrement())
-  nombreProyecto  String    @map("nombre_proyecto")
+  nombreProyecto  String    @map("nombre_proyecto") @unique
   descripcion     String?
   ticket          Ticket[]
 
