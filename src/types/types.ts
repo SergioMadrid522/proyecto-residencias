@@ -1,4 +1,4 @@
-export type RegisterResult =
+export type RegisterUserProps =
   | { success: false; errors: Record<string, string[]> }
   | {
       success: true;
@@ -23,14 +23,14 @@ type Estado =
 
 type SeveridadIa = "Baja" | "Media" | "Alta" | "Crítica";
 
-export type TicketRegister =
+export type CreateTicketProps =
   | { success: false; errors: Record<string, string[]> }
   | {
       success: true;
       data: {
         titulo: string;
         descripcion: string;
-        pasosReproducir: string;
+        pasos_reproducir: string;
         modulo: Modulo;
         prioridad: Prioridad;
         estado: Estado;
@@ -38,8 +38,8 @@ export type TicketRegister =
       };
     };
 
-export type Project =
-  | { success: false; errors: Record<string, string[]> }
+export type CreateProjectProps =
+  | { success: false; errors: Record<string, string[]> | string }
   | {
       success: true;
       data: {

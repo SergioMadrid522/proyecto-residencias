@@ -1,5 +1,5 @@
-import { createTicket } from "@/app/actions";
-import { prisma } from "@/lib/prisma";
+import { createTicket } from "@/services/auth.service";
+import { findTicketByName } from "@/services/user.service";
 import { getTickets } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 
@@ -10,12 +10,30 @@ export async function POST(request: Request) {
     if (!validation.success) {
       return NextResponse.json({ error: validation.errors }, { status: 400 });
     }
+    /*
+      Validar si algun ticket tiene
+      el mismo nombre o no uin findUnique by projectName.
+      Arreglar el validation.data, le hacen falta datos
+    */
+    const existedTicket = await findTicketByName(validation.data.titulo);
 
-    await prisma.ticket.create({
+    if (existedTicket) {
+      return NextResponse.json(
+        { message: "No puedes crear el mismo ticket." },
+        { status: 404 },
+      );
+    }
+
+    /* await prisma.ticket.create({
       data: {
         ...validation.data,
       },
-    });
+    }); */
+    console.log(validation.data);
+    return NextResponse.json(
+      { message: "El ticket se ha creado con éxito." },
+      { status: 200 },
+    );
   } catch (error) {
     console.error("error: ", error);
     return NextResponse.json(

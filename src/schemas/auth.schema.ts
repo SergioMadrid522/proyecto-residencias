@@ -1,17 +1,31 @@
 import { z } from "zod";
 
 /* 
-gte(): Greater than or equal to the smallest 5 digit int
-lte(): Less than or equal to the largest 5 digit int
+  gte(): Greater than or equal to the smallest 5 digit int
+  lte(): Less than or equal to the largest 5 digit int
 */
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Introduce un correo válido." })
+    .max(320),
+  password: z
+    .string()
+    .trim()
+    .min(1, { message: "La contraseña es obligatoria" }),
+});
+
 export const registerSchema = z
   .object({
-    nombre: z.string().max(50),
+    nombre: z.string().trim().max(50),
     email: z
       .string()
+      .trim()
       .email({ message: "Introduce un correo válido." })
       .max(320),
-    password: z.string().max(50),
+    password: z.string().trim().max(50),
     rol: z.number().int(),
   })
   .superRefine((data, ctx) => {
@@ -24,10 +38,10 @@ export const registerSchema = z
         path: ["nombre"],
       });
     }
-    if (nombre.length < 4) {
+    if (nombre.length >= 1 && nombre.length < 4) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "El nombre de usuario es muy corto.",
+        message: "El nombre de usuario es muy corto (mínimo 4 caracteres).",
         path: ["nombre"],
       });
     }
@@ -41,7 +55,7 @@ export const registerSchema = z
     if (password.length >= 1 && password.length < 8) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "La contraseña es muy corta.",
+        message: "La contraseña es muy corta (mínimo 8 caracteres).",
         path: ["password"],
       });
     }

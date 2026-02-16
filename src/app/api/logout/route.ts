@@ -1,4 +1,4 @@
-import { signOut } from "@/app/actions";
+import { signOut } from "@/services/auth.service";
 import { NextResponse } from "next/server";
 
 export async function POST() {

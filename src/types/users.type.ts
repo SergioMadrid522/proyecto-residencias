@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { loginSchema } from "@/schemas/login.schema";
-import { registerSchema } from "@/schemas/register.schema";
+import { registerSchema, loginSchema } from "@/schemas/auth.schema";
 import { projectSchema } from "@/schemas/project.schema";
 
 export type LoginValidationProps = z.infer<typeof loginSchema>;

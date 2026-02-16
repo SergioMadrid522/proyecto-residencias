@@ -1,24 +1,13 @@
-import { createProject } from "@/app/actions";
+import { createProject } from "@/services/auth.service";
 import { prisma } from "@/lib/prisma";
-import { findProyectByName } from "@/utils/findByFunctions";
 import { NextResponse } from "next/server";
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const validation = await createProject(body);
     if (!validation.success) {
       return NextResponse.json({ error: validation.errors }, { status: 404 });
-    }
-
-    const existedProject = await findProyectByName(
-      validation.data.nombreProyecto,
-    );
-
-    if (existedProject) {
-      return NextResponse.json(
-        { message: "Ya existe el proyecto" },
-        { status: 409 },
-      );
     }
 
     await prisma.proyecto.create({

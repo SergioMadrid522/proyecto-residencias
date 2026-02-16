@@ -11,3 +11,11 @@ export async function findProyectByName(nombreProyecto: string | undefined) {
     where: { nombreProyecto },
   });
 }
+
+export async function findTicketByName(tituloTicket: string | undefined) {
+  const result = await prisma.ticket.findFirst({
+    where: { titulo: tituloTicket },
+    select: { id: true },
+  });
+  return result ? result.id : null;
+}

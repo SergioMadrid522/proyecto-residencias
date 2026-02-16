@@ -1,17 +1,15 @@
 // app/actions.ts
 "use server";
 import * as bcrypt from "bcrypt";
-import { prisma } from "@/lib/prisma";
-import { loginSchema } from "@/schemas/login.schema";
-import { registerSchema } from "@/schemas/register.schema";
+import { registerSchema, loginSchema } from "@/schemas/auth.schema";
 import { signJwt } from "@/utils/jwt";
 import { setSessionCookie } from "@/utils/setSessionCookie";
 import { hashPassword } from "@/utils/hashPassword";
-import { RegisterResult, TicketRegister } from "@/types/types";
+import { RegisterUserProps, CreateTicketProps } from "@/types/types";
 import { cookies } from "next/headers";
-import { ticketSchema } from "@/schemas/ticket.schema";
-import { projectSchema } from "@/schemas/project.schema";
-import { Project } from "@/types/types";
+import { projectSchema, ticketSchema } from "@/schemas/project.schema";
+import { CreateProjectProps } from "@/types/types";
+import { findProyectByName, findUserByEmail } from "./user.service";
 
 export async function loginUser(data: unknown) {
   const result = loginSchema.safeParse(data);
@@ -25,10 +23,7 @@ export async function loginUser(data: unknown) {
 
   const { email, password } = result.data;
 
-  const user = await prisma.usuario.findUnique({
-    where: { email },
-  });
-
+  const user = await findUserByEmail(email);
   if (!user) {
     return {
       success: false,
@@ -36,7 +31,7 @@ export async function loginUser(data: unknown) {
     };
   }
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(password, user!.password);
   if (!isMatch) {
     return {
       success: false,
@@ -56,8 +51,9 @@ export async function loginUser(data: unknown) {
   };
 }
 
-export async function registerUser(data: unknown): Promise<RegisterResult> {
+export async function registerUser(data: unknown): Promise<RegisterUserProps> {
   const result = registerSchema.safeParse(data);
+
   if (!result.success) {
     return {
       success: false,
@@ -83,7 +79,7 @@ export async function signOut() {
   (await cookies()).delete("sessionCookie");
 }
 
-export async function createTicket(data: unknown): Promise<TicketRegister> {
+export async function createTicket(data: unknown): Promise<CreateTicketProps> {
   const result = ticketSchema.safeParse(data);
   if (!result.success) {
     return {
@@ -94,7 +90,7 @@ export async function createTicket(data: unknown): Promise<TicketRegister> {
   const {
     titulo,
     descripcion,
-    pasosReproducir,
+    pasos_reproducir,
     modulo,
     prioridad,
     estado,
@@ -106,7 +102,7 @@ export async function createTicket(data: unknown): Promise<TicketRegister> {
     data: {
       titulo,
       descripcion,
-      pasosReproducir,
+      pasos_reproducir,
       modulo,
       prioridad,
       estado,
@@ -115,12 +111,23 @@ export async function createTicket(data: unknown): Promise<TicketRegister> {
   };
 }
 
-export async function createProject(data: unknown): Promise<Project> {
+export async function createProject(
+  data: unknown,
+): Promise<CreateProjectProps> {
   const result = projectSchema.safeParse(data);
   if (!result.success) {
     return {
       success: false,
       errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  const existedProject = await findProyectByName(result.data.nombreProyecto);
+
+  if (existedProject) {
+    return {
+      success: false,
+      errors: "El nombre del proyecto ya existe",
     };
   }
 
