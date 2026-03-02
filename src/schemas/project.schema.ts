@@ -50,25 +50,22 @@ export const projectSchema = z
       } 
     */
   });
-
+import { Modulo, Prioridad, Estado } from "@prisma/client";
 export const ticketSchema = z
   .object({
     titulo: z.string({ message: "Tiene que ser texto." }).trim().max(100),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(500),
-    pasos_reproducir: z.string().trim().max(500),
-    modulo: z.enum(["Frontend", "Backend", "API", "Mobile", "Base de Datos"]),
-    prioridad: z.enum(["Baja", "Media", "Alta", "Crítica"]),
-    estado: z.enum([
-      "Pendiente",
-      "En Revisión",
-      "En Corrección",
-      "Reabierto",
-      "Cerrado",
-    ]),
-    severidad_ia: z.enum(["Baja", "Media", "Alta", "Crítica"]), //será manual primero,
+    pasosReproducir: z.string().trim().max(500),
+    modulo: z.nativeEnum(Modulo),
+    prioridad: z.nativeEnum(Prioridad),
+    estado: z.nativeEnum(Estado),
+    severidadIa: z.enum(["Baja", "Media", "Alta", "Crítica"]), //será manual primero,
+    proyectoId: z.int(),
+    usuarioReportaId: z.int(),
+    usuarioAsignadoId: z.int(),
   })
   .superRefine((data, ctx) => {
-    const { titulo, descripcion, pasos_reproducir } = data;
+    const { titulo, descripcion, pasosReproducir } = data;
 
     if (titulo === "") {
       ctx.addIssue({
@@ -98,19 +95,19 @@ export const ticketSchema = z
         path: ["descripcion"],
       });
     }
-    if (pasos_reproducir === "") {
+    if (pasosReproducir === "") {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message:
           "El ticket debe llevar al menos un paso para reproducir el bug.",
-        path: ["pasos_reproducir"],
+        path: ["pasosReproducir"],
       });
     }
-    if (pasos_reproducir.length >= 1 && pasos_reproducir.length <= 15) {
+    if (pasosReproducir.length >= 1 && pasosReproducir.length <= 15) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Escribe al menos un paso para reproducir el bug.",
-        path: ["pasos_reproducir"],
+        path: ["pasosReproducir"],
       });
     }
   });

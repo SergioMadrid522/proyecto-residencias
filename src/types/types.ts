@@ -10,9 +10,9 @@ export type RegisterUserProps =
       };
     };
 
-type Modulo = "Frontend" | "Backend" | "API" | "Mobile" | "Base de Datos";
+// type Modulo = "Frontend" | "Backend" | "API" | "Mobile" | "Base de Datos";
 
-type Prioridad = "Baja" | "Media" | "Alta" | "Crítica";
+/* type Prioridad = "Baja" | "Media" | "Alta" | "Crítica";
 
 type Estado =
   | "Pendiente"
@@ -20,8 +20,9 @@ type Estado =
   | "En Corrección"
   | "Reabierto"
   | "Cerrado";
-
-type SeveridadIa = "Baja" | "Media" | "Alta" | "Crítica";
+ */
+type Severidad = "Baja" | "Media" | "Alta" | "Crítica";
+import { Modulo, Prioridad, Estado } from "@prisma/client";
 
 export type CreateTicketProps =
   | { success: false; errors: Record<string, string[]> }
@@ -30,11 +31,14 @@ export type CreateTicketProps =
       data: {
         titulo: string;
         descripcion: string;
-        pasos_reproducir: string;
+        pasosReproducir: string;
         modulo: Modulo;
         prioridad: Prioridad;
         estado: Estado;
-        severidad_ia: SeveridadIa;
+        severidadIa: Severidad;
+        proyectoId: number;
+        usuarioReportaId: number;
+        usuarioAsignadoId: number;
       };
     };
 

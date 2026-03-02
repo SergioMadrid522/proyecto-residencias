@@ -90,11 +90,14 @@ export async function createTicket(data: unknown): Promise<CreateTicketProps> {
   const {
     titulo,
     descripcion,
-    pasos_reproducir,
+    pasosReproducir,
     modulo,
     prioridad,
     estado,
-    severidad_ia,
+    severidadIa,
+    proyectoId,
+    usuarioReportaId,
+    usuarioAsignadoId,
   } = result.data;
 
   return {
@@ -102,11 +105,14 @@ export async function createTicket(data: unknown): Promise<CreateTicketProps> {
     data: {
       titulo,
       descripcion,
-      pasos_reproducir,
+      pasosReproducir,
       modulo,
       prioridad,
       estado,
-      severidad_ia,
+      severidadIa,
+      proyectoId,
+      usuarioReportaId,
+      usuarioAsignadoId,
     },
   };
 }

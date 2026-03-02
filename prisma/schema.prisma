@@ -37,8 +37,9 @@ enum Estado {
   CERRADO
 }
 
+
 model Rol {
-  id         Int    @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   nombreRol  String
   usuario    Usuario[]
 
