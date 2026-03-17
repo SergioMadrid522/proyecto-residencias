@@ -1,28 +1,17 @@
+import LoginForm from "@/components/login/LoginForm";
+
 export default function Login() {
   return (
-    <div className="flex items-center justify-center flex-col h-screen gap-2">
-      <div className="text-3xl font-sans">
-        <h1>Iniciar Sesión</h1>
-      </div>
+    <div className="flex items-center justify-center flex-col h-screen gap-2 rounded-xl shadow-lg border border-gray-100">
+      <div className="w-full max-w-md mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="mb-8 text-center">
+          <h2 className="text-2xl font-bold text-gray-800">Iniciar Sesión</h2>
+          <p className="text-sm text-gray-500 mt-2">
+            Ingresa tus credenciales para acceder al sistema
+          </p>
+        </div>
 
-      <div className="border border-white/60">
-        <form action="" className="flex flex-col gap-3 border border-white/75">
-          <div className="flex items-center">
-            <div className="absolute text-[15px]">Correo</div>
-            <input
-              type="text"
-              className="relative outline outline-gray-400 rounded-sm z-10 p-1"
-            />
-          </div>
-
-          <div className="flex items-center">
-            <div className="absolute text-[15px]">Contraseña</div>
-            <input
-              type="password"
-              className="relative outline outline-gray-400 rounded-sm z-10 p-1"
-            />
-          </div>
-        </form>
+        <LoginForm />
       </div>
     </div>
   );

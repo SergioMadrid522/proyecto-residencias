@@ -1,3 +1,5 @@
+import Login from "./login/page";
+
 export default function Home() {
-  return <h1>App bug tracker</h1>;
+  return <Login />;
 }

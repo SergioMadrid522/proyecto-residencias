@@ -50,6 +50,7 @@ export const projectSchema = z
       } 
     */
   });
+
 import { Modulo, Prioridad, Estado } from "@prisma/client";
 export const ticketSchema = z
   .object({

@@ -4,3 +4,10 @@ export type OptionMenu = {
   icon: string;
   viewbox: string;
 };
+
+export type StatsOverview = {
+  icon: string;
+  iconViewbox: string;
+  title: string;
+  stats: number;
+};
