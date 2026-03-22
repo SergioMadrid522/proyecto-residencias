@@ -5,6 +5,7 @@ export async function proxy(request: NextRequest) {
   const sessionCookie = request.cookies.get("sessionCookie");
   const currentPath = request.nextUrl.pathname;
   const isLoginPage = currentPath === "/";
+  const tokenJWT = process.env.JWT_SECRET;
 
   if (!sessionCookie?.value) {
     if (isLoginPage) {
@@ -14,7 +15,7 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const secret = new TextEncoder().encode(tokenJWT);
     const { payload } = await jose.jwtVerify(sessionCookie!.value, secret);
     const userRole = Number(payload.userRole);
 

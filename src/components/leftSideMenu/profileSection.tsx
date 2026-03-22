@@ -1,9 +1,13 @@
 import LogoutButton from "./LogoutButton";
+import { getUserSession } from "@/utils/getFunctions";
 
-export default function ProfileSection() {
+export default async function ProfileSection() {
+  const { username, rol } = await getUserSession();
+
   return (
     <div className="flex flex-col items-center gap-2.5 p-8">
-      <p>Fabian A. | Admin</p>
+      <p>{username}</p>
+      <p>{rol}</p>
 
       <LogoutButton />
     </div>

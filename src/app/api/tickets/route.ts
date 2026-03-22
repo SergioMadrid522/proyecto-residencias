@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { createTicket } from "@/services/auth.service";
-import { findTicketByName } from "@/services/user.service";
+import { createTicket } from "@/services/ticket.service";
 import { getTickets } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { loginSchema } from "@/schemas/auth.schema";
+import { getUserSession } from "@/utils/getFunctions";
 
 export function useLogin() {
   const router = useRouter();
@@ -32,15 +33,15 @@ export function useLogin() {
 
       const data = await res.json();
 
-      console.log(data);
       if (!res.ok) {
         toast.error(data.errors || "Credenciales incorrectas");
         return;
       }
+
       setEmail(data.email);
       setPassword(data.password);
 
-      toast.success(`Bienvenido ${data.success}`);
+      toast.success("Se ha iniciado sesión con éxito");
 
       router.push("/dashboard");
     } catch (error) {

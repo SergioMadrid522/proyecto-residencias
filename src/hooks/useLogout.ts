@@ -1,4 +1,4 @@
-import { logoutAlert } from "@/customAlerts/logoutAlert";
+import { logoutAlert } from "@/helpers/logoutAlert";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
