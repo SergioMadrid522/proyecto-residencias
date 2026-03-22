@@ -25,13 +25,13 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
   admin: <OptionMenu[]>[
     {
       label: "Dashboard",
-      link: "/dashboard",
+      link: "/",
       icon: GLOBAL.dashboardIcon,
       viewbox: "0 0 640 640",
     },
     {
       label: "Reportes",
-      link: "/reportes",
+      link: "/reports",
       icon: GLOBAL.reportsIcon,
       viewbox: "0 0 640 640",
     },
@@ -49,7 +49,7 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
     },
     {
       label: "Usuarios",
-      link: "/usuarios",
+      link: "/users",
       icon: GLOBAL.usersIcon,
       viewbox: "0 0 16 16",
     },

@@ -6,8 +6,7 @@ export default async function ProfileSection() {
 
   return (
     <div className="flex flex-col items-center gap-2.5 p-8">
-      <p>{username}</p>
-      <p>{rol}</p>
+      <p>{`${username} | ${rol}`}</p>
 
       <LogoutButton />
     </div>
