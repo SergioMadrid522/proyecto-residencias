@@ -7,9 +7,7 @@ export async function getUsers() {
 
     return {
       success: true,
-      data: {
-        users,
-      },
+      users,
     };
   } catch {
     throw Error("Error al obtener los usuarios.");

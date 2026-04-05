@@ -17,7 +17,7 @@ export const loginSchema = z.object({
     .min(1, { message: "La contraseña es obligatoria" }),
 });
 
-export const registerSchema = z
+export const createUserSchema = z
   .object({
     nombre: z.string().trim().max(50),
     email: z

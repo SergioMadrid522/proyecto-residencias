@@ -17,3 +17,11 @@ export type StatsOverview = {
   title: string;
   stats: number;
 };
+type Severidad = "Critica" | "Alta" | "Media" | "Baja";
+export interface Ticket {
+  id: number;
+  titulo: string;
+  severidad: Severidad;
+  ultimaActualizacion: string;
+  link: string;
+}

@@ -15,5 +15,5 @@ export async function useRolMapper() {
   const option = leftSideMenuOptions[activeRol];
   const basePath = `/user/${activeRol}`;
   console.log(activeRol);
-  return { option, basePath };
+  return { option, basePath, rolMapper };
 }

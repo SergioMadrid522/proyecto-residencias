@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { registerUser } from "@/services/auth.service";
+import { createUser } from "@/services/auth.service";
 import { prisma } from "@/lib/prisma";
 import { findUserByEmail } from "@/services/user.service";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const validation = await registerUser(body);
+    const validation = await createUser(body);
     if (!validation.success) {
       return NextResponse.json({ errors: validation.errors }, { status: 400 });
     }

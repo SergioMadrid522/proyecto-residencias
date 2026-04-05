@@ -5,7 +5,7 @@ import DashboardStats from "@/components/dashboardItems/DashboardStats";
 export default function Dashboard() {
   return (
     <>
-      <DashboardHeader />
+      {/* <DashboardHeader /> */}
       <DashboardOverview />
       <DashboardStats />
     </>

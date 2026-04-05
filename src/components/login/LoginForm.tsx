@@ -1,12 +1,13 @@
 "use client";
 
 import { useLogin } from "@/hooks/useLogin";
-import { GLOBAL } from "@/data";
+import { GLOBAL } from "@/icons.data";
 
 export default function LoginForm() {
   const { email, setEmail, password, setPassword, loading, handleSubmit } =
     useLogin();
-  const { circleIcon } = GLOBAL;
+  const { circleSpin } = GLOBAL;
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -49,19 +50,7 @@ export default function LoginForm() {
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d={circleIcon}
-              ></path>
+              {circleSpin()}
             </svg>
             Validando...
           </span>

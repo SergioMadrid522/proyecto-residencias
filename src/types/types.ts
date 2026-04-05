@@ -51,3 +51,8 @@ export type CreateProjectProps =
         descripcion: string;
       };
     };
+
+export type ModalContextType = {
+  open: boolean;
+  setOpen: (value: boolean) => void;
+};

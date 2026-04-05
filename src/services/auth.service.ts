@@ -1,7 +1,7 @@
 // app/actions.ts
 "use server";
 import * as bcrypt from "bcrypt";
-import { registerSchema, loginSchema } from "@/schemas/auth.schema";
+import { createUserSchema, loginSchema } from "@/schemas/auth.schema";
 import { signJwt } from "@/utils/jwt";
 import { setSessionCookie } from "@/utils/setSessionCookie";
 import { hashPassword } from "@/utils/hashPassword";
@@ -50,8 +50,8 @@ export async function loginUser(data: unknown) {
   };
 }
 
-export async function registerUser(data: unknown): Promise<RegisterUserProps> {
-  const result = registerSchema.safeParse(data);
+export async function createUser(data: unknown): Promise<RegisterUserProps> {
+  const result = createUserSchema.safeParse(data);
 
   if (!result.success) {
     return {
