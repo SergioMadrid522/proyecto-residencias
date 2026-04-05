@@ -56,3 +56,7 @@ export type ModalContextType = {
   open: boolean;
   setOpen: (value: boolean) => void;
 };
+
+export type ActionProps = {
+  id: number;
+};

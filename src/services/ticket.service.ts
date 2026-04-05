@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma";
 import { ticketSchema } from "@/schemas/project.schema";
 import { CreateTicketProps } from "@/types/types";
 
@@ -37,4 +38,12 @@ export async function createTicket(data: unknown): Promise<CreateTicketProps> {
       usuarioAsignadoId,
     },
   };
+}
+
+export async function findTicketByName(tituloTicket: string | undefined) {
+  const result = await prisma.ticket.findFirst({
+    where: { titulo: tituloTicket },
+    select: { id: true },
+  });
+  return result ? result.id : null;
 }

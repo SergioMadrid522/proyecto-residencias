@@ -6,16 +6,6 @@ export async function findUserByEmail(email: string | undefined) {
   });
 }
 
-export async function findProyectByName(nombreProyecto: string | undefined) {
-  return await prisma.proyecto.findUnique({
-    where: { nombreProyecto },
-  });
-}
-
-export async function findTicketByName(tituloTicket: string | undefined) {
-  const result = await prisma.ticket.findFirst({
-    where: { titulo: tituloTicket },
-    select: { id: true },
-  });
-  return result ? result.id : null;
+export async function findUserById(id: number | undefined) {
+  return await prisma.usuario.findUnique({ where: { id } });
 }

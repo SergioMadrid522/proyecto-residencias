@@ -10,7 +10,7 @@ export default function Users() {
       </div>
 
       <div className="text-center">
-        <div className="grid grid-cols-4 justify-center items-center border">
+        <div className="grid grid-cols-5 justify-center items-center border p-2">
           <p>Nombre</p>
           <p>Email</p>
           <p>Rol</p>

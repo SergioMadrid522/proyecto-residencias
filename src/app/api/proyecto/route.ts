@@ -1,5 +1,5 @@
-import { createProject } from "@/services/auth.service";
 import { prisma } from "@/lib/prisma";
+import { createProject } from "@/services/project.service";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

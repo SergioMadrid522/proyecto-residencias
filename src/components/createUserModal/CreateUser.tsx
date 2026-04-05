@@ -21,10 +21,7 @@ export default function CreateUser() {
         <div className="absolute right-0 p-2.5">
           <button
             type="button"
-            onClick={() => {
-              setOpen(!open);
-              toast.error("Se ha cancelado el proceso");
-            }}
+            onClick={() => setOpen(!open)}
             className="flex justify-end items-center cursor-pointer"
           >
             <svg
@@ -38,6 +35,7 @@ export default function CreateUser() {
             </svg>
           </button>
         </div>
+
         <CreateUserForm />
       </div>
     </>

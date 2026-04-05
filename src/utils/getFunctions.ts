@@ -1,5 +1,22 @@
 import getSession from "@/helpers/getSession";
 import { prisma } from "@/lib/prisma";
+import { findUserById } from "@/services/user.service";
+import { success } from "zod";
+
+export async function getUserById(id: number) {
+  try {
+    const user = findUserById(id);
+    if (!user) {
+      throw Error("Usuario no encontrado");
+    }
+    return {
+      success: true,
+      id,
+    };
+  } catch (error) {
+    throw Error("Error al encontrar el usuario");
+  }
+}
 
 export async function getUsers() {
   try {

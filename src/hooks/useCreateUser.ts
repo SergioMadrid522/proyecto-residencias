@@ -21,7 +21,6 @@ export function useCreateUser() {
     if (!result.success) {
       const error = result.error.issues[0].message;
       toast.error(error);
-      console.error(error);
       return;
     }
 
@@ -50,7 +49,6 @@ export function useCreateUser() {
 
       toast.success("Se ha creado el usuario con éxito");
     } catch (error) {
-      console.error(error);
       if (error instanceof Error) {
         toast.error(error.message);
       } else {

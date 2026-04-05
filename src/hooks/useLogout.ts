@@ -1,4 +1,4 @@
-import { logoutAlert } from "@/helpers/logoutAlert";
+import { logoutAlert } from "@/helpers/alerts";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -23,6 +23,7 @@ export function useLogout() {
 
       if (!res.ok) {
         toast.error("Error al cerrar sesión");
+        return;
       }
       toast.success("Se ha cerrado la sesión con éxito");
       router.push("/");

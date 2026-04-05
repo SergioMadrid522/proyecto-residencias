@@ -1,6 +1,6 @@
 import { CreateProjectProps } from "@/types/types";
-import { findProyectByName } from "./user.service";
 import { projectSchema } from "@/schemas/project.schema";
+import { prisma } from "@/lib/prisma";
 
 export async function createProject(
   data: unknown,
@@ -30,4 +30,10 @@ export async function createProject(
       descripcion,
     },
   };
+}
+
+export async function findProyectByName(nombreProyecto: string | undefined) {
+  return await prisma.proyecto.findUnique({
+    where: { nombreProyecto },
+  });
 }
