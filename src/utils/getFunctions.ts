@@ -1,30 +1,53 @@
 import getSession from "@/helpers/getSession";
 import { prisma } from "@/lib/prisma";
+import { findTicketById } from "@/services/ticket.service";
 import { findUserById } from "@/services/user.service";
-import { success } from "zod";
+import {
+  GetAllTickets,
+  GetTicket,
+  GetTicketResponse,
+  GetUserResponse,
+} from "@/types";
 
-export async function getUserById(id: number) {
+export async function getUserById(id: number): Promise<GetUserResponse> {
   try {
-    const user = findUserById(id);
+    const user = await findUserById(id);
+
     if (!user) {
       throw Error("Usuario no encontrado");
+    }
+
+    return {
+      success: true,
+      id,
+      user: [user],
+    };
+  } catch {
+    throw Error("Error al buscar el usuario");
+  }
+}
+
+export async function getTicketById(id: number): Promise<GetTicketResponse> {
+  try {
+    const ticket = await findTicketById(id);
+    if (!ticket) {
+      throw Error("Ticket no encontrado");
     }
     return {
       success: true,
       id,
     };
-  } catch (error) {
-    throw Error("Error al encontrar el usuario");
+  } catch {
+    throw Error("Error al buscar el ticket");
   }
 }
 
-export async function getUsers() {
+export async function getUsers(): Promise<GetUserResponse> {
   try {
-    const users = await prisma.usuario.findMany();
-
+    const user = await prisma.usuario.findMany({ where: { activo: true } });
     return {
       success: true,
-      users,
+      user,
     };
   } catch {
     throw Error("Error al obtener los usuarios.");
@@ -33,19 +56,39 @@ export async function getUsers() {
 
 export async function getTickets() {
   try {
-    const tickets = await prisma.ticket.findMany();
+    const tickets = await prisma.ticket.findMany({
+      include: { usuarioAsignado: true },
+    });
 
     return {
       success: true,
-      data: {
-        tickets,
-      },
+      tickets,
     };
-  } catch {
-    throw Error("Error al obtener los tickets.");
+  } catch (error) {
+    return {
+      success: false,
+      error: "Error al obtener los datos.",
+    };
   }
 }
 
+export async function getTicket(id: number) {
+  try {
+    const ticket = await prisma.ticket.findUnique({
+      where: { id: id },
+      include: { usuarioAsignado: true, proyecto: true },
+    });
+    return {
+      success: true,
+      ticket,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: "Error al obtener los datos.",
+    };
+  }
+}
 export async function getUserSession() {
   const session = await getSession();
   let usuario = "user";

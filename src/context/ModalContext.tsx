@@ -1,15 +1,16 @@
 "use client";
 
+import { ModalState } from "@/types";
 import { ModalContextType } from "@/types/types";
 import { createContext, useContext, useState, ReactNode } from "react";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export function ModalProvider({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState(false);
+  const [modal, setModal] = useState<ModalState>(null);
 
   return (
-    <ModalContext.Provider value={{ open, setOpen }}>
+    <ModalContext.Provider value={{ modal, setModal }}>
       {children}
     </ModalContext.Provider>
   );

@@ -1,6 +1,7 @@
-import CreateUser from "@/components/createUserModal/CreateUser";
-import AddNewUserButton from "@/components/getUsers/AddNewUserButton";
-import RenderUsers from "@/components/getUsers/RenderUsers";
+import AddNewUserButton from "@/components/users/getUsers/AddNewUserButton";
+import RenderUsers from "@/components/users/getUsers/RenderUsers";
+import CreateUser from "@/components/users/createUserModal/CreateUser";
+import EditUser from "@/components/users/editUserModal/EditUser";
 
 export default function Users() {
   return (
@@ -9,20 +10,21 @@ export default function Users() {
         <AddNewUserButton />
       </div>
 
-      <div className="text-center">
-        <div className="grid grid-cols-5 justify-center items-center border p-2">
-          <p>Nombre</p>
-          <p>Email</p>
-          <p>Rol</p>
-          <p>Fecha de Registro</p>
-        </div>
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="border">
+            <th className="border p-2">Nombre</th>
+            <th className="border p-2">Email</th>
+            <th className="border p-2">Rol</th>
+            <th className="border p-2">Fecha de Registro</th>
+          </tr>
+        </thead>
 
-        <div className="border border-t-0 border-b-0">
-          <RenderUsers />
-        </div>
-      </div>
+        <RenderUsers />
+      </table>
 
       <CreateUser />
+      <EditUser />
     </>
   );
 }

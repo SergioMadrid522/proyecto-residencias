@@ -1,3 +1,4 @@
+import { Modulo, Prioridad, Estado } from "@prisma/client";
 import { z } from "zod";
 
 export const projectSchema = z
@@ -51,18 +52,16 @@ export const projectSchema = z
     */
   });
 
-import { Modulo, Prioridad, Estado } from "@prisma/client";
-export const ticketSchema = z
+export const createTicketSchema = z
   .object({
-    titulo: z.string({ message: "Tiene que ser texto." }).trim().max(100),
-    descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(500),
-    pasosReproducir: z.string().trim().max(500),
+    titulo: z.string({ message: "Tiene que ser texto." }).trim().max(200),
+    descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(1000),
+    pasosReproducir: z.string().trim().max(1000),
     modulo: z.nativeEnum(Modulo),
     prioridad: z.nativeEnum(Prioridad),
     estado: z.nativeEnum(Estado),
-    severidadIa: z.enum(["Baja", "Media", "Alta", "Crítica"]), //será manual primero,
+    severidadIa: z.enum(["BAJA", "MEDIA", "ALTA", "CRITICA"]), //será manual primero,
     proyectoId: z.int(),
-    usuarioReportaId: z.int(),
     usuarioAsignadoId: z.int(),
   })
   .superRefine((data, ctx) => {
@@ -96,14 +95,14 @@ export const ticketSchema = z
         path: ["descripcion"],
       });
     }
-    if (pasosReproducir === "") {
+    /* if (pasosReproducir === "") {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message:
           "El ticket debe llevar al menos un paso para reproducir el bug.",
         path: ["pasosReproducir"],
       });
-    }
+    } */
     if (pasosReproducir.length >= 1 && pasosReproducir.length <= 15) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

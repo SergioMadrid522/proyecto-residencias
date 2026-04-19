@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { createTicket } from "@/services/ticket.service";
-import { getTickets } from "@/utils/getFunctions";
+import { findTicketById } from "@/services/user.service";
+import { getTickets, getTicketById } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -27,16 +28,17 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const validation = await createTicket(body);
+
     if (!validation.success) {
       return NextResponse.json({ error: validation.errors }, { status: 400 });
     }
 
-    /* await prisma.ticket.create({
+    await prisma.ticket.create({
       data: {
         ...validation.data,
       },
-    }); */
-    console.log(validation.data);
+    });
+
     return NextResponse.json(
       { message: "El ticket se ha creado con éxito." },
       { status: 200 },
@@ -50,4 +52,20 @@ export async function POST(request: Request) {
   }
 }
 
-//export async function PUT(request: Request) {}
+export async function DELETE(request: Request) {
+  try {
+    const body = await request.json();
+    const ticket = await getTicketById(body.id);
+
+    await prisma.ticket.delete({
+      where: { id: ticket.id },
+    });
+
+    return NextResponse.json({ status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Error del servidor", error },
+      { status: 500 },
+    );
+  }
+}

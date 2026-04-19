@@ -53,7 +53,8 @@ model Usuario {
   password        String
   rolId           Int                 @map("id_rol")
   fechaRegistro   DateTime            @default(now())
-
+  activo          Boolean             @default(true)
+  
   rol             Rol                 @relation(fields: [rolId], references: [id])
   ticketsReporta  Ticket[]            @relation("Reporta")
   ticketsAsigna   Ticket[]            @relation("Asigna")
@@ -82,11 +83,11 @@ model Ticket {
   severidadIa           String?             @map("severidad_ia")
 
   proyectoId            Int                 @map("id_proyecto")
-  usuarioReportaId      Int                 @map("id_usuario_reporta")
+  usuarioReportaId      Int?                 @map("id_usuario_reporta")
   usuarioAsignadoId     Int                 @map("id_usuario_asignado")
 
   proyecto              Proyecto            @relation(fields: [proyectoId], references: [id])
-  usuarioReporta        Usuario             @relation("Reporta", fields: [usuarioReportaId], references: [id])
+  usuarioReporta        Usuario?            @relation("Reporta", fields: [usuarioReportaId], references: [id])
   usuarioAsignado       Usuario             @relation("Asigna", fields: [usuarioAsignadoId], references: [id])
 
   fechaCreacion         DateTime            @default(now()) @map("fecha_creacion")

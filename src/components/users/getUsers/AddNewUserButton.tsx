@@ -2,13 +2,12 @@
 import { useOpenModal } from "@/context/ModalContext";
 
 export default function AddNewUserButton() {
-  const { open, setOpen } = useOpenModal();
+  const { modal, setModal } = useOpenModal();
 
   return (
     <button
       onClick={() => {
-        setOpen(!open);
-        console.log(open);
+        setModal({ type: "create" });
       }}
       className="border rounded-md px-2 py-1.5 cursor-pointer"
     >

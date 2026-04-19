@@ -1,6 +1,7 @@
 import { FormField } from "@/components/form/FormField";
-import { useCreateUser } from "@/hooks/useCreateUser";
-export default function CreateUserForm() {
+import { useEditUser } from "@/hooks/useEditUser";
+import { GLOBAL } from "@/icons.data";
+export default function EditUserForm() {
   const {
     nombre,
     setNombre,
@@ -10,19 +11,21 @@ export default function CreateUserForm() {
     setPassword,
     rol,
     setRol,
-    loading,
-    handleSubmit,
-  } = useCreateUser();
+    loadingEdit,
+    handleEditSubmit,
+  } = useEditUser();
+  const { circleSpin } = GLOBAL;
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleEditSubmit}
       className="flex flex-col justify-center w-[50%] h-full gap-5 m-auto"
     >
+      <h2>Editar usuario</h2>
       <FormField>
         <div className="text-[15px]">Nombre del usuario</div>
         <input
           type="text"
-          value={nombre || ""}
+          value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         />
@@ -32,7 +35,7 @@ export default function CreateUserForm() {
         <div className="text-[15px]">Email</div>
         <input
           type="email"
-          value={email || ""}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         />
@@ -42,7 +45,7 @@ export default function CreateUserForm() {
         <div className="text-[15px]">Contraseña</div>
         <input
           type="password"
-          value={password || ""}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         />
@@ -53,7 +56,7 @@ export default function CreateUserForm() {
         <select
           name=""
           id=""
-          value={rol || ""}
+          value={rol}
           onChange={(e) => {
             const value = Number(e.target.value);
             setRol(value);
@@ -67,13 +70,31 @@ export default function CreateUserForm() {
         </select>
       </FormField>
 
-      <div className="text-center ">
+      <div className="flex items-center justify-center">
         <button
           type="submit"
-          disabled={loading}
-          className="border px-4 py-1.5 rounded-md"
+          disabled={loadingEdit}
+          className={`w-full py-2.5 px-4 mt-2 text-white font-medium rounded-lg transition-all duration-200 flex justify-center items-center ${
+            loadingEdit
+              ? "bg-blue-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 hover:shadow-md active:transform active:scale-[0.98] cursor-pointer"
+          }`}
         >
-          {loading ? "Creando usuario" : "Guardar"}
+          {loadingEdit ? (
+            <span className="flex items-center gap-2">
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                {circleSpin()}
+              </svg>
+              Editando usuario
+            </span>
+          ) : (
+            "Guardar"
+          )}
         </button>
       </div>
     </form>
