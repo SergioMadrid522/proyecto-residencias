@@ -1,7 +1,11 @@
 Para instalar todas las dependencias
 
 ```bash
-npm install
+npm install 
+```
+o 
+```bash
+pnpm install 
 ```
 
 # Stack
@@ -44,17 +48,3 @@ npm install
    - **Sidebar Menu**: Navegación para los Proyectos, Tickets y Reportes. 
    - **KPI Cards**: Rectángulos superiores que digan "Bugs Activos", "Tiempo de Respuesta", etc.
    - **Main View**: Una tabla profesional o un tablero tipo Kanban (como Jira) para mover los tickets de estado.
-
-# Estructura de carpetas.
-
-- **/public**. contiene imagenes que no se utilizarán en el código.
-- **/src**. Contiene los archivos de la app.
-  - **/app**. Contiene las distintas páginas de la aplicación.
-    - **/api**. Contiene las rutas del backend.
-      - **/login**. Contiene el endpoint tipo POST para el inicio de sesión.
-      - **/Register**. Contiene el endpoint tipo POST para el registro de usuarios.
-  - **/components**. Contiene los archivos bases de las páginas como header, footer, etc.
-  - **/lib**. Contiene la configuración del cliente de prisma.
-  - **/schemas**. Contiene los zod schemas
-  - **/types**. Contiene los tipos para renderizar los datos de manera segura.
-  - **/utils**. Contiene funciones reutilizables.
