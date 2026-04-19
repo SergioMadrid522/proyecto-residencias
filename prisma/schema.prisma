@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") 
+}
+
+enum Modulo {
+  FRONTEND
+  BACKEND
+  API
+  MOBILE
+  BASE_DE_DATOS
+}
+
+enum Prioridad {
+  BAJA
+  MEDIA
+  ALTA
+  CRITICA
+}
+
+enum Estado {
+  PENDIENTE
+  EN_REVISION
+  EN_CORRECCION
+  REABIERTO
+  CERRADO
+}
+
+
+model Rol {
+  id         Int        @id @default(autoincrement())
+  nombreRol  String
+  usuario    Usuario[]
+
+  @@map("rol")
+}
+
+model Usuario {
+  id              Int                 @id @default(autoincrement())
+  nombre          String
+  email           String              @unique
+  password        String
+  rolId           Int                 @map("id_rol")
+  fechaRegistro   DateTime            @default(now())
+
+  rol             Rol                 @relation(fields: [rolId], references: [id])
+  ticketsReporta  Ticket[]            @relation("Reporta")
+  ticketsAsigna   Ticket[]            @relation("Asigna")
+  historial       Historial_ticket[]
+  
+  @@map("usuario")
+}
+
+model Proyecto {
+  id              Int       @id @default(autoincrement())
+  nombreProyecto  String    @map("nombre_proyecto") @unique
+  descripcion     String?
+  ticket          Ticket[]
+
+  @@map("proyecto")
+}
+
+model Ticket {
+  id                    Int                 @id @default(autoincrement())
+  titulo                String
+  descripcion           String
+  pasosReproducir       String              @map("pasos_reproducir")
+  modulo                Modulo
+  prioridad             Prioridad           @default(BAJA)
+  estado                Estado              @default(PENDIENTE)
+  severidadIa           String?             @map("severidad_ia")
+
+  proyectoId            Int                 @map("id_proyecto")
+  usuarioReportaId      Int                 @map("id_usuario_reporta")
+  usuarioAsignadoId     Int                 @map("id_usuario_asignado")
+
+  proyecto              Proyecto            @relation(fields: [proyectoId], references: [id])
+  usuarioReporta        Usuario             @relation("Reporta", fields: [usuarioReportaId], references: [id])
+  usuarioAsignado       Usuario             @relation("Asigna", fields: [usuarioAsignadoId], references: [id])
+
+  fechaCreacion         DateTime            @default(now()) @map("fecha_creacion")
+  ultimaActualizacion   DateTime            @updatedAt @map("ultima_actualizacion")
+
+  historial             Historial_ticket[]
+
+  @@map("ticket")
+}
+
+model Historial_ticket {
+  id            Int       @id @default(autoincrement())
+  ticketId      Int       @map("id_ticket")
+  usuarioId     Int       @map("id_usuario")
+  estadoNuevo   String    @map("estado_nuevo")
+  fechaCambio   DateTime  @default(now()) @map("fecha_cambio")
+
+  ticket        Ticket    @relation(fields: [ticketId], references: [id])
+  usuario       Usuario   @relation(fields: [usuarioId], references: [id])
+
+  @@map("historial_ticket")
+}

@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+Para instalar todas las dependencias
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install 
+```
+o 
+```bash
+pnpm install 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Aplicación Full-Stack usando Next.js con React.js + TypeScript
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js v16.1.5
 
-## Learn More
+2. BD.
 
-To learn more about Next.js, take a look at the following resources:
+- PostgreSQL v17
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Graficas.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Recharts
 
-## Deploy on Vercel
+4. ORM
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Prisma v6.2.1
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Roles:
+
+1. **Admin**: Gestión de proyectos, usuarios y visualización de KPIs globales.
+
+2. **Tester (QA)**: Responsable del ciclo de reporte y validación de correcciones.
+   (Puede ver todo el ciclo del reporte y validar las correcciones hechas por el dev).
+
+3. **Developer**: Gestión de resolución de incidencias y carga de evidencia técnica.
+   (Puede ver los reporte de las corecciones y cargar evidencia de que ya fue arreglado)
+
+# Flujo del proyecto.
+
+1. Aplicación full-stack usando Next.js.
+   - **Frontend**: Una interfaz rápida y moderna donde el usuario reporta un bug. 
+   - **IA (Gemini)**: Cuando el usuario escribe el error, la API de Gemini analiza el texto y dice: "Esto es una severidad CRÍTICA" automáticamente (esto será implementado después, primero será manual).
+   - **Backend**: Recibe la información y la guarda de forma segura en PostgreSQL. 
+   - **Dashboard**: Muestra gráficas de cuántos bugs se han resuelto (MTTR) para optimizar el equipo.
+
+2. Layout Visual
+   - **Sidebar Menu**: Navegación para los Proyectos, Tickets y Reportes. 
+   - **KPI Cards**: Rectángulos superiores que digan "Bugs Activos", "Tiempo de Respuesta", etc.
+   - **Main View**: Una tabla profesional o un tablero tipo Kanban (como Jira) para mover los tickets de estado.
