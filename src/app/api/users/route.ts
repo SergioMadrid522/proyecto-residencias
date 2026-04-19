@@ -43,15 +43,19 @@ export async function GET() {
   }
 }
 
-export async function DELETE(request: Request) {
+export async function PUT(request: Request) {
   try {
     const body = await request.json();
     const user = await getUserById(body.id);
 
-    await prisma.usuario.delete({ where: { id: user.id } });
+    await prisma.usuario.update({
+      where: { id: user.id },
+      data: {
+        activo: false,
+      },
+    });
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
       { message: "Error del servidor", error },
       { status: 500 },

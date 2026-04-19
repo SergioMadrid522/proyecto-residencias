@@ -1,3 +1,5 @@
+import { ModalState, Ticket } from "@/types";
+
 export type RegisterUserProps =
   | { success: false; errors: Record<string, string[]> }
   | {
@@ -10,9 +12,10 @@ export type RegisterUserProps =
       };
     };
 
-// type Modulo = "Frontend" | "Backend" | "API" | "Mobile" | "Base de Datos";
+/* 
+type Modulo = "Frontend" | "Backend" | "API" | "Mobile" | "Base de Datos";
 
-/* type Prioridad = "Baja" | "Media" | "Alta" | "Crítica";
+type Prioridad = "Baja" | "Media" | "Alta" | "Crítica";
 
 type Estado =
   | "Pendiente"
@@ -21,25 +24,12 @@ type Estado =
   | "Reabierto"
   | "Cerrado";
  */
-type Severidad = "Baja" | "Media" | "Alta" | "Crítica";
-import { Modulo, Prioridad, Estado } from "@prisma/client";
 
 export type CreateTicketProps =
   | { success: false; errors: Record<string, string[]> }
   | {
       success: true;
-      data: {
-        titulo: string;
-        descripcion: string;
-        pasosReproducir: string;
-        modulo: Modulo;
-        prioridad: Prioridad;
-        estado: Estado;
-        severidadIa: Severidad;
-        proyectoId: number;
-        usuarioReportaId: number;
-        usuarioAsignadoId: number;
-      };
+      data: Ticket;
     };
 
 export type CreateProjectProps =
@@ -53,8 +43,8 @@ export type CreateProjectProps =
     };
 
 export type ModalContextType = {
-  open: boolean;
-  setOpen: (value: boolean) => void;
+  modal: ModalState;
+  setModal: React.Dispatch<React.SetStateAction<ModalState>>;
 };
 
 export type ActionProps = {

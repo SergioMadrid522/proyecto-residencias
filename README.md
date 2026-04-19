@@ -1,3 +1,5 @@
+en el modal de editar usuario no muestra los datos del usuario
+
 Para instalar todas las dependencias
 
 ```bash

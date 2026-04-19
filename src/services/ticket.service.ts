@@ -1,15 +1,17 @@
 import { prisma } from "@/lib/prisma";
-import { ticketSchema } from "@/schemas/project.schema";
+import { createTicketSchema } from "@/schemas/project.schema";
 import { CreateTicketProps } from "@/types/types";
 
-export async function createTicket(data: unknown): Promise<CreateTicketProps> {
-  const result = ticketSchema.safeParse(data);
+export async function createTicket(data: unknown) {
+  const result = createTicketSchema.safeParse(data);
+
   if (!result.success) {
     return {
       success: false,
       errors: result.error.flatten().fieldErrors,
     };
   }
+
   const {
     titulo,
     descripcion,
@@ -19,7 +21,6 @@ export async function createTicket(data: unknown): Promise<CreateTicketProps> {
     estado,
     severidadIa,
     proyectoId,
-    usuarioReportaId,
     usuarioAsignadoId,
   } = result.data;
 
@@ -34,7 +35,6 @@ export async function createTicket(data: unknown): Promise<CreateTicketProps> {
       estado,
       severidadIa,
       proyectoId,
-      usuarioReportaId,
       usuarioAsignadoId,
     },
   };
@@ -47,3 +47,9 @@ export async function findTicketByName(tituloTicket: string | undefined) {
   });
   return result ? result.id : null;
 }
+
+export async function findTicketById(id: number | undefined) {
+  return await prisma.ticket.findUnique({ where: { id } });
+}
+
+/* export async function getFive */

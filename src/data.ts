@@ -1,9 +1,4 @@
-import type {
-  LeftSideMenuOption,
-  OptionMenu,
-  StatsOverview,
-  Ticket,
-} from "@/types";
+import type { LeftSideMenuOption, OptionMenu, StatsOverview } from "@/types";
 import { GLOBAL } from "./icons.data";
 
 export const leftSideMenuOptions: LeftSideMenuOption = {
@@ -14,24 +9,24 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
       icon: GLOBAL.dashboardIcon,
       viewbox: "0 0 640 640",
     },
-    {
+    /* {
       label: "Reportes",
       link: "/reports",
       icon: GLOBAL.reportsIcon,
       viewbox: "0 0 640 640",
-    },
+    }, */
     {
       label: "Tickets",
       link: "/tickets",
       icon: GLOBAL.ticketsIcon,
       viewbox: "0 0 640 640",
     },
-    {
+    /* {
       label: "Analytics",
       link: "/analytics",
       icon: GLOBAL.analyticsIcon,
       viewbox: "0 0 16 16",
-    },
+    }, */
     {
       label: "Usuarios",
       link: "/users",
