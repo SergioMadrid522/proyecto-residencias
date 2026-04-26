@@ -8,6 +8,8 @@ import {
   GetTicketResponse,
   GetUserResponse,
 } from "@/types";
+import { error } from "console";
+import { success } from "zod";
 
 export async function getUserById(id: number): Promise<GetUserResponse> {
   try {
@@ -30,9 +32,11 @@ export async function getUserById(id: number): Promise<GetUserResponse> {
 export async function getTicketById(id: number): Promise<GetTicketResponse> {
   try {
     const ticket = await findTicketById(id);
+
     if (!ticket) {
       throw Error("Ticket no encontrado");
     }
+
     return {
       success: true,
       id,
@@ -78,6 +82,7 @@ export async function getTicket(id: number) {
       where: { id: id },
       include: { usuarioAsignado: true, proyecto: true },
     });
+
     return {
       success: true,
       ticket,
@@ -112,4 +117,45 @@ export async function getUserSession() {
     rolId: rolId,
     rol: rolTexto,
   };
+}
+
+export function getTicketModule(module: string): string {
+  const moduleText: Record<string, string> = {
+    FRONTEND: "Frontend",
+    BACKEND: "Backend",
+    API: "API",
+    MOBILE: "Mobile",
+    BASE_DE_DATOS: "Base de datos",
+  };
+  return moduleText[module] ?? module;
+}
+
+export function getTicketStatus(status: string): string {
+  const statusText: Record<string, string> = {
+    PENDIENTE: "Pendiente",
+    EN_REVISION: "En revisión",
+    EN_CORRECCION: "En corrección",
+    REABIERTO: "Reabierto",
+    CERRADO: "Cerrado",
+  };
+  return statusText[status] ?? status;
+}
+
+export function getTicketLevel(value: string): string {
+  const levels: Record<string, string> = {
+    BAJA: "Baja",
+    MEDIA: "Media",
+    ALTA: "Alta",
+    CRITICA: "Crítica",
+  };
+  return levels[value] ?? value;
+}
+
+export function getRolText(rolId: number): string {
+  const rolText: Record<number, string> = {
+    1: "Admin",
+    2: "Dev",
+    3: "Tester",
+  };
+  return rolText[rolId] ?? "unknown";
 }

@@ -1,9 +1,19 @@
-import { getTickets, getUserById } from "@/utils/getFunctions";
+import {
+  getRolText,
+  getTicketLevel,
+  getTickets,
+  getTicketStatus,
+  getUserById,
+  getUserSession,
+} from "@/utils/getFunctions";
 import ActionButtons from "../users/getUsers/ActionButtons";
 import Link from "next/link";
+import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 
 export default async function RenderTickets() {
   const { tickets, error } = await getTickets();
+  const { rolId } = await getUserSession();
+  const rolText = getRolText(rolId).toLowerCase();
 
   if (!tickets) {
     return <p>{error}</p>;
@@ -18,16 +28,20 @@ export default async function RenderTickets() {
               <td className="border-r p-2 text-center">{id}</td>
               <td className="border-r p-2">
                 <Link
-                  href={`/user/admin/tickets/ticket/${id}`}
+                  href={`/user/${rolText}/tickets/ticket/${id}`}
                   className="underline"
                 >
-                  {titulo}
+                  {capitalizeFirstLetter(titulo)}
                 </Link>
               </td>
-              <td className="border-r p-2 text-center">{estado}</td>
-              <td className="border-r p-2 text-center">{prioridad}</td>
               <td className="border-r p-2 text-center">
-                {usuarioAsignado.nombre}
+                {getTicketStatus(estado)}
+              </td>
+              <td className="border-r p-2 text-center">
+                {getTicketLevel(prioridad)}
+              </td>
+              <td className="border-r p-2 text-center">
+                {capitalizeFirstLetter(usuarioAsignado.nombre)}
               </td>
               <td className="border-r p-2 text-center">
                 {fechaCreacion.toDateString()}, {fechaCreacion.getHours()}:

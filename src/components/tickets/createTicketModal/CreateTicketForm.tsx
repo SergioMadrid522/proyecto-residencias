@@ -69,18 +69,17 @@ export default function CreateTicketForm({ user }: Username) {
       </FormField>
 
       <FormField>
-        <div className="text-[15px]">Módulo</div>
+        <div className="text-[15px]">Seleccionar proyecto</div>
         <select
-          value={modulo || ""}
-          onChange={(e) => setModulo(e.target.value)}
+          value={proyectoId || ""}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+            setProyectoId(value);
+          }}
           className="outline-1 rounded-sm px-2 py-1"
         >
-          <option value="">Seleciona un módulo</option>
-          <option value="FRONTEND">Frontend</option>
-          <option value="BACKEND">Backend</option>
-          <option value="API">API</option>
-          <option value="MOBILE">Mobile</option>
-          <option value="BASE_DE_DATOS">Base de Datos</option>
+          <option value="">Seleciona un proyecto</option>
+          <option value="1">proyecto 1</option>
         </select>
       </FormField>
 
@@ -131,17 +130,18 @@ export default function CreateTicketForm({ user }: Username) {
       </FormField>
 
       <FormField>
-        <div className="text-[15px]">Seleccionar proyecto</div>
+        <div className="text-[15px]">Módulo</div>
         <select
-          value={proyectoId || ""}
-          onChange={(e) => {
-            const value = Number(e.target.value);
-            setProyectoId(value);
-          }}
+          value={modulo || ""}
+          onChange={(e) => setModulo(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         >
-          <option value="">Seleciona un proyecto</option>
-          <option value="1">proyecto 1</option>
+          <option value="">Seleciona un módulo</option>
+          <option value="FRONTEND">Frontend</option>
+          <option value="BACKEND">Backend</option>
+          <option value="API">API</option>
+          <option value="MOBILE">Mobile</option>
+          <option value="BASE_DE_DATOS">Base de Datos</option>
         </select>
       </FormField>
 

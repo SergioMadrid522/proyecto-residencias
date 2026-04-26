@@ -9,7 +9,7 @@ export function Key({ children }: { children: React.ReactNode }) {
 }
 
 export function Value({ children }: { children: React.ReactNode }) {
-  return <p className="py-2">{capitalizeFirstLetter(String(children))}</p>;
+  return <p className="">{capitalizeFirstLetter(String(children))}</p>;
 }
 
 export const PropertiesPanel = Object.assign(Property, {

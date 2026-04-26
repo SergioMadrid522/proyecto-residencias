@@ -52,4 +52,22 @@ export async function findTicketById(id: number | undefined) {
   return await prisma.ticket.findUnique({ where: { id } });
 }
 
-/* export async function getFive */
+export async function ticketTimeline(id: number) {
+  return await prisma.historial_ticket.findMany({
+    take: 5,
+    where: { ticketId: id },
+    orderBy: { fechaCambio: "desc" },
+    include: {
+      ticket: {
+        select: {
+          id: true,
+          proyecto: true,
+          usuarioReporta: true,
+          estado: true,
+          prioridad: true,
+          ultimaActualizacion: true,
+        },
+      },
+    },
+  });
+}
