@@ -2,14 +2,7 @@ import getSession from "@/helpers/getSession";
 import { prisma } from "@/lib/prisma";
 import { findTicketById } from "@/services/ticket.service";
 import { findUserById } from "@/services/user.service";
-import {
-  GetAllTickets,
-  GetTicket,
-  GetTicketResponse,
-  GetUserResponse,
-} from "@/types";
-import { error } from "console";
-import { success } from "zod";
+import { GetTicketResponse, GetUserResponse } from "@/types";
 
 export async function getUserById(id: number): Promise<GetUserResponse> {
   try {
@@ -97,23 +90,29 @@ export async function getTicket(id: number) {
 export async function getUserSession() {
   const session = await getSession();
   let usuario = "user";
+  let lastname = "user";
   let rolTexto = "unkown";
   let rolId = 3;
 
   if (session?.userId) {
     const user = await prisma.usuario.findUnique({
       where: { id: session.userId, rolId: session.userRole },
-      select: { nombre: true, rol: true },
+      select: { nombre: true, rol: true, lastname: true },
     });
 
     if (user) {
       usuario = user.nombre;
+      lastname = user.lastname!;
       rolTexto = user.rol.nombreRol;
       rolId = user.rol.id;
     }
   }
   return {
-    username: usuario,
+    user: {
+      id: session?.userId,
+      name: usuario,
+      lastname: lastname,
+    },
     rolId: rolId,
     rol: rolTexto,
   };
@@ -158,4 +157,8 @@ export function getRolText(rolId: number): string {
     3: "Tester",
   };
   return rolText[rolId] ?? "unknown";
+}
+
+export function getFirstLetter(text: string): string {
+  return text.charAt(0).toUpperCase();
 }

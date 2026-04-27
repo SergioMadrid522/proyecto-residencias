@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
@@ -49,6 +48,7 @@ model Rol {
 model Usuario {
   id              Int                 @id @default(autoincrement())
   nombre          String
+  lastname        String?
   email           String              @unique
   password        String
   rolId           Int                 @map("id_rol")

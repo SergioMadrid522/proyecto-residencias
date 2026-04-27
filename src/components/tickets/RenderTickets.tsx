@@ -3,7 +3,6 @@ import {
   getTicketLevel,
   getTickets,
   getTicketStatus,
-  getUserById,
   getUserSession,
 } from "@/utils/getFunctions";
 import ActionButtons from "../users/getUsers/ActionButtons";

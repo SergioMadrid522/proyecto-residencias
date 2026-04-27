@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <>
       <GlobalNavbar />
-      <main className="grid grid-cols-[230px_1fr] h-[calc(100dvh-64px)]">
+      <main className="grid grid-cols-[240px_1fr] h-[calc(100dvh-64px)]">
         <section className="border-r flex flex-col justify-between">
           <LeftSideMenu />
           <ProfileSection />

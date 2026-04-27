@@ -50,10 +50,9 @@ export async function PUT(request: Request) {
 
     await prisma.usuario.update({
       where: { id: user.id },
-      data: {
-        activo: false,
-      },
+      data: body,
     });
+
     return NextResponse.json({ status: 200 });
   } catch (error) {
     return NextResponse.json(
