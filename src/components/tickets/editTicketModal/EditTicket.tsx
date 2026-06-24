@@ -1,11 +1,11 @@
 "use client";
-import { useOpenModal } from "@/context/ModalContext";
-import EditUserForm from "./EditUserForm";
 import { GLOBAL } from "@/icons.data";
+import { useOpenModal } from "@/context/ModalContext";
+import EditTicketForm from "./EditTicketForm";
 
-export default function EditUser() {
+export default function EditTicket() {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "editUser";
+  const isOpen = modal?.type === "editTicket";
   const { crossIcon } = GLOBAL;
 
   return (
@@ -14,7 +14,7 @@ export default function EditUser() {
         className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${isOpen ? "block" : "hidden"} `}
       ></div>
       <div
-        className={`absolute inset-0 m-auto w-[50%] h-[50%] bg-white border rounded-md transition-all duration-300 overflow-hidden
+        className={`absolute inset-0 m-auto w-[70%] h-[80%] bg-white border rounded-md transition-all duration-300 p-4 overflow-y-scroll
         ${isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         <div className="absolute right-0 p-2.5">
@@ -35,7 +35,11 @@ export default function EditUser() {
           </button>
         </div>
 
-        <EditUserForm />
+        <div>
+          <h2 className="p-4">Editar Ticket</h2>
+
+          <EditTicketForm />
+        </div>
       </div>
     </>
   );

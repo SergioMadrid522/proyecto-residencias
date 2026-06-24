@@ -24,7 +24,6 @@ export default function Users() {
       </table>
 
       <CreateUser />
-      <EditUser />
     </>
   );
 }

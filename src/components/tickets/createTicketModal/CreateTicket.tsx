@@ -8,7 +8,6 @@ import { Username } from "@/types";
 export default function CreateTicket({ user }: Username) {
   const { modal, setModal } = useOpenModal();
   const isOpen = modal?.type === "create";
-
   const { crossIcon } = GLOBAL;
 
   return (

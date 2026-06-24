@@ -1,10 +1,12 @@
 "use client";
+import { useOpenModal } from "@/context/ModalContext";
 import { useEditTicket } from "@/hooks/useEditTicket";
 import { useEliminateTicket } from "@/hooks/useEliminateTicket";
 import { GLOBAL } from "@/icons.data";
 import { ActionProps } from "@/types/types";
 
 export default function ActionButtons({ id }: ActionProps) {
+  const { modal, setModal } = useOpenModal();
   const { loadingEliminate, handleEliminateSubmit } = useEliminateTicket();
   const { loadingEdit, handleEditSubmit } = useEditTicket();
   const { trashCanIcon, pencilIcon } = GLOBAL;
@@ -13,9 +15,13 @@ export default function ActionButtons({ id }: ActionProps) {
     <div key={id} className="flex gap-5 items-center justify-center p-2">
       <button
         type="button"
+        onClick={() => {
+          setModal({ type: "editTicket", ticket: { id } });
+          console.log(modal);
+        }}
         disabled={loadingEdit}
         className="cursor-pointer"
-        aria-label="Editar usuario"
+        aria-label="Editar Ticket"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

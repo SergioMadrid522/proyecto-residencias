@@ -12,19 +12,6 @@ export type RegisterUserProps =
       };
     };
 
-/* 
-type Modulo = "Frontend" | "Backend" | "API" | "Mobile" | "Base de Datos";
-
-type Prioridad = "Baja" | "Media" | "Alta" | "Crítica";
-
-type Estado =
-  | "Pendiente"
-  | "En Revisión"
-  | "En Corrección"
-  | "Reabierto"
-  | "Cerrado";
- */
-
 export type CreateTicketProps =
   | { success: false; errors: Record<string, string[]> }
   | {

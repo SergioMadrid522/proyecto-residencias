@@ -1,9 +1,8 @@
 import { FormField } from "@/components/form/FormField";
 import { useCreateTicket } from "@/hooks/useCreateTicket";
 import { GLOBAL } from "@/icons.data";
-import { Username } from "@/types";
 
-export default function CreateTicketForm({ user }: Username) {
+export default function EditTicketForm() {
   const {
     titulo,
     setTitulo,
@@ -159,11 +158,11 @@ export default function CreateTicketForm({ user }: Username) {
           className="outline-1 rounded-sm px-2 py-1"
         >
           <option value="">Selecciona un usuario</option>
-          {user.map(({ id, nombre }) => (
+          {/* {user.map(({ id, nombre }) => (
             <option key={id} value={id}>
               {nombre}
             </option>
-          ))}
+          ))} */}
         </select>
       </FormField>
 
