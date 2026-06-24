@@ -1,15 +1,33 @@
 "use client";
+import { useEditTicket } from "@/hooks/useEditTicket";
 import { useEliminateTicket } from "@/hooks/useEliminateTicket";
 import { GLOBAL } from "@/icons.data";
 import { ActionProps } from "@/types/types";
 
 export default function ActionButtons({ id }: ActionProps) {
   const { loadingEliminate, handleEliminateSubmit } = useEliminateTicket();
-
-  const { trashCanIcon } = GLOBAL;
+  const { loadingEdit, handleEditSubmit } = useEditTicket();
+  const { trashCanIcon, pencilIcon } = GLOBAL;
 
   return (
     <div key={id} className="flex gap-5 items-center justify-center p-2">
+      <button
+        type="button"
+        disabled={loadingEdit}
+        className="cursor-pointer"
+        aria-label="Editar usuario"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
+          {pencilIcon()}
+        </svg>
+      </button>
+
       <button
         type="button"
         onClick={() => {

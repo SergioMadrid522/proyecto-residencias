@@ -7,7 +7,7 @@ import { GLOBAL } from "@/icons.data";
 
 export default function EditUser() {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "edit";
+  const isOpen = modal?.type === "editUser";
   const { crossIcon } = GLOBAL;
 
   return (

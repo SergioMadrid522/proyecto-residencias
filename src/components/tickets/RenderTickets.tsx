@@ -5,9 +5,10 @@ import {
   getTicketStatus,
   getUserSession,
 } from "@/utils/getFunctions";
-import ActionButtons from "../users/getUsers/ActionButtons";
+
 import Link from "next/link";
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
+import ActionButtons from "@/components/tickets/ActionsButtons";
 
 export default async function RenderTickets() {
   const { tickets, error } = await getTickets();

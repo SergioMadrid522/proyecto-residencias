@@ -14,7 +14,6 @@ export async function getUserById(id: number): Promise<GetUserResponse> {
 
     return {
       success: true,
-      id,
       user: [user],
     };
   } catch {
@@ -87,6 +86,7 @@ export async function getTicket(id: number) {
     };
   }
 }
+
 export async function getUserSession() {
   const session = await getSession();
   let usuario = "user";

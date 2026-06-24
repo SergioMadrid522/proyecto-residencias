@@ -50,3 +50,11 @@ export type ModalContextType = {
 export type ActionProps = {
   id: number;
 };
+
+export interface UpdateUserData {
+  id: number;
+  nombre: string;
+  email: string;
+  password: string;
+  rol: number;
+}

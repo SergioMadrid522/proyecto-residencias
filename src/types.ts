@@ -81,5 +81,6 @@ export interface GetTicketResponse {
 
 export type ModalState =
   | { type: "create" }
-  | { type: "edit"; user: any }
+  | { type: "editUser"; user: { id: number } }
+  | { type: "editTicket"; user: { id: number } }
   | null;

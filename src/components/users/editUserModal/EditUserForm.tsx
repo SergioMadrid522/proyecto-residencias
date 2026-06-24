@@ -25,7 +25,7 @@ export default function EditUserForm() {
         <div className="text-[15px]">Nombre del usuario</div>
         <input
           type="text"
-          value={nombre}
+          value={nombre || ""}
           onChange={(e) => setNombre(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         />
@@ -35,7 +35,7 @@ export default function EditUserForm() {
         <div className="text-[15px]">Email</div>
         <input
           type="email"
-          value={email}
+          value={email || ""}
           onChange={(e) => setEmail(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         />
@@ -45,7 +45,7 @@ export default function EditUserForm() {
         <div className="text-[15px]">Contraseña</div>
         <input
           type="password"
-          value={password}
+          value={password || ""}
           onChange={(e) => setPassword(e.target.value)}
           className="outline-1 rounded-sm px-2 py-1"
         />
@@ -56,7 +56,7 @@ export default function EditUserForm() {
         <select
           name=""
           id=""
-          value={rol}
+          value={rol || 0}
           onChange={(e) => {
             const value = Number(e.target.value);
             setRol(value);
