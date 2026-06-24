@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getUserById, getUsers } from "@/utils/getFunctions";
-import { findUserById } from "@/services/user.service";
-import { hashPassword } from "@/utils/hashPassword";
+import { getUsers } from "@/utils/getFunctions";
 import { updateUserData } from "@/services/update.service";
 
 /* export async function GET() {

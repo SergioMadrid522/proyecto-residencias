@@ -31,9 +31,12 @@ enum Prioridad {
 enum Estado {
   PENDIENTE
   EN_REVISION
+  ASIGNADO
   EN_CORRECCION
+  EN_PRUEBAS
   REABIERTO
   CERRADO
+  CANCELADO
 }
 
 

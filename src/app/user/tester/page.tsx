@@ -1,7 +1,4 @@
-export default function Dashboard() {
-  return (
-    <>
-      <h1>panel de tester</h1>
-    </>
-  );
-}
+import { NextResponse } from "next/server";
+import Tickets from "./tickets/page";
+
+export default function Dashboard() {}
