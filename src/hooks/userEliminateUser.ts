@@ -6,7 +6,7 @@ export function useEliminateUser() {
   const [loadingEliminate, setLoading] = useState(false);
 
   const handleEliminateSubmit = async (id: number) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_ELIMINATE_USER;
+    const apiURL = process.env.NEXT_PUBLIC_ELIMINATE_USER_API_URL;
     try {
       const deleteConfirmation = await deleteAlert();
 

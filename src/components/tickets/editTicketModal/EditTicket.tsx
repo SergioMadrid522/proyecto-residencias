@@ -2,11 +2,12 @@
 import { GLOBAL } from "@/icons.data";
 import { useOpenModal } from "@/context/ModalContext";
 import EditTicketForm from "./EditTicketForm";
+import { EditTicketModal } from "@/types";
 
-export default function EditTicket() {
+export default function EditTicket({ user, rol }: EditTicketModal) {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "editTicket";
-  const { crossIcon } = GLOBAL;
+  const isOpen = modal?.type === "edit-ticket";
+  const { crossIcon: Icon } = GLOBAL;
 
   return (
     <>
@@ -30,16 +31,12 @@ export default function EditTicket() {
               fill="currentColor"
               viewBox="0 0 16 16"
             >
-              <path d={crossIcon} />
+              <Icon />
             </svg>
           </button>
         </div>
 
-        <div>
-          <h2 className="p-4">Editar Ticket</h2>
-
-          <EditTicketForm />
-        </div>
+        <EditTicketForm user={user} rol={rol} />
       </div>
     </>
   );

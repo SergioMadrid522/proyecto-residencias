@@ -7,13 +7,13 @@ import { useOpenModal } from "@/context/ModalContext";
 export default function ActionButtons({ id }: ActionProps) {
   const { modal, setModal } = useOpenModal();
   const { loadingEliminate, handleEliminateSubmit } = useEliminateUser();
-  const { trashCanIcon, pencilIcon } = GLOBAL;
+  const { trashCanIcon: DeleteIcon, pencilIcon: EditIcon } = GLOBAL;
 
   return (
     <div key={id} className="flex gap-5 items-center justify-center p-2">
       <button
         type="button"
-        onClick={() => setModal({ type: "editUser", user: { id } })}
+        onClick={() => setModal({ type: "edit-user", user: { id } })}
         disabled={loadingEliminate}
         className="cursor-pointer"
         aria-label="Editar usuario"
@@ -25,7 +25,7 @@ export default function ActionButtons({ id }: ActionProps) {
           fill="currentColor"
           viewBox="0 0 16 16"
         >
-          {pencilIcon()}
+          <EditIcon />
         </svg>
       </button>
 
@@ -43,7 +43,7 @@ export default function ActionButtons({ id }: ActionProps) {
           fill="currentColor"
           viewBox="0 0 16 16"
         >
-          <path d={trashCanIcon} />
+          <DeleteIcon />
         </svg>
       </button>
     </div>

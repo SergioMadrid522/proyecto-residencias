@@ -3,12 +3,12 @@
 import { GLOBAL } from "@/icons.data";
 import CreateTicketForm from "./CreateTicketForm";
 import { useOpenModal } from "@/context/ModalContext";
-import { Username } from "@/types";
+import type { Username } from "@/types";
 
 export default function CreateTicket({ user }: Username) {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "create";
-  const { crossIcon } = GLOBAL;
+  const isOpen = modal?.type === "create-ticket";
+  const { crossIcon: Icon } = GLOBAL;
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function CreateTicket({ user }: Username) {
               fill="currentColor"
               viewBox="0 0 16 16"
             >
-              <path d={crossIcon} />
+              <Icon />
             </svg>
           </button>
         </div>

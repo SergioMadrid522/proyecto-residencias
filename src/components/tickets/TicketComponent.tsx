@@ -1,5 +1,4 @@
 import {
-  getRolText,
   getTicket,
   getTicketLevel,
   getTicketModule,
@@ -57,27 +56,27 @@ export default async function TicketPageContent({ id }: { id: string }) {
               </tr>
             </thead>
             <tbody>
-              {timeline.map(({ id, ticket, fechaCambio, usuarioId }) => (
-                <tr key={id} className="text-center border">
-                  <td className="border-r p-2">
-                    {capitalizeFirstLetter(ticket.proyecto.nombreProyecto!)}
-                  </td>
-                  <td className="border-r p-2">
-                    {capitalizeFirstLetter(usuarioId)}
-                  </td>
-                  <td className="border-r p-2">{getRolText(usuarioId)}</td>
-                  <td className="border-r p-2">
-                    {getTicketStatus(ticket.estado!)}
-                  </td>
-                  <td className="border-r p-2">
-                    {getTicketLevel(ticket.prioridad!)}
-                  </td>
-                  <td className="border-r p-2">
-                    {fechaCambio.toDateString()}, {fechaCambio.getHours()}:
-                    {String(fechaCambio.getMinutes()).padStart(2, "0")}
-                  </td>
-                </tr>
-              ))}
+              {timeline.map(
+                ({ id, ticket, fechaCambio, usuario, estadoNuevo }) => (
+                  <tr key={id} className="text-center border">
+                    <td className="border-r p-2">
+                      {capitalizeFirstLetter(ticket.proyecto.nombreProyecto!)}
+                    </td>
+                    <td className="border-r p-2">{usuario.nombre}</td>
+                    <td className="border-r p-2">{usuario.rol.nombreRol}</td>
+                    <td className="border-r p-2">
+                      {getTicketStatus(estadoNuevo)}
+                    </td>
+                    <td className="border-r p-2">
+                      {getTicketLevel(ticket.prioridad!)}
+                    </td>
+                    <td className="border-r p-2">
+                      {fechaCambio.toDateString()}, {fechaCambio.getHours()}:
+                      {String(fechaCambio.getMinutes()).padStart(2, "0")}
+                    </td>
+                  </tr>
+                ),
+              )}
             </tbody>
           </table>
         </div>

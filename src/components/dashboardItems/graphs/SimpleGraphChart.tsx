@@ -12,12 +12,12 @@ import {
 
 // Datos de prueba basados en tu imagen
 const data = [
-  { name: "Mar", criticos: 45, medios: 20, leves: 10 },
-  { name: "Mar", criticos: 40, medios: 30, leves: 20 },
-  { name: "Abr", criticos: 65, medios: 45, leves: 35 },
-  { name: "May", criticos: 35, medios: 30, leves: 25 },
-  { name: "Jun", criticos: 25, medios: 65, leves: 55 },
-  { name: "Jul", criticos: 28, medios: 70, leves: 40 },
+  { name: "Marzo", criticos: 45, medios: 20, leves: 10 },
+  { name: "Marzo", criticos: 40, medios: 30, leves: 20 },
+  { name: "Abril", criticos: 65, medios: 45, leves: 35 },
+  { name: "Mayo", criticos: 35, medios: 30, leves: 25 },
+  { name: "Junio", criticos: 25, medios: 65, leves: 55 },
+  { name: "Julio", criticos: 28, medios: 70, leves: 40 },
 ];
 
 export default function TendenciaErroresChart() {

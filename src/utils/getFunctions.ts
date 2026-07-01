@@ -53,7 +53,16 @@ export async function getUsers(): Promise<GetUserResponse> {
 export async function getTickets() {
   try {
     const tickets = await prisma.ticket.findMany({
-      include: { usuarioAsignado: true },
+      select: {
+        id: true,
+        titulo: true,
+        estado: true,
+        prioridad: true,
+        fechaCreacion: true,
+        usuarioAsignado: {
+          select: { nombre: true },
+        },
+      },
     });
 
     return {
@@ -72,9 +81,11 @@ export async function getTicket(id: number) {
   try {
     const ticket = await prisma.ticket.findUnique({
       where: { id: id },
-      include: { usuarioAsignado: true, proyecto: true },
+      include: {
+        usuarioAsignado: { select: { nombre: true } },
+        proyecto: { select: { nombreProyecto: true } },
+      },
     });
-
     return {
       success: true,
       ticket,
@@ -133,9 +144,12 @@ export function getTicketStatus(status: string): string {
   const statusText: Record<string, string> = {
     PENDIENTE: "Pendiente",
     EN_REVISION: "En revisión",
+    ASIGNADO: "Asignado",
     EN_CORRECCION: "En corrección",
+    EN_PRUEBAS: "En pruebas",
     REABIERTO: "Reabierto",
     CERRADO: "Cerrado",
+    CANCELADO: "Cancelado",
   };
   return statusText[status] ?? status;
 }

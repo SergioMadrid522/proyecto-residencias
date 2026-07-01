@@ -6,7 +6,7 @@ export function useEliminateTicket() {
   const [loadingEliminate, setLoadingEliminate] = useState(false);
 
   const handleEliminateSubmit = async (id: number) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_ELIMINATE_TICKET;
+    const apiURL = process.env.NEXT_PUBLIC_ELIMINATE_TICKET_API_URL;
     try {
       const deleteConfirmation = await deleteAlert();
 

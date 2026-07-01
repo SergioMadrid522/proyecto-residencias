@@ -1,6 +1,6 @@
 "use client";
-
 import EditTicket from "@/components/tickets/editTicketModal/EditTicket";
+import ModalTicket from "@/components/tickets/editTicketModal/EditTicket";
 import EditUser from "@/components/users/editUserModal/EditUser";
 import { ModalState } from "@/types";
 import { ModalContextType } from "@/types/types";
@@ -16,7 +16,6 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       {children}
 
       <EditUser />
-      <EditTicket />
     </ModalContext.Provider>
   );
 }

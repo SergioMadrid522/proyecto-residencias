@@ -7,7 +7,7 @@ export default async function RenderOptions() {
   return (
     <div className="py-8">
       <div className="flex flex-col gap-3">
-        {option.map(({ label, link, icon, viewbox }) => (
+        {option.map(({ label, link, icon: Icon, viewbox }) => (
           <Link
             href={`${basePath}${link}`}
             key={label}
@@ -18,10 +18,9 @@ export default async function RenderOptions() {
               width="28"
               height="28"
               fill="currentColor"
-              className=""
               viewBox={viewbox}
             >
-              <path d={icon} />
+              <Icon />
             </svg>
             {label}
           </Link>

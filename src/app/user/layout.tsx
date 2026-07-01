@@ -1,6 +1,7 @@
 import GlobalNavbar from "@/components/globalNavbar/GlobalNavbar";
 import LeftSideMenu from "@/components/leftSideMenu/LeftSideMenu";
 import ProfileSection from "@/components/leftSideMenu/ProfileSection";
+import Projects from "./admin/projects/page";
 
 export default function RootLayout({
   children,

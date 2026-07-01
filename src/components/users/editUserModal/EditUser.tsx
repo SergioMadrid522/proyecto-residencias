@@ -5,8 +5,8 @@ import { GLOBAL } from "@/icons.data";
 
 export default function EditUser() {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "editUser";
-  const { crossIcon } = GLOBAL;
+  const isOpen = modal?.type === "edit-user";
+  const { crossIcon: Icon } = GLOBAL;
 
   return (
     <>
@@ -30,7 +30,7 @@ export default function EditUser() {
               fill="currentColor"
               viewBox="0 0 16 16"
             >
-              <path d={crossIcon} />
+              <Icon />
             </svg>
           </button>
         </div>

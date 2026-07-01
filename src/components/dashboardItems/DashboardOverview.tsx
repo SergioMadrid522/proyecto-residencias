@@ -3,7 +3,7 @@ import { statsOverview } from "@/data";
 export default function DashboardOverview() {
   return (
     <div className="grid grid-cols-4 gap-5 px-6  rounded-2xl ">
-      {statsOverview.map(({ icon, iconViewbox, title, stats }) => (
+      {statsOverview.map(({ icon: Icon, iconViewbox, title, stats }) => (
         <div key={title} className="border rounded-md shadow-lg px-2 py-4">
           <div className="flex items-center gap-2">
             <svg
@@ -13,7 +13,7 @@ export default function DashboardOverview() {
               fill="currentColor"
               viewBox={iconViewbox}
             >
-              <path d={icon} />
+              <Icon />
             </svg>
             <p className="text-xl">{title}</p>
           </div>

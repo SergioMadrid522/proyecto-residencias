@@ -1,15 +1,17 @@
 import AddNewTicketButton from "@/components/tickets/AddNewTicketButton";
 import CreateTicket from "@/components/tickets/createTicketModal/CreateTicket";
+import EditTicket from "@/components/tickets/editTicketModal/EditTicket";
 import RenderTickets from "@/components/tickets/RenderTickets";
+import { useRolMapper } from "@/hooks/useRolMapper";
 import { getUsers } from "@/utils/getFunctions";
 
 export default async function Tickets() {
   const { user } = await getUsers();
-
+  const { activeRol } = await useRolMapper();
   return (
     <>
       <div className="flex justify-end my-4">
-        <AddNewTicketButton />
+        <AddNewTicketButton activeRol={activeRol} />
       </div>
 
       <table className="w-full border-collapse">
@@ -29,6 +31,7 @@ export default async function Tickets() {
       </table>
 
       <CreateTicket user={user} />
+      <EditTicket user={user} rol={activeRol} />
     </>
   );
 }

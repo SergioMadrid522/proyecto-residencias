@@ -9,11 +9,11 @@ import RecentTickets from "./graphs/RecentTickets";
 import { GLOBAL } from "@/icons.data";
 
 export default function DashboardStats() {
-  const { chevronRight } = GLOBAL;
+  const { chevronRight: Icon } = GLOBAL;
   return (
     <section className="grid grid-cols-2 gap-6 p-6">
       <StatsCard>
-        <StatsTitle>Tasa de Reapertura de bugs</StatsTitle>
+        <StatsTitle>Tasa de Reapertura de tickets</StatsTitle>
 
         <ChartContainer>
           <PieGraph />
@@ -55,7 +55,7 @@ export default function DashboardStats() {
                 fill="currentColor"
                 viewBox="0 0 16 16"
               >
-                <path fillRule="evenodd" d={chevronRight} />
+                <Icon />
               </svg>
             </Link>
           </div>

@@ -19,7 +19,7 @@ export function Subtitle({ children }: { children: React.ReactNode }) {
 }
 
 export function Action({ children }: { children: React.ReactNode }) {
-  return <div className="flex justify-end w-full">{children}</div>;
+  return <div className="flex justify-end w-full gap-4">{children}</div>;
 }
 export const DangerZoneOption = Object.assign(Card, {
   Card,

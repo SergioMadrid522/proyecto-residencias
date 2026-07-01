@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 export function useLogout() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const apiURL = process.env.NEXT_PUBLIC_API_URL_LOGOUT;
+  const apiURL = process.env.NEXT_PUBLIC_LOGOUT_API_URL;
 
   const handleLogout = async () => {
     const logoutConfirmation = await logoutAlert();

@@ -99,7 +99,7 @@ export async function PUT(request: Request) {
       await tx.historial_ticket.create({
         data: {
           ticketId: ticket.id,
-          usuarioId: Number(body.usuarioId),
+          usuarioId: Number(body.usuarioAsignadoId),
           estadoNuevo: body.estado,
         },
       });

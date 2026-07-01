@@ -8,7 +8,7 @@ export default async function Settings() {
         <ProfileSection />
       </article>
 
-      <article className="border border-red-300 rounded-lg">
+      <article className="border border-red-300 rounded-lg overflow-hidden">
         <DangerZone />
       </article>
     </section>

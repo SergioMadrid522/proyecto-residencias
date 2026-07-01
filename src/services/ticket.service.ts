@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { createTicketSchema } from "@/schemas/project.schema";
-import { CreateTicketProps } from "@/types/types";
 
 export async function createTicket(data: unknown) {
   const result = createTicketSchema.safeParse(data);
@@ -57,7 +56,11 @@ export async function ticketTimeline(id: number) {
     take: 5,
     where: { ticketId: id },
     orderBy: { fechaCambio: "desc" },
-    include: {
+    select: {
+      id: true,
+      fechaCambio: true,
+      usuarioId: true,
+      estadoNuevo: true,
       ticket: {
         select: {
           id: true,
@@ -66,6 +69,12 @@ export async function ticketTimeline(id: number) {
           estado: true,
           prioridad: true,
           ultimaActualizacion: true,
+        },
+      },
+      usuario: {
+        select: {
+          nombre: true,
+          rol: true,
         },
       },
     },

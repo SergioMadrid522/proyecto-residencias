@@ -1,7 +1,6 @@
 import AddNewUserButton from "@/components/users/getUsers/AddNewUserButton";
 import RenderUsers from "@/components/users/getUsers/RenderUsers";
 import CreateUser from "@/components/users/createUserModal/CreateUser";
-import EditUser from "@/components/users/editUserModal/EditUser";
 
 export default function Users() {
   return (

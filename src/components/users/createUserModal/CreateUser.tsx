@@ -6,9 +6,9 @@ import { GLOBAL } from "@/icons.data";
 
 export default function CreateUser() {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "create";
+  const isOpen = modal?.type === "create-user";
 
-  const { crossIcon } = GLOBAL;
+  const { crossIcon: Icon } = GLOBAL;
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function CreateUser() {
               fill="currentColor"
               viewBox="0 0 16 16"
             >
-              <path d={crossIcon} />
+              <Icon />
             </svg>
           </button>
         </div>

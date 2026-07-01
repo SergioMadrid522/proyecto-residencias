@@ -1,25 +1,19 @@
 "use client";
 import { useOpenModal } from "@/context/ModalContext";
-import { useEditTicket } from "@/hooks/useEditTicket";
 import { useEliminateTicket } from "@/hooks/useEliminateTicket";
 import { GLOBAL } from "@/icons.data";
 import { ActionProps } from "@/types/types";
 
 export default function ActionButtons({ id }: ActionProps) {
-  const { modal, setModal } = useOpenModal();
+  const { setModal } = useOpenModal();
   const { loadingEliminate, handleEliminateSubmit } = useEliminateTicket();
-  const { loadingEdit, handleEditSubmit } = useEditTicket();
-  const { trashCanIcon, pencilIcon } = GLOBAL;
+  const { trashCanIcon: DeleteIcon, pencilIcon: EditIcon } = GLOBAL;
 
   return (
     <div key={id} className="flex gap-5 items-center justify-center p-2">
       <button
         type="button"
-        onClick={() => {
-          setModal({ type: "editTicket", ticket: { id } });
-          console.log(modal);
-        }}
-        disabled={loadingEdit}
+        onClick={() => setModal({ type: "edit-ticket", ticket: { id } })}
         className="cursor-pointer"
         aria-label="Editar Ticket"
       >
@@ -30,7 +24,7 @@ export default function ActionButtons({ id }: ActionProps) {
           fill="currentColor"
           viewBox="0 0 16 16"
         >
-          {pencilIcon()}
+          <EditIcon />
         </svg>
       </button>
 
@@ -50,7 +44,7 @@ export default function ActionButtons({ id }: ActionProps) {
           fill="currentColor"
           viewBox="0 0 16 16"
         >
-          <path d={trashCanIcon} />
+          <DeleteIcon />
         </svg>
       </button>
     </div>

@@ -13,38 +13,46 @@ export default async function DangerZone() {
         </DangerZoneOption.Subtitle>
       </DangerZoneOption.TitleSection>
 
-      <DangerZoneOption.Option>
-        <div>
-          <p>Exportar todos los tickets</p>
-          <p>Descarga un archivo CSV con el historial completo del sistema</p>
-        </div>
-
-        <DangerZoneOption.Action>
-          <button
-            type="button"
-            className="outline rounded-md p-1 cursor-pointer"
-          >
-            Descargar CSV
-          </button>
-        </DangerZoneOption.Action>
-      </DangerZoneOption.Option>
-
       {rol.toLowerCase() === "admin" && (
-        <DangerZoneOption.Option>
-          <div>
-            <p>Archivar tickets cerrados</p>
-            <p>Mueve todos los tickets con estado CERRADO al archivo</p>
-          </div>
+        <>
+          <DangerZoneOption.Option>
+            <div>
+              <p>Eliminar Ticket cancelados</p>
+              <p>Elimina todos aquellos tickets con estado en Cancelado</p>
+            </div>
 
-          <DangerZoneOption.Action>
-            <button
-              type="button"
-              className="outline rounded-md p-1 cursor-pointer"
-            >
-              Archivar
-            </button>
-          </DangerZoneOption.Action>
-        </DangerZoneOption.Option>
+            <DangerZoneOption.Action>
+              <button
+                type="button"
+                className="outline rounded-md p-1 cursor-pointer"
+              >
+                Eliminar
+              </button>
+            </DangerZoneOption.Action>
+          </DangerZoneOption.Option>
+
+          <DangerZoneOption.Option>
+            <div>
+              <p>Archivar o desarchivar tickets cerrados</p>
+              <p>Mueve todos los tickets con estado CERRADO al archivo</p>
+            </div>
+
+            <DangerZoneOption.Action>
+              <button
+                type="button"
+                className="outline rounded-md p-1 cursor-pointer"
+              >
+                Desarchivar
+              </button>
+              <button
+                type="button"
+                className="outline rounded-md p-1 cursor-pointer"
+              >
+                Archivar
+              </button>
+            </DangerZoneOption.Action>
+          </DangerZoneOption.Option>
+        </>
       )}
     </DangerZoneOption.Card>
   );

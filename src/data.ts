@@ -9,24 +9,18 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
       icon: GLOBAL.dashboardIcon,
       viewbox: "0 0 640 640",
     },
-    /* {
-      label: "Reportes",
-      link: "/reports",
-      icon: GLOBAL.reportsIcon,
-      viewbox: "0 0 640 640",
-    }, */
+    {
+      label: "Proyectos",
+      link: "/projects",
+      icon: GLOBAL.projects,
+      viewbox: "0 0 16 16",
+    },
     {
       label: "Tickets",
       link: "/tickets",
       icon: GLOBAL.ticketsIcon,
       viewbox: "0 0 640 640",
     },
-    /* {
-      label: "Analytics",
-      link: "/analytics",
-      icon: GLOBAL.analyticsIcon,
-      viewbox: "0 0 16 16",
-    }, */
     {
       label: "Usuarios",
       link: "/users",
@@ -74,19 +68,19 @@ export const statsOverview: StatsOverview[] = [
   {
     icon: GLOBAL.reportsIcon,
     iconViewbox: "0 0 640 640",
-    title: "Bugs Abiertos",
+    title: "Tickets Abiertos",
     stats: 23,
   },
   {
     icon: GLOBAL.sandClockIcon,
     iconViewbox: "0 0 16 16",
-    title: "En revisión",
+    title: "Tickets En Revisión",
     stats: 12,
   },
   {
     icon: GLOBAL.fireIcon,
     iconViewbox: "0 0 16 16",
-    title: "Criticos",
+    title: "Tickets En Estado Crítico",
     stats: 5,
   },
   {
@@ -97,7 +91,7 @@ export const statsOverview: StatsOverview[] = [
   },
 ];
 
-export const recentTickets: Ticket[] = [
+export const recentTickets = [
   {
     id: 1026,
     titulo: "Error en login",

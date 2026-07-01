@@ -1,24 +1,19 @@
 import { Modulo, Prioridad, Estado } from "@prisma/client";
+import { ReactNode } from "react";
 
 export type RolText = "unkown" | "Admin" | "Dev" | "Tester";
-/*
-type Prioridad = "CRITICA" | "ALTA" | "MEDIA" | "BAJA";
-type Estado =
-  | "PENDIENTE"
-  | "EN_REVISION"
-  | "EN_CORRECCION"
-  | "REABIERTO"
-  | "CERRADO"; 
-*/
+
 interface User {
   id: number;
   nombre: string;
 }
-
+export interface Username {
+  user: User[];
+}
 type Severidad = "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
 
 export type StatsOverview = {
-  icon: string;
+  icon: () => ReactNode;
   iconViewbox: string;
   title: string;
   stats: number;
@@ -39,7 +34,7 @@ export type Ticket = {
 export interface OptionMenu {
   label: string;
   link: string;
-  icon: string;
+  icon: () => ReactNode;
   viewbox: string;
 }
 
@@ -59,9 +54,11 @@ export interface GetTicket {
   error?: string;
   ticket?: Ticket;
 }
-export interface Username {
+export interface EditTicketModal {
   user: User[];
+  rol: string;
 }
+
 export interface GetUserResponse {
   success: boolean;
   id?: number;
@@ -80,7 +77,9 @@ export interface GetTicketResponse {
 }
 
 export type ModalState =
-  | { type: "create" }
-  | { type: "editUser"; user: { id: number } }
-  | { type: "editTicket"; ticket: { id: number } }
+  | { type: "create-user" }
+  | { type: "edit-user"; user: { id: number } }
+  | { type: "create-ticket" }
+  | { type: "edit-ticket"; ticket: { id: number } }
+  | { type: "export-to-excel" }
   | null;
