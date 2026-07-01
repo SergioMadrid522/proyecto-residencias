@@ -3,20 +3,26 @@ import {
   getTicketLevel,
   getTicketModule,
   getTicketStatus,
+  getUsers,
 } from "@/utils/getFunctions";
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import { PropertiesPanel } from "@/components/tickets/PropertiesPanel";
 import { ticketTimeline } from "@/services/ticket.service";
+import EditButton from "./EditButton";
+import { useRolMapper } from "@/hooks/useRolMapper";
 
 export default async function TicketPageContent({ id }: { id: string }) {
-  const data = await getTicket(Number(id));
+  const ticketId = Number(id);
+  const data = await getTicket(ticketId);
+  const { user } = await getUsers();
+  const { activeRol } = await useRolMapper();
   const { ticket, error } = data;
 
   if (!ticket) {
     return <p>{error}</p>;
   }
 
-  const timeline = await ticketTimeline(ticket.id);
+  const timeline = await ticketTimeline(ticketId);
 
   return (
     <div className="grid grid-cols-3 w-full">
@@ -83,6 +89,8 @@ export default async function TicketPageContent({ id }: { id: string }) {
       </div>
 
       <div className="flex flex-col gap-6 p-17 h-fit mx-auto">
+        <EditButton id={ticketId} user={user} rol={activeRol} />
+
         <PropertiesPanel.Property>
           <PropertiesPanel.Key>Proyecto:</PropertiesPanel.Key>
           <PropertiesPanel.Value>

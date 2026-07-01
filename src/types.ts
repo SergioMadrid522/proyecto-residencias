@@ -70,7 +70,11 @@ export interface GetUserResponse {
     fechaRegistro: Date;
   }[];
 }
-
+export interface EditButtonProps {
+  id: number;
+  user: User[];
+  rol: string;
+}
 export interface GetTicketResponse {
   success: boolean;
   id?: number;

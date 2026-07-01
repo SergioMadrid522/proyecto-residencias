@@ -1,3 +1,4 @@
+"use client";
 import { FormField } from "@/components/form/FormField";
 import { useEditTicket } from "@/hooks/useEditTicket";
 import { GLOBAL } from "@/icons.data";
