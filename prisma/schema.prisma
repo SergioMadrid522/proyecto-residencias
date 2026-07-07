@@ -70,6 +70,7 @@ model Proyecto {
   id              Int       @id @default(autoincrement())
   nombreProyecto  String    @map("nombre_proyecto") @unique
   descripcion     String?
+  activo          Boolean   @default(true)
   ticket          Ticket[]
 
   @@map("proyecto")
@@ -86,7 +87,7 @@ model Ticket {
   severidadIa           String?             @map("severidad_ia")
 
   proyectoId            Int                 @map("id_proyecto")
-  usuarioReportaId      Int?                 @map("id_usuario_reporta")
+  usuarioReportaId      Int?                @map("id_usuario_reporta")
   usuarioAsignadoId     Int                 @map("id_usuario_asignado")
 
   proyecto              Proyecto            @relation(fields: [proyectoId], references: [id])

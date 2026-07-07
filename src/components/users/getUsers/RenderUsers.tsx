@@ -1,6 +1,5 @@
 import { getRolText, getUsers } from "@/utils/getFunctions";
 import ActionButtons from "../ActionButtons";
-import { RolText } from "@/types";
 
 export default async function RenderUsers() {
   const { user } = await getUsers();

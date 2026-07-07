@@ -2,6 +2,7 @@ import { findUserById } from "@/services/user.service";
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import { getFirstLetter, getUserSession } from "@/utils/getFunctions";
 import { ConfigurationCard } from "./ConfigurationCard";
+import PasswordForm from "./PasswordForm";
 
 export default async function ProfileSection() {
   const session = await getUserSession();
@@ -17,7 +18,7 @@ export default async function ProfileSection() {
       <ConfigurationCard.TitleSection>
         <ConfigurationCard.Title>Mi perfil</ConfigurationCard.Title>
         <ConfigurationCard.Subtitle>
-          Visible para todos los roles
+          Aquí podrás editar tu perfil
         </ConfigurationCard.Subtitle>
       </ConfigurationCard.TitleSection>
 
@@ -41,54 +42,7 @@ export default async function ProfileSection() {
       <div className="border border-gray-200 w-[95%] m-auto" />
 
       <div className="p-4">
-        <form action="">
-          <div className="flex gap-5 pb-2">
-            <div>
-              <p>Nombre</p>
-              <input
-                type="text"
-                className="outline rounded-sm p-1 bg-black/10"
-                value={user.nombre}
-                readOnly
-              />
-            </div>
-            <div>
-              <p>Email</p>
-              <input
-                type="text"
-                className="outline rounded-sm select-none bg-black/10 p-1"
-                value={user.email}
-                readOnly
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-5 pt-2">
-            <div>
-              <p>Contraseña actual</p>
-              <input type="password" className="outline rounded-sm p-1" />
-            </div>
-            <div>
-              <p>Nueva Contraseña</p>
-              <input type="password" className="outline rounded-sm p-1" />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end gap-4">
-            <button
-              type="reset"
-              className="outline rounded-md p-1 cursor-pointer"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="outline rounded-md p-1 cursor-pointer"
-            >
-              Guardar Cambios
-            </button>
-          </div>
-        </form>
+        <PasswordForm user={user} />
       </div>
     </ConfigurationCard.Card>
   );

@@ -1,4 +1,4 @@
-import { ModalState, Ticket } from "@/types";
+import { ModalState, Ticket, UserContext } from "@/types";
 
 export type RegisterUserProps =
   | { success: false; errors: Record<string, string[]> }
@@ -19,19 +19,33 @@ export type CreateTicketProps =
       data: Ticket;
     };
 
-export type CreateProjectProps =
-  | { success: false; errors: Record<string, string[]> | string }
+export interface CreateProjectProps {
+  nombreProyecto: string;
+  descripcion: string;
+  activo: boolean;
+}
+export type CreateProjectResult =
   | {
       success: true;
       data: {
         nombreProyecto: string;
         descripcion: string;
+        activo: boolean;
       };
+    }
+  | {
+      success: false;
+      error: string;
     };
 
 export type ModalContextType = {
   modal: ModalState;
   setModal: React.Dispatch<React.SetStateAction<ModalState>>;
+};
+
+export type UserContextProps = {
+  userType: UserContext;
+  setUserType: React.Dispatch<React.SetStateAction<UserContext>>;
 };
 
 export type ActionProps = {
@@ -43,5 +57,6 @@ export interface UpdateUserData {
   nombre: string;
   email: string;
   password: string;
+  status: number;
   rol: number;
 }

@@ -51,6 +51,10 @@ export async function findTicketById(id: number | undefined) {
   return await prisma.ticket.findUnique({ where: { id } });
 }
 
+export async function findProjectById(id: number) {
+  return await prisma.proyecto.findUnique({ where: { id } });
+}
+
 export async function ticketTimeline(id: number) {
   return await prisma.historial_ticket.findMany({
     take: 5,

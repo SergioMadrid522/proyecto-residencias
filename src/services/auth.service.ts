@@ -1,4 +1,3 @@
-// app/actions.ts
 "use server";
 import * as bcrypt from "bcrypt";
 import { createUserSchema, loginSchema } from "@/schemas/auth.schema";

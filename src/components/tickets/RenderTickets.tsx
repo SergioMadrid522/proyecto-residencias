@@ -47,7 +47,7 @@ export default async function RenderTickets() {
                 {fechaCreacion.toDateString()}, {fechaCreacion.getHours()}:
                 {fechaCreacion.getMinutes()}
               </td>
-              <td className="p-2 text-center">
+              <td>
                 <ActionButtons id={id} />
               </td>
             </tr>

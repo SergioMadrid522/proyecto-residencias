@@ -84,6 +84,7 @@ export async function getTicket(id: number) {
       include: {
         usuarioAsignado: { select: { nombre: true } },
         proyecto: { select: { nombreProyecto: true } },
+        historial: true,
       },
     });
     return {
@@ -91,6 +92,49 @@ export async function getTicket(id: number) {
       ticket,
     };
   } catch (error) {
+    return {
+      success: false,
+      error: "Error al obtener los datos.",
+    };
+  }
+}
+
+export async function getProjects() {
+  try {
+    const projects = await prisma.proyecto.findMany({
+      where: { activo: true },
+    });
+
+    return {
+      success: true,
+      projects,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: "Error al obtener los datos.",
+    };
+  }
+}
+
+export async function getProject(id: number) {
+  try {
+    const project = await prisma.proyecto.findUnique({
+      where: { id: id },
+    });
+
+    if (!project) {
+      return {
+        success: false,
+        error: "El proyecto seleccionado no existe",
+      };
+    }
+
+    return {
+      success: true,
+      project,
+    };
+  } catch {
     return {
       success: false,
       error: "Error al obtener los datos.",
@@ -172,7 +216,20 @@ export function getRolText(rolId: number): string {
   };
   return rolText[rolId] ?? "unknown";
 }
-
+export function getStatusBoolean(status: number): boolean {
+  const statusBoolean: Record<number, boolean> = {
+    0: true,
+    1: false,
+  };
+  return statusBoolean[status] ?? 0;
+}
+export function getStatusNumber(status: string): number {
+  const statusBoolean: Record<string, number> = {
+    true: 0,
+    false: 1,
+  };
+  return statusBoolean[status] ?? 0;
+}
 export function getFirstLetter(text: string): string {
   return text.charAt(0).toUpperCase();
 }

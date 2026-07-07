@@ -8,6 +8,7 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
   const isDev = rol === "dev";
   const isTester = rol === "tester";
   const { circleSpin } = GLOBAL;
+
   const {
     titulo,
     setTitulo,
@@ -217,7 +218,7 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
                 >
                   {circleSpin()}
                 </svg>
-                Creando ticket
+                Editando ticket
               </span>
             ) : (
               "Guardar"

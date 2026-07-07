@@ -14,7 +14,7 @@ export default function EditUser() {
         className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${isOpen ? "block" : "hidden"} `}
       ></div>
       <div
-        className={`absolute inset-0 m-auto w-[50%] h-[50%] bg-white border rounded-md transition-all duration-300 overflow-hidden
+        className={`absolute inset-0 m-auto w-[60%] h-[60%] bg-white border rounded-md transition-all duration-300 overflow-hidden
         ${isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         <div className="absolute right-0 p-2.5">

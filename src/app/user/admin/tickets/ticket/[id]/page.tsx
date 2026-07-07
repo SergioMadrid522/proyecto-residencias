@@ -1,5 +1,5 @@
 import TicketPageContent from "@/components/tickets/TicketComponent";
-import { validateTicketURL } from "@/helpers/validateTicketURL";
+import { validateTicketURL } from "@/helpers/validateURL";
 import { notFound } from "next/navigation";
 
 export default async function TicketPage({

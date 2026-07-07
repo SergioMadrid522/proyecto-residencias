@@ -1,6 +1,7 @@
 "use client";
 import { useOpenModal } from "@/context/ModalContext";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function AddNewTicketButton({
   activeRol,
@@ -8,27 +9,20 @@ export default function AddNewTicketButton({
   activeRol: string;
 }) {
   const { setModal } = useOpenModal();
+
   const triggerDownloadExcelFile = () => {
     window.location.href = "/api/tickets/export";
   };
+
   return (
     <>
       {activeRol.toLowerCase() === "admin" && (
-        <>
-          <Link
-            href={"/user/admin/tickets/archived"}
-            className="border rounded-md px-2 py-1.5 cursor-pointer"
-          >
-            Archivados
-          </Link>
-
-          <button
-            onClick={triggerDownloadExcelFile}
-            className="border rounded-md px-2 py-1.5 cursor-pointer"
-          >
-            Exportar a excel
-          </button>
-        </>
+        <button
+          onClick={triggerDownloadExcelFile}
+          className="border rounded-md px-2 py-1.5 cursor-pointer"
+        >
+          Exportar a excel
+        </button>
       )}
 
       <button

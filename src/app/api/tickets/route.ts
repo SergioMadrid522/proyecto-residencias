@@ -93,6 +93,7 @@ export async function PUT(request: Request) {
           descripcion: body.descripcion,
           estado: body.estado,
           prioridad: body.prioridad,
+          usuarioReportaId: body.usuarioReporta,
         },
       });
 
@@ -104,7 +105,6 @@ export async function PUT(request: Request) {
         },
       });
     });
-
     return NextResponse.json({ status: 200 });
   } catch (error) {
     console.error("error", error);

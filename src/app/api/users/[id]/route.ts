@@ -1,5 +1,9 @@
-import { getUserById } from "@/utils/getFunctions";
+import { getUserById, getUserSession } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
+import { validatePassword } from "@/services/validatePassword.service";
+import { prisma } from "@/lib/prisma";
+import * as bycript from "bcrypt";
+import { hashPassword } from "@/utils/hashPassword";
 
 export async function GET(
   _request: Request,
@@ -10,6 +14,7 @@ export async function GET(
 
     const data = await getUserById(Number(id));
     const { user } = data;
+
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error("Error", error);

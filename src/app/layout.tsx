@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "@/app/globals.css";
 import { ModalProvider } from "@/context/ModalContext";
+import { UserContextProvider } from "@/context/userContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,9 @@ export default function RootLayout({
       <body
         className={`relative ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ModalProvider>{children}</ModalProvider>
+        <ModalProvider>
+          <UserContextProvider>{children}</UserContextProvider>
+        </ModalProvider>
         <Toaster position="top-right" />
       </body>
     </html>

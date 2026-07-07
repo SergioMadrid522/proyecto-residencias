@@ -3,12 +3,8 @@ import { z } from "zod";
 
 export const projectSchema = z
   .object({
-    nombreProyecto: z
-      .string({ message: "Tiene que ser texto." })
-      .trim()
-      .max(200),
+    nombreProyecto: z.string().trim().max(200),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(500),
-    //ticket: z.string({ message: "Tiene que ser texto." }).max(200),
   })
   .superRefine((data, ctx) => {
     const { nombreProyecto, descripcion } = data;
@@ -41,15 +37,6 @@ export const projectSchema = z
         path: ["descripcion"],
       });
     }
-    /* 
-      if (ticket === "") {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "El proyecto debe estar asignado a una",
-          path: ["descripcion"],
-        });
-      } 
-    */
   });
 
 export const createTicketSchema = z
@@ -95,14 +82,6 @@ export const createTicketSchema = z
         path: ["descripcion"],
       });
     }
-    /* if (pasosReproducir === "") {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message:
-          "El ticket debe llevar al menos un paso para reproducir el bug.",
-        path: ["pasosReproducir"],
-      });
-    } */
     if (pasosReproducir.length >= 1 && pasosReproducir.length <= 15) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

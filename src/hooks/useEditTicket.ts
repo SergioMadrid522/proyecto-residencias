@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useOpenModal } from "@/context/ModalContext";
 import toast from "react-hot-toast";
 import { createTicketSchema } from "@/schemas/project.schema";
+import getSession from "@/helpers/getSession";
 
 export function useEditTicket() {
   const { modal } = useOpenModal();
@@ -21,12 +22,13 @@ export function useEditTicket() {
   const [prioridad, setPrioridad] = useState("");
   const [severidadIa, setSeveridadIa] = useState("");
   const [proyectoId, setProyectoId] = useState(0);
-  const [usuarioAsignadoId, setUsuarioAsignadoId] = useState(0);
+  const [usuarioAsignadoId, setUsuarioAsignadoId] = useState<number>(0);
 
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
 
   const isEditModal = modal?.type === "edit-ticket";
+  console.log("isEditModal, ", isEditModal);
   const ticketId = isEditModal ? modal.ticket.id : null;
 
   useEffect(() => {
@@ -41,15 +43,20 @@ export function useEditTicket() {
         return res.json();
       })
       .then((data) => {
+        const timeline = Object.values(data.ticket.historial);
+        const timelineData = Object(timeline[timeline.length - 1]);
+        const userAsiged = timelineData.usuarioId;
+        const lastStatus = timelineData.estadoNuevo;
+
         setTitulo(data.ticket.titulo || "");
         setDescripcion(data.ticket.descripcion || "");
         setPasosReproducir(data.ticket.pasosReproducir || "");
         setModulo(data.ticket.modulo || "");
-        setEstado(data.ticket.estado || "");
+        setEstado(lastStatus || "");
         setPrioridad(data.ticket.prioridad || "");
         setSeveridadIa(data.ticket.severidadIa || "");
         setProyectoId(data.ticket.proyectoId || 0);
-        setUsuarioAsignadoId(data.ticket.usuarioAsignadoId || 0);
+        setUsuarioAsignadoId(userAsiged || 0);
       })
       .catch((error) => {
         if (error instanceof Error) {
@@ -63,8 +70,10 @@ export function useEditTicket() {
       .finally(() => setIsFetching(false));
   }, [isEditModal, ticketId]);
 
-  const handleEditSubmit = (e: React.FormEvent) => {
+  const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const data = await getSession();
     const result = createTicketSchema.safeParse({
       titulo,
       descripcion,
@@ -82,42 +91,43 @@ export function useEditTicket() {
       toast.error(error);
       return;
     }
-    setLoadingEdit(true);
 
-    fetch(editTicketApiUrl, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: ticketId,
-        titulo,
-        descripcion,
-        pasosReproducir,
-        modulo,
-        estado,
-        prioridad,
-        severidadIa,
-        proyectoId,
-        usuarioAsignadoId,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("No se pudo editar el ticket");
-        }
-        return res.json();
-      })
-      .then(() => {
-        toast.success("Se ha modificado el ticket con éxito");
-      })
-      .catch((error) => {
-        if (error instanceof Error) {
-          toast.error(error.message);
-        } else {
-          console.error("Error: ", error);
-          toast.error("Ocurrió un error al conectarse con el servidor");
-        }
-      })
-      .finally(() => setLoadingEdit(false));
+    try {
+      setLoadingEdit(true);
+
+      const res = await fetch(editTicketApiUrl, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: ticketId,
+          titulo,
+          descripcion,
+          pasosReproducir,
+          modulo,
+          estado,
+          prioridad,
+          severidadIa,
+          proyectoId,
+          usuarioAsignadoId,
+          usuarioReporta: data?.userId,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("No se pudo editar el ticket");
+      }
+
+      toast.success("Se ha modificado el ticket con éxito");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        console.error("Error: ", error);
+        toast.error("Ocurrió un error al conectarse con el servidor");
+      }
+    } finally {
+      setLoadingEdit(false);
+    }
   };
 
   return {

@@ -9,6 +9,8 @@ export default function EditUserForm() {
     setEmail,
     password,
     setPassword,
+    status,
+    setStatus,
     rol,
     setRol,
     loadingEdit,
@@ -60,6 +62,23 @@ export default function EditUserForm() {
             onChange={(e) => setPassword(e.target.value)}
             className="outline-1 rounded-sm px-2 py-1"
           />
+        </FormField>
+
+        <FormField>
+          <div className="text-[15px]">¿Sigue Está activo?</div>
+          <select
+            name=""
+            id=""
+            value={status || 0}
+            onChange={(e) => {
+              const value = Number(e.target.value);
+              setStatus(value);
+            }}
+            className="outline-1 rounded-sm px-2 py-1"
+          >
+            <option value="0">Sí</option>
+            <option value="1">No</option>
+          </select>
         </FormField>
 
         <FormField>

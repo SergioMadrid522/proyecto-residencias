@@ -3,27 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { getUsers } from "@/utils/getFunctions";
 import { updateUserData } from "@/services/update.service";
 
-/* export async function GET() {
-  try {
-    const roles = await prisma.rol.findMany();
-    //console.log(roles);
-
-    if (roles.length === 0) {
-      return NextResponse.json(
-        { message: "No hay datos para mostrar." },
-        { status: 404 },
-      );
-    }
-
-    return NextResponse.json(roles, { status: 200 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Error del servidor", error },
-      { status: 500 },
-    );
-  }
-} */
-
 export async function GET() {
   try {
     const users = await getUsers();
@@ -46,7 +25,7 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const { id, rol, dataToUpdate, hashedPassword } =
+    const { id, rol, dataToUpdate, userStatus, hashedPassword } =
       await updateUserData(body);
 
     await prisma.usuario.update({
@@ -57,12 +36,14 @@ export async function PUT(request: Request) {
         rol: {
           connect: { id: rol },
         },
+        activo: userStatus,
       },
       select: {
         id: true,
         nombre: true,
         email: true,
         password: true,
+        activo: true,
         rol: true,
       },
     });

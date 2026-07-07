@@ -85,5 +85,31 @@ export type ModalState =
   | { type: "edit-user"; user: { id: number } }
   | { type: "create-ticket" }
   | { type: "edit-ticket"; ticket: { id: number } }
-  | { type: "export-to-excel" }
+  | { type: "create-project" }
+  | { type: "edit-project"; project: { id: number } }
   | null;
+
+export type UserContext =
+  | { type: "inactive-users" }
+  | { type: "active-users" }
+  | null;
+
+export interface UserSettingsProps {
+  user: {
+    nombre: string;
+    email: string;
+    password: string;
+    id: number;
+    lastname: string | null;
+    rolId: number;
+    fechaRegistro: Date;
+    activo: boolean;
+  } | null;
+}
+
+export interface Project {
+  id: number;
+  nombreProyecto: string;
+  descripcion: string;
+  status: number;
+}

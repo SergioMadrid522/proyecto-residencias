@@ -23,7 +23,8 @@ export default async function TicketPageContent({ id }: { id: string }) {
   }
 
   const timeline = await ticketTimeline(ticketId);
-
+  const lastUser = timeline.map(({ usuario }) => usuario);
+  const userAsigned = lastUser[0].nombre;
   return (
     <div className="grid grid-cols-3 w-full">
       <div className="col-span-2 p-6">
@@ -54,7 +55,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
             <thead>
               <tr className="border">
                 <th className="border p-2">Proyecto</th>
-                <th className="border p-2">Usuario que reporto</th>
+                <th className="border p-2">Usuario asignado</th>
                 <th className="border p-2">Rol</th>
                 <th className="border p-2">Estado</th>
                 <th className="border p-2">Prioridad</th>
@@ -69,7 +70,9 @@ export default async function TicketPageContent({ id }: { id: string }) {
                       {capitalizeFirstLetter(ticket.proyecto.nombreProyecto!)}
                     </td>
                     <td className="border-r p-2">{usuario.nombre}</td>
-                    <td className="border-r p-2">{usuario.rol.nombreRol}</td>
+                    <td className="border-r p-2">
+                      {ticket.usuarioReporta?.rolId}
+                    </td>
                     <td className="border-r p-2">
                       {getTicketStatus(estadoNuevo)}
                     </td>
@@ -128,9 +131,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
 
         <PropertiesPanel.Property>
           <PropertiesPanel.Key>Asignado a:</PropertiesPanel.Key>
-          <PropertiesPanel.Value>
-            {ticket.usuarioAsignado.nombre}
-          </PropertiesPanel.Value>
+          <PropertiesPanel.Value>{userAsigned}</PropertiesPanel.Value>
         </PropertiesPanel.Property>
       </div>
     </div>

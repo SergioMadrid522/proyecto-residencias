@@ -1,6 +1,5 @@
 "use client";
-import EditTicket from "@/components/tickets/editTicketModal/EditTicket";
-import ModalTicket from "@/components/tickets/editTicketModal/EditTicket";
+import EditProject from "@/components/projects/editProjectModal/EditProject";
 import EditUser from "@/components/users/editUserModal/EditUser";
 import { ModalState } from "@/types";
 import { ModalContextType } from "@/types/types";

@@ -1,5 +1,6 @@
 import { useOpenModal } from "@/context/ModalContext";
 import { createUserSchema } from "@/schemas/auth.schema";
+import { EditUser } from "@/schemas/editUser.schema";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -10,14 +11,15 @@ export function useEditUser() {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState<number>(0);
   const [rol, setRol] = useState(0);
 
   const getUserApiURL = process.env.NEXT_PUBLIC_GET_USER_BY_ID_API_URL;
-  const EditUserApiURL = process.env.NEXT_PUBLIC_EDIT_USER_API_URL;
+  const editUserApiURL = process.env.NEXT_PUBLIC_EDIT_USER_API_URL;
 
   if (!getUserApiURL)
     throw new Error("NEXT_PUBLIC_GET_USER_BY_ID_API_URL no está definida");
-  if (!EditUserApiURL)
+  if (!editUserApiURL)
     throw new Error("NEXT_PUBLIC_EDIT_USER_API_URL no está definida");
 
   const [loadingEdit, setLoadingEdit] = useState(false);
@@ -30,11 +32,11 @@ export function useEditUser() {
       fetch(`${getUserApiURL}/${id}`)
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
+
           setNombre(data[0].nombre || "");
           setEmail(data[0].email || "");
           setRol(data[0].rolId || 0);
-
-          setIsFetching(false);
         })
         .catch((e) => {
           console.error("error", e);
@@ -46,12 +48,15 @@ export function useEditUser() {
 
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = createUserSchema.safeParse({
+
+    const result = EditUser.safeParse({
       nombre,
       email,
       password,
+      status,
       rol,
     });
+
     if (!result.success) {
       const error = result.error.issues[0].message;
       toast.error(error);
@@ -61,18 +66,24 @@ export function useEditUser() {
     try {
       setLoadingEdit(true);
 
-      const res = await fetch(EditUserApiURL, {
+      const res = await fetch(editUserApiURL, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, nombre, email, password, rol }),
+        body: JSON.stringify({ id, nombre, email, password, status, rol }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        toast.error(data.error || "Error al editar el usuario");
+        const message =
+          typeof data.error === "string"
+            ? data.error
+            : (data.error?.message ?? "Error al editar el usuario");
+
+        toast.error(message);
         return;
       }
+
       setNombre(data.nombre);
       setEmail(data.email);
       setPassword(data.password);
@@ -80,6 +91,7 @@ export function useEditUser() {
 
       toast.success("Se ha modificado el usuario con éxito");
     } catch (error) {
+      console.error(error);
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
@@ -96,6 +108,8 @@ export function useEditUser() {
     setEmail,
     password,
     setPassword,
+    status,
+    setStatus,
     rol,
     setRol,
     isFetching,

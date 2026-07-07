@@ -30,28 +30,6 @@ export default async function DangerZone() {
               </button>
             </DangerZoneOption.Action>
           </DangerZoneOption.Option>
-
-          <DangerZoneOption.Option>
-            <div>
-              <p>Archivar o desarchivar tickets cerrados</p>
-              <p>Mueve todos los tickets con estado CERRADO al archivo</p>
-            </div>
-
-            <DangerZoneOption.Action>
-              <button
-                type="button"
-                className="outline rounded-md p-1 cursor-pointer"
-              >
-                Desarchivar
-              </button>
-              <button
-                type="button"
-                className="outline rounded-md p-1 cursor-pointer"
-              >
-                Archivar
-              </button>
-            </DangerZoneOption.Action>
-          </DangerZoneOption.Option>
         </>
       )}
     </DangerZoneOption.Card>
