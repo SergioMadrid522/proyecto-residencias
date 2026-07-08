@@ -10,38 +10,46 @@ export default async function ProfileSection() {
   const user = await findUserById(sessionUserId);
 
   if (!user) {
-    return <p>No hay datos por mostrar</p>;
+    return (
+      <p className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-600">
+        No hay datos por mostrar.
+      </p>
+    );
   }
 
   return (
     <ConfigurationCard.Card>
       <ConfigurationCard.TitleSection>
         <ConfigurationCard.Title>Mi perfil</ConfigurationCard.Title>
+
         <ConfigurationCard.Subtitle>
-          Aquí podrás editar tu perfil
+          Aquí podrás editar la información de tu cuenta.
         </ConfigurationCard.Subtitle>
       </ConfigurationCard.TitleSection>
 
-      <div className="flex gap-4 items-center p-4">
-        <div className="border flex w-20 h-20 rounded-full items-center justify-center text-center">
-          <p className="text-2xl">
-            {getFirstLetter(user.nombre)}
-            {getFirstLetter(user.lastname!)}
-          </p>
+      <div className="flex items-center gap-6 p-6 ">
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-600 text-2xl font-bold text-white shadow-md">
+          {getFirstLetter(user.nombre)}
+          {getFirstLetter(user.lastname!)}
         </div>
 
-        <div className="flex-col">
-          <p>
+        <div className="space-y-1">
+          <h3 className="text-xl font-semibold text-gray-900">
             {capitalizeFirstLetter(user.nombre)}{" "}
             {capitalizeFirstLetter(user.lastname!)}
-          </p>
-          <p>{user.email}</p>
+          </h3>
+
+          <p className="text-gray-600">{user.email}</p>
+
+          <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+            {session.rol}
+          </span>
         </div>
       </div>
 
-      <div className="border border-gray-200 w-[95%] m-auto" />
+      <div className="mx-6 border-t border-gray-200" />
 
-      <div className="p-4">
+      <div className="p-6">
         <PasswordForm user={user} />
       </div>
     </ConfigurationCard.Card>

@@ -1,7 +1,5 @@
 "use client";
 import { useOpenModal } from "@/context/ModalContext";
-import { useRolMapper } from "@/hooks/useRolMapper";
-import { getUsers } from "@/utils/getFunctions";
 import EditTicket from "./editTicketModal/EditTicket";
 import { EditButtonProps } from "@/types";
 
@@ -18,8 +16,18 @@ export default function EditButton({
       <button
         type="button"
         onClick={() => setModal({ type: "edit-ticket", ticket: { id } })}
-        className="border rounded-md px-2 py-1.5 cursor-pointer"
         aria-label="Editar Ticket"
+        className="
+            flex items-center gap-2
+            rounded-lg
+            px-4 py-2.5
+            text-sm font-medium
+            text-black
+            shadow-sm
+            transition
+            hover:bg-gray-200
+            active:scale-95
+            cursor-pointer"
       >
         Editar Ticket
       </button>

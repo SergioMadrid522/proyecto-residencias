@@ -27,80 +27,114 @@ export default async function TicketPageContent({ id }: { id: string }) {
 
   const timeline = await ticketTimeline(ticketId);
   return (
-    <div className="grid grid-cols-3 w-full">
-      <div className="col-span-2 p-6">
-        <h1 className="py-4 text-[26px]">ID: #{ticket.id}</h1>
-        <h2 className="py-0 text-[26px]">
-          Titulo: {capitalizeFirstLetter(ticket.titulo)}
-        </h2>
+    <div className="grid grid-cols-2 gap-8">
+      <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="border-b border-gray-200 pb-6">
+          <p className="text-sm font-medium text-gray-500">
+            Ticket #{ticket.id}
+          </p>
 
-        <div className="py-4">
-          <p>Descripción:</p>
-          <p className="">{capitalizeFirstLetter(ticket.descripcion)}</p>
+          <h1 className="mt-2 text-3xl font-bold text-gray-900">
+            {capitalizeFirstLetter(ticket.titulo)}
+          </h1>
         </div>
 
-        {ticket.pasosReproducir !== "" && (
-          <div className="pb-4">
-            <p>Pasos a reproducir:</p>
-            {ticket
-              .pasosReproducir!.split(/(?<!\w)(?=\d+\. )/)
-              .map((paso, index) => (
-                <p key={index}>{paso.trim()}</p>
-              ))}
+        <div className="mt-8">
+          <h2 className="mb-3 text-lg font-semibold text-gray-900">
+            Descripción
+          </h2>
+
+          <p className="leading-7 text-gray-700">
+            {capitalizeFirstLetter(ticket.descripcion)}
+          </p>
+        </div>
+
+        {ticket.pasosReproducir && (
+          <div className="mt-8">
+            <h2 className="mb-3 text-lg font-semibold">
+              Pasos para reproducir
+            </h2>
+
+            <ol className="list-decimal space-y-2 pl-6 text-gray-700">
+              {ticket.pasosReproducir
+                .split(/(?<!\w)(?=\d+\. )/)
+                .map((paso, index) => (
+                  <li key={index}>{paso.replace(/^\d+\.\s*/, "")}</li>
+                ))}
+            </ol>
           </div>
         )}
 
-        <div className="">
-          <p>Historial</p>
-          <table>
-            <thead>
-              <tr className="border">
-                <th className="border p-2">Proyecto</th>
-                <th className="border p-2">Usuario asignado</th>
-                <th className="border p-2">Rol</th>
-                <th className="border p-2">Estado</th>
-                <th className="border p-2">Prioridad</th>
-                <th className="border p-2">Ultima actualización</th>
-              </tr>
-            </thead>
-            <tbody>
-              {timeline.map(
-                ({ id, ticket, fechaCambio, usuario, estadoNuevo }) => (
-                  <tr key={id} className="text-center border">
-                    <td className="border-r p-2">
-                      {capitalizeFirstLetter(ticket.proyecto.nombreProyecto!)}
-                    </td>
-                    <td className="border-r p-2">{usuario.nombre}</td>
-                    <td className="border-r p-2">
-                      {ticket.usuarioReporta?.rolId}
-                    </td>
-                    <td className="border-r p-2">
-                      {getTicketStatus(estadoNuevo)}
-                    </td>
-                    <td className="border-r p-2">
-                      {getTicketLevel(ticket.prioridad!)}
-                    </td>
-                    <td className="border-r p-2">
-                      {new Intl.DateTimeFormat("es-MX", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      }).format(fechaCambio)}
-                    </td>
-                  </tr>
-                ),
-              )}
-            </tbody>
-          </table>
+        <div className="mt-10">
+          <h2 className="mb-4 text-xl font-semibold">Historial</h2>
+          <div className="overflow-hidden rounded-xl border border-gray-200">
+            <table className="w-full table-fixed">
+              <thead className="sticky top-0 bg-gray-50">
+                <tr className="">
+                  <th className="px-2 py-3 text-center text-sm font-semibold text-gray-700">
+                    Proyecto
+                  </th>
+                  <th className="px-2 py-3 text-center text-sm font-semibold text-gray-700">
+                    Usuario asignado
+                  </th>
+                  <th className="px-2 py-3 text-center text-sm font-semibold text-gray-700">
+                    Rol
+                  </th>
+                  <th className="px-2 py-3 text-center text-sm font-semibold text-gray-700">
+                    Estado
+                  </th>
+                  <th className="px-2 py-3 text-center text-sm font-semibold text-gray-700">
+                    Prioridad
+                  </th>
+                  <th className="px-2 py-3 text-center text-sm font-semibold text-gray-700">
+                    Ultima actualización
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {timeline.map(
+                  ({ id, ticket, fechaCambio, usuario, estadoNuevo }) => (
+                    <tr key={id} className="">
+                      <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
+                        {capitalizeFirstLetter(ticket.proyecto.nombreProyecto!)}
+                      </td>
+                      <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
+                        {usuario.nombre}
+                      </td>
+                      <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
+                        {ticket.usuarioReporta?.rolId}
+                      </td>
+                      <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
+                        {getTicketStatus(estadoNuevo)}
+                      </td>
+                      <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
+                        {getTicketLevel(ticket.prioridad!)}
+                      </td>
+                      <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
+                        {new Intl.DateTimeFormat("es-MX", {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        }).format(fechaCambio)}
+                      </td>
+                    </tr>
+                  ),
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 p-17 h-fit mx-auto">
-        <EditButton
-          id={ticketId}
-          user={user}
-          rol={activeRol}
-          projects={projects}
-        />
+      <div className="sticky top-6 h-fit space-y-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Propiedades</h2>
+          <EditButton
+            id={ticketId}
+            user={user}
+            rol={activeRol}
+            projects={projects}
+          />
+        </div>
 
         <PropertiesPanel.Property>
           <PropertiesPanel.Key>Proyecto:</PropertiesPanel.Key>

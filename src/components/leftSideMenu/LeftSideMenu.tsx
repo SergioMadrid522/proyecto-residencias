@@ -1,9 +1,11 @@
+import { useRolMapper } from "@/hooks/useRolMapper";
 import RenderOptions from "./RenderOptions";
 
-export default function LeftSideMenu() {
+export default async function LeftSideMenu() {
+  const data = await useRolMapper();
   return (
     <div>
-      <RenderOptions />
+      <RenderOptions data={data} />
     </div>
   );
 }

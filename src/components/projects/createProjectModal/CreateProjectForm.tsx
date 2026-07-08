@@ -17,15 +17,29 @@ export default function CreateForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center w-[80%] h-full gap-5 m-auto p-4 bg-white"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-5"
     >
       <FormField>
-        <div className="text-[15px]">Titulo del ticket</div>
+        <div>Titulo del ticket</div>
         <input
           type="text"
           value={nombreProyecto || ""}
           onChange={(e) => setNombreProyecto(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -36,7 +50,21 @@ export default function CreateForm() {
           rows={5}
           cols={20}
           onChange={(e) => setDescripcion(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         ></textarea>
       </FormField>
 
@@ -60,7 +88,7 @@ export default function CreateForm() {
               >
                 {circleSpin()}
               </svg>
-              Agregando proyecto...
+              Creando ticket
             </span>
           ) : (
             "Guardar"

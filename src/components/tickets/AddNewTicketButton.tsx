@@ -24,7 +24,17 @@ export default function AddNewTicketButton({
       {isAdmin && (
         <button
           onClick={triggerDownloadExcelFile}
-          className="border rounded-md px-2 py-1.5 cursor-pointer"
+          className="
+            flex items-center gap-2
+            rounded-lg
+            px-4 py-2.5
+            text-sm font-medium
+            text-black
+            shadow-sm
+            transition
+            hover:bg-gray-200
+            active:scale-95
+            cursor-pointer"
         >
           Exportar a excel
         </button>
@@ -34,7 +44,17 @@ export default function AddNewTicketButton({
           onClick={() => {
             setModal({ type: "create-ticket" });
           }}
-          className="border rounded-md px-2 py-1.5 cursor-pointer"
+          className="
+            flex items-center gap-2
+            rounded-lg
+            px-4 py-2.5
+            text-sm font-medium
+            text-black
+            shadow-sm
+            transition
+            hover:bg-gray-200
+            active:scale-95
+            cursor-pointer"
         >
           Crear nuevo ticket
         </button>

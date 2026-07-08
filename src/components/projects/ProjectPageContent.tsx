@@ -14,20 +14,34 @@ export default async function ProjectPageContent({ id }: { id: string }) {
   const { project, error } = data;
 
   if (!project) {
-    return <p>{error}</p>;
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-600">
+        {error}
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-3 w-full">
-      <div className="col-span-2 p-6">
-        <h1 className="py-4 text-[26px]">ID: #{project.id}</h1>
-        <h2 className="py-0 text-[26px]">
-          Titulo: {capitalizeFirstLetter(project.nombreProyecto)}
-        </h2>
+    <div className="max-w-full">
+      <div className="rounded-2xl p-8 shadow-sm">
+        <div className="border-b border-gray-200 pb-6">
+          <p className="text-sm font-medium text-gray-500">
+            Proyecto #{project.id}
+          </p>
 
-        <div className="py-4">
-          <p>Descripción:</p>
-          <p className="">{capitalizeFirstLetter(project.descripcion!)}</p>
+          <h1 className="mt-2 text-3xl font-bold text-gray-900">
+            {capitalizeFirstLetter(project.nombreProyecto)}
+          </h1>
+        </div>
+
+        <div className="mt-8">
+          <h2 className="mb-3 text-lg font-semibold text-gray-900">
+            Descripción
+          </h2>
+
+          <p className="leading-7 text-gray-700">
+            {capitalizeFirstLetter(project.descripcion!)}
+          </p>
         </div>
       </div>
     </div>

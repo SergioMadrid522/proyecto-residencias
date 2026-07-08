@@ -7,37 +7,38 @@ import {
   getMTTR,
   getPieChartData,
 } from "./rechartsData/getDashboardData";
+import { icons } from "@/icons";
 
 export const leftSideMenuOptions: LeftSideMenuOption = {
   admin: <OptionMenu[]>[
     {
       label: "Dashboard",
       link: "/",
-      icon: GLOBAL.dashboardIcon,
+      icon: icons.dashboardIcon,
       viewbox: "0 0 640 640",
     },
     {
       label: "Proyectos",
       link: "/projects",
-      icon: GLOBAL.projects,
+      icon: "",
       viewbox: "0 0 16 16",
     },
     {
       label: "Tickets",
       link: "/tickets",
-      icon: GLOBAL.ticketsIcon,
+      icon: icons.ticketsIcon,
       viewbox: "0 0 640 640",
     },
     {
       label: "Usuarios",
       link: "/users",
-      icon: GLOBAL.usersIcon,
+      icon: icons.usersIcon,
       viewbox: "0 0 16 16",
     },
     {
       label: "Configuración",
       link: "/settings",
-      icon: GLOBAL.settingsIcon,
+      icon: icons.settingsIcon,
       viewbox: "0 0 16 16",
     },
   ],
@@ -45,13 +46,13 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
     {
       label: "Tickets",
       link: "/tickets",
-      icon: GLOBAL.ticketsIcon,
+      icon: icons.ticketsIcon,
       viewbox: "0 0 640 640",
     },
     {
       label: "Configuración",
       link: "/settings",
-      icon: GLOBAL.settingsIcon,
+      icon: icons.settingsIcon,
       viewbox: "0 0 16 16",
     },
   ],
@@ -59,13 +60,13 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
     {
       label: "Tickets",
       link: "/tickets",
-      icon: GLOBAL.ticketsIcon,
+      icon: icons.ticketsIcon,
       viewbox: "0 0 640 640",
     },
     {
       label: "Configuración",
       link: "/settings",
-      icon: GLOBAL.settingsIcon,
+      icon: icons.settingsIcon,
       viewbox: "0 0 16 16",
     },
   ],
@@ -81,24 +82,28 @@ export const statsOverview: StatsOverview[] = [
     icon: GLOBAL.reportsIcon,
     iconViewbox: "0 0 640 640",
     title: "Tickets Abiertos",
+    color: "#F54927",
     stats: openTicketsCount,
   },
   {
     icon: GLOBAL.sandClockIcon,
     iconViewbox: "0 0 16 16",
     title: "Tickets En Revisión",
+    color: "#E0AF0B",
     stats: rewiewTicketCount,
   },
   {
     icon: GLOBAL.fireIcon,
     iconViewbox: "0 0 16 16",
     title: "Tickets con prioridad Crítica",
+    color: "#F54927",
     stats: criticalTicketCount,
   },
   {
     icon: GLOBAL.clockIcon,
     iconViewbox: "0 0 16 16",
     title: "MTTR Promedio",
+    color: "#66B555",
     stats: mttr,
   },
 ];

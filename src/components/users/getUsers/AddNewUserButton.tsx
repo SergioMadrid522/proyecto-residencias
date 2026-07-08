@@ -1,34 +1,27 @@
 "use client";
 import { useOpenModal } from "@/context/ModalContext";
-import { useUserContext } from "@/context/userContext";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-export default function AddNewUserButton({ rol }: { rol: string }) {
+export default function AddNewUserButton() {
   const { setModal } = useOpenModal();
-  const isAdmin = rol.toLowerCase() === "admin";
-  const { setUserType } = useUserContext();
-  const pathname = usePathname();
-  const isInactiveUserPage = pathname === "/user/admin/users/inactive";
+
   return (
     <>
-      {/* {isAdmin && (
-        <Link
-          href="/user/admin/users/inactive"
-          onClick={() => {
-            setUserType({ type: "inactive-users" });
-          }}
-          className="border rounded-md px-2 py-1.5 cursor-pointer"
-        >
-          Usuarios Inactivos
-        </Link>
-      )} */}
-
       <button
         onClick={() => {
           setModal({ type: "create-user" });
         }}
-        className="border rounded-md px-2 py-1.5 cursor-pointer"
+        className="
+          flex items-center gap-2
+          rounded-lg
+          px-4 py-2.5
+          text-sm font-medium
+          text-black
+          shadow-sm
+          transition
+          hover:bg-gray-200
+          active:scale-95
+          cursor-pointer
+        "
       >
         Agregar nuevo usuario
       </button>

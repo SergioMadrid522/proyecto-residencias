@@ -1,7 +1,5 @@
 import { getUserSession } from "@/utils/getFunctions";
 import { DangerZoneOption } from "./DangerZoneOption";
-import { useEliminateCanceledTickets } from "@/hooks/useEliminateCanceledTickets";
-import { GLOBAL } from "@/icons.data";
 import EliminateButton from "./EliminateButton";
 
 export default async function DangerZone() {
@@ -11,6 +9,10 @@ export default async function DangerZone() {
     <DangerZoneOption.Card>
       <DangerZoneOption.TitleSection>
         <DangerZoneOption.Title>Zona de peligro</DangerZoneOption.Title>
+
+        <DangerZoneOption.Subtitle>
+          Estas acciones afectan múltiples registros, proceda con cuidado.
+        </DangerZoneOption.Subtitle>
       </DangerZoneOption.TitleSection>
 
       <EliminateButton rol={rol} />

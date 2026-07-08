@@ -5,7 +5,7 @@ import { ActionProps } from "@/types/types";
 import { useOpenModal } from "@/context/ModalContext";
 
 export default function ActionButtons({ id }: ActionProps) {
-  const { modal, setModal } = useOpenModal();
+  const { setModal } = useOpenModal();
   const { loadingEliminate, handleEliminateSubmit } = useEliminateUser();
   const { trashCanIcon: DeleteIcon, pencilIcon: EditIcon } = GLOBAL;
 

@@ -15,17 +15,21 @@ export default async function RenderProjects() {
     <>
       {projects.map(({ id, nombreProyecto }) => (
         <tbody key={id}>
-          <tr key={id} className="border">
-            <td className="border-r p-2 text-center">{id}</td>
-            <td className="border-r p-2">
+          <tr className="border-b border-gray-100 transition-colors hover:bg-gray-50">
+            <td className="border-b border-gray-100 px-5 py-4 text-center text-sm text-gray-500">
+              #{id}
+            </td>
+
+            <td className="px-5 py-4">
               <Link
                 href={`/user/admin/projects/project/${id}`}
-                className="underline"
+                className="font-medium text-gray-700 hover:text-gray-900 hover:underline"
               >
                 {capitalizeFirstLetter(nombreProyecto)}
               </Link>
             </td>
-            <td>
+
+            <td className="px-5 py-4 text-center">
               <ActionButtons id={id} />
             </td>
           </tr>

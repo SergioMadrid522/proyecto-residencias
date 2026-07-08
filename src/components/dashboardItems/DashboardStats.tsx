@@ -31,11 +31,11 @@ export default async function DashboardStats() {
 
           <div className="flex flex-col gap-5 text-lg px-4">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-[#ef4444] rounded-sm"></div>
+              <div className="w-5 h-5 bg-[#ef4444] rounded-sm"></div>
               <p>Reabiertos</p>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-[#3b82f6] rounded-sm"></div>
+              <div className="w-5 h-5 bg-[#3b82f6] rounded-sm"></div>
               <p>Cerrados</p>
             </div>
           </div>
@@ -53,7 +53,7 @@ export default async function DashboardStats() {
       <StatsCard>
         <StatsTitle>
           Tickets Recientes
-          <div className="text-md text-[#3b82f6] hover:underline ">
+          <div className="text-[14.5px] text-[#3b82f6] hover:underline ">
             <Link
               href={"/user/admin/tickets"}
               className="flex items-center justify-center"

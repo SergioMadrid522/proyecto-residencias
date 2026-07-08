@@ -15,19 +15,27 @@ export default async function Projects() {
         <AddNewProjectButton activeRol={activeRol} />
       </div>
 
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="border">
-            <th className="border p-2">ID</th>
-            <th className="border p-2">Nombre del Proyecto</th>
-            <th className="border p-2"></th>
-          </tr>
-        </thead>
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-5 py-3 text-center text-sm font-semibold text-gray-700">
+                ID
+              </th>
+              <th className="px-5 py-3 text-left text-sm font-semibold text-gray-700">
+                Nombre del proyecto
+              </th>
+              <th className="w-24 px-5 py-3 text-center text-sm font-semibold text-gray-700">
+                Acciones
+              </th>
+            </tr>
+          </thead>
 
-        <RenderProjects />
-      </table>
+          <RenderProjects />
+        </table>
+      </div>
 
-      <CreateProject user={user} />
+      <CreateProject />
       <EditProject />
     </>
   );

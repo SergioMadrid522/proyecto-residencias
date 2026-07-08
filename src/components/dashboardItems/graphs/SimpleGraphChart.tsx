@@ -54,7 +54,7 @@ export default function TendenciaErroresChart({
           dataKey="name"
           axisLine={false}
           tickLine={false}
-          tick={{ fill: "#6b7280", fontSize: 12 }}
+          tick={{ fill: "#A6A6A6", fontSize: 12, fontWeight: 700 }}
           dy={10}
         />
 

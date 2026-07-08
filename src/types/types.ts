@@ -1,4 +1,10 @@
-import { ModalState, Ticket, UserContext } from "@/types";
+import {
+  LeftSideMenuOption,
+  ModalState,
+  OptionMenu,
+  Ticket,
+  UserContext,
+} from "@/types";
 
 export type RegisterUserProps =
   | { success: false; errors: Record<string, string[]> }
@@ -50,7 +56,7 @@ export type UserContextProps = {
 
 export type ActionProps = {
   id: number;
-  userRol: string;
+  userRol?: string;
 };
 
 export interface UpdateUserData {
@@ -60,4 +66,12 @@ export interface UpdateUserData {
   password: string;
   status: number;
   rol: number;
+}
+export interface RenderOptionsProps {
+  data: {
+    option: OptionMenu[];
+    basePath: string;
+    rolMapper: Record<number, keyof LeftSideMenuOption>;
+    activeRol: keyof LeftSideMenuOption;
+  };
 }

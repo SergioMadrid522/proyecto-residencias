@@ -23,6 +23,7 @@ export type StatsOverview = {
   icon: () => ReactNode;
   iconViewbox: string;
   title: string;
+  color: string;
   stats: number;
 };
 
@@ -41,7 +42,7 @@ export type Ticket = {
 export interface OptionMenu {
   label: string;
   link: string;
-  icon: () => ReactNode;
+  icon: string;
   viewbox: string;
 }
 

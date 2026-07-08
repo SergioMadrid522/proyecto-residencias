@@ -38,7 +38,7 @@ export default function CreateTicketForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center w-[80%] h-full gap-5 m-auto p-4 bg-white"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-5"
     >
       <FormField>
         <div className="text-[15px]">Titulo del ticket</div>
@@ -46,7 +46,21 @@ export default function CreateTicketForm({
           type="text"
           value={titulo || ""}
           onChange={(e) => setTitulo(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -57,7 +71,21 @@ export default function CreateTicketForm({
           rows={5}
           cols={20}
           onChange={(e) => setDescripcion(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         ></textarea>
       </FormField>
 
@@ -70,7 +98,21 @@ export default function CreateTicketForm({
           rows={5}
           cols={20}
           onChange={(e) => setPasosReproducir(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         ></textarea>
       </FormField>
 
@@ -82,7 +124,21 @@ export default function CreateTicketForm({
             const value = Number(e.target.value);
             setProyectoId(value);
           }}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona un proyecto</option>
           {projects.map(({ id, nombreProyecto }) => (
@@ -98,7 +154,21 @@ export default function CreateTicketForm({
         <select
           value={estado || ""}
           onChange={(e) => setEstado(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona el estado</option>
           {isDev ? (
@@ -133,7 +203,21 @@ export default function CreateTicketForm({
         <select
           value={prioridad || ""}
           onChange={(e) => setPrioridad(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona la prioridad</option>
           <option value="BAJA">Baja</option>
@@ -155,7 +239,21 @@ export default function CreateTicketForm({
               | "CRITICA";
             setSeveridadIa(value);
           }}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona la severidad</option>
           <option value="BAJA">Baja</option>
@@ -170,7 +268,21 @@ export default function CreateTicketForm({
         <select
           value={modulo || ""}
           onChange={(e) => setModulo(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona un módulo</option>
           <option value="FRONTEND">Frontend</option>
@@ -189,7 +301,21 @@ export default function CreateTicketForm({
             const value = Number(e.target.value);
             setUsuarioAsignadoId(value);
           }}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Selecciona un usuario</option>
           {user.map(({ id, nombre }) => (

@@ -12,7 +12,7 @@ export function useEliminateUser() {
       const deleteConfirmation = await deleteAlert();
 
       if (!deleteConfirmation) {
-        toast.error("Se ha cancelado la creación de usuario");
+        toast.error("Se ha cancelado la eliminación del usuario");
         return;
       }
 
