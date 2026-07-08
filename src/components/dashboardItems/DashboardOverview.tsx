@@ -17,7 +17,9 @@ export default function DashboardOverview() {
             </svg>
             <p className="text-xl">{title}</p>
           </div>
-          <p className="text-lg">{stats}</p>
+          <p className="text-lg">
+            {title.toLowerCase() === "mttr promedio" ? `${stats} h` : stats}
+          </p>
         </div>
       ))}
     </div>

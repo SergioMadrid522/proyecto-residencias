@@ -1,5 +1,12 @@
 import type { LeftSideMenuOption, OptionMenu, StatsOverview } from "@/types";
 import { GLOBAL } from "./icons.data";
+import {
+  getOpenTickets,
+  getReviewTickets,
+  getCriticalTickets,
+  getMTTR,
+  getPieChartData,
+} from "./rechartsData/getDashboardData";
 
 export const leftSideMenuOptions: LeftSideMenuOption = {
   admin: <OptionMenu[]>[
@@ -63,31 +70,35 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
     },
   ],
 };
+const openTicketsCount = await getOpenTickets();
+const rewiewTicketCount = await getReviewTickets();
+const criticalTicketCount = await getCriticalTickets();
+const mttr = await getMTTR();
 
 export const statsOverview: StatsOverview[] = [
   {
     icon: GLOBAL.reportsIcon,
     iconViewbox: "0 0 640 640",
     title: "Tickets Abiertos",
-    stats: 23,
+    stats: openTicketsCount,
   },
   {
     icon: GLOBAL.sandClockIcon,
     iconViewbox: "0 0 16 16",
     title: "Tickets En Revisión",
-    stats: 12,
+    stats: rewiewTicketCount,
   },
   {
     icon: GLOBAL.fireIcon,
     iconViewbox: "0 0 16 16",
-    title: "Tickets En Estado Crítico",
-    stats: 5,
+    title: "Tickets con prioridad Crítica",
+    stats: criticalTicketCount,
   },
   {
     icon: GLOBAL.clockIcon,
     iconViewbox: "0 0 16 16",
     title: "MTTR Promedio",
-    stats: 3.5,
+    stats: mttr,
   },
 ];
 
@@ -121,3 +132,5 @@ export const recentTickets = [
     link: "/user/admin/ticket/ticket",
   },
 ];
+
+export const pieChartData = await getPieChartData();

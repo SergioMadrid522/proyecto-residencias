@@ -4,8 +4,9 @@ import { useOpenModal } from "@/context/ModalContext";
 import EditTicketForm from "./EditTicketForm";
 import { EditTicketModal } from "@/types";
 
-export default function EditTicket({ user, rol }: EditTicketModal) {
+export default function EditTicket({ user, rol, projects }: EditTicketModal) {
   const { modal, setModal } = useOpenModal();
+
   const isOpen = modal?.type === "edit-ticket";
   const { crossIcon: Icon } = GLOBAL;
 
@@ -36,7 +37,7 @@ export default function EditTicket({ user, rol }: EditTicketModal) {
           </button>
         </div>
 
-        <EditTicketForm user={user} rol={rol} />
+        <EditTicketForm user={user} rol={rol} projects={projects} />
       </div>
     </>
   );

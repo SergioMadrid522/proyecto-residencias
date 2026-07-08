@@ -14,10 +14,9 @@ export function useCreateTicket() {
   const [usuarioAsignadoId, setUsuarioAsignadoId] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const apiURL = process.env.NEXT_PUBLIC_CREATE_TICKET_API_URL;
+  const apiURL = process.env.NEXT_PUBLIC_TICKET_API_URL;
 
-  if (!apiURL)
-    throw new Error("NEXT_PUBLIC_CREATE_TICKET_API_URL no está definida");
+  if (!apiURL) throw new Error("NEXT_PUBLIC_TICKET_API_URL no está definida");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

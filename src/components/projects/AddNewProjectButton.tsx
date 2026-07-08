@@ -7,9 +7,13 @@ export default function AddNewProjectButton({
   activeRol: string;
 }) {
   const { setModal } = useOpenModal();
+  const exportApiUrl = process.env.NEXT_PUBLIC_EXPORT_PROJECTS_API_URL;
+
+  if (!exportApiUrl)
+    throw new Error("NEXT_PUBLIC_EXPORT_PROJECTS_API_URL no esta definida");
 
   const triggerDownloadExcelFile = () => {
-    window.location.href = "";
+    window.location.href = exportApiUrl;
   };
 
   return (

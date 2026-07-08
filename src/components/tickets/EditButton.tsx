@@ -5,7 +5,12 @@ import { getUsers } from "@/utils/getFunctions";
 import EditTicket from "./editTicketModal/EditTicket";
 import { EditButtonProps } from "@/types";
 
-export default function EditButton({ id, user, rol }: EditButtonProps) {
+export default function EditButton({
+  id,
+  user,
+  rol,
+  projects,
+}: EditButtonProps) {
   const { setModal } = useOpenModal();
 
   return (
@@ -19,7 +24,7 @@ export default function EditButton({ id, user, rol }: EditButtonProps) {
         Editar Ticket
       </button>
 
-      <EditTicket user={user} rol={rol} />
+      <EditTicket user={user} rol={rol} projects={projects} />
     </>
   );
 }

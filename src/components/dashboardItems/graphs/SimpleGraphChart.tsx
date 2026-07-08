@@ -10,17 +10,16 @@ import {
   Legend,
 } from "recharts";
 
-// Datos de prueba basados en tu imagen
-const data = [
-  { name: "Marzo", criticos: 45, medios: 20, leves: 10 },
-  { name: "Marzo", criticos: 40, medios: 30, leves: 20 },
-  { name: "Abril", criticos: 65, medios: 45, leves: 35 },
-  { name: "Mayo", criticos: 35, medios: 30, leves: 25 },
-  { name: "Junio", criticos: 25, medios: 65, leves: 55 },
-  { name: "Julio", criticos: 28, medios: 70, leves: 40 },
-];
-
-export default function TendenciaErroresChart() {
+export default function TendenciaErroresChart({
+  data,
+}: {
+  data: {
+    name: string;
+    criticos: number;
+    medios: number;
+    leves: number;
+  }[];
+}) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart

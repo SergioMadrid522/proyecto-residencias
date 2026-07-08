@@ -6,9 +6,10 @@ export function useEliminateProject() {
   const [loadingEliminate, setLoadingEliminate] = useState(false);
 
   const handleEliminateSubmit = async (id: number) => {
-    const apiURL = process.env.NEXT_PUBLIC_PROJECT_API_URL;
+    const apiURL = process.env.NEXT_PUBLIC_DELETE_PROJECT_API_URL;
+
     if (!apiURL)
-      throw new Error("NEXT_PUBLIC_PROJECT_API_URL no está definida");
+      throw new Error("NEXT_PUBLIC_DELETE_PROJECT_API_URL no está definida");
 
     try {
       const deleteConfirmation = await deleteAlert();

@@ -6,19 +6,15 @@ import getSession from "@/helpers/getSession";
 
 export function useEditTicket() {
   const { modal } = useOpenModal();
-  const getTicketByIdApiURL = process.env.NEXT_PUBLIC_GET_TICKET_BY_ID_API_URL;
-  const editTicketApiUrl = process.env.NEXT_PUBLIC_EDIT_TICKET_API_URL;
+  const apiURL = process.env.NEXT_PUBLIC_TICKET_API_URL;
 
-  if (!getTicketByIdApiURL)
-    throw new Error("NEXT_PUBLIC_GET_TICKET_BY_ID_API_URL no está definida");
-  if (!editTicketApiUrl)
-    throw new Error("NEXT_PUBLIC_EDIT_TICKET_API_URL no está definida");
+  if (!apiURL) throw new Error("NEXT_PUBLIC_TICKET_API_URL no está definida");
 
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [pasosReproducir, setPasosReproducir] = useState("");
   const [modulo, setModulo] = useState("");
-  const [estado, setEstado] = useState("");
+  const [estado, setEstado] = useState<string>("");
   const [prioridad, setPrioridad] = useState("");
   const [severidadIa, setSeveridadIa] = useState("");
   const [proyectoId, setProyectoId] = useState(0);
@@ -28,14 +24,13 @@ export function useEditTicket() {
   const [isFetching, setIsFetching] = useState(false);
 
   const isEditModal = modal?.type === "edit-ticket";
-  console.log("isEditModal, ", isEditModal);
   const ticketId = isEditModal ? modal.ticket.id : null;
 
   useEffect(() => {
     if (!isEditModal || ticketId === null) return;
     setIsFetching(true);
 
-    fetch(`${getTicketByIdApiURL}/${ticketId}`)
+    fetch(`${apiURL}/${ticketId}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("No se pudo obtener el ticket");
@@ -52,11 +47,11 @@ export function useEditTicket() {
         setDescripcion(data.ticket.descripcion || "");
         setPasosReproducir(data.ticket.pasosReproducir || "");
         setModulo(data.ticket.modulo || "");
-        setEstado(lastStatus || "");
+        setEstado(lastStatus || data.ticket.estado || "");
         setPrioridad(data.ticket.prioridad || "");
         setSeveridadIa(data.ticket.severidadIa || "");
         setProyectoId(data.ticket.proyectoId || 0);
-        setUsuarioAsignadoId(userAsiged || 0);
+        setUsuarioAsignadoId(data.ticket.usuarioAsignadoId || userAsiged);
       })
       .catch((error) => {
         if (error instanceof Error) {
@@ -95,7 +90,7 @@ export function useEditTicket() {
     try {
       setLoadingEdit(true);
 
-      const res = await fetch(editTicketApiUrl, {
+      const res = await fetch(apiURL, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

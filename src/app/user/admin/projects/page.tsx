@@ -19,7 +19,7 @@ export default async function Projects() {
         <thead>
           <tr className="border">
             <th className="border p-2">ID</th>
-            <th className="border p-2">Titulo</th>
+            <th className="border p-2">Nombre del Proyecto</th>
             <th className="border p-2"></th>
           </tr>
         </thead>

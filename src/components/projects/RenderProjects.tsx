@@ -5,10 +5,10 @@ import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import ActionButtons from "./ActionsButtons";
 
 export default async function RenderProjects() {
-  const { projects, error } = await getProjects();
+  const { projects } = await getProjects();
 
   if (!projects) {
-    return <p>{error}</p>;
+    return <p>No hay proyectos para mostrar</p>;
   }
 
   return (

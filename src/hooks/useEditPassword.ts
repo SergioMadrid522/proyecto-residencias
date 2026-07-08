@@ -6,9 +6,9 @@ export function useEditPassword(userId: number) {
   const [newPassword, setNewPassword] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const apiURL = process.env.NEXT_PUBLIC_EDIT_USER_API_URL;
+  const apiURL = process.env.NEXT_PUBLIC_USERS_API_URL;
   if (!apiURL)
-    throw new Error("NEXT_PUBLIC_EDIT_USER_API_URL no está definida");
+    throw new Error("NEXT_PUBLIC_USERS_API_URL no está definida");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

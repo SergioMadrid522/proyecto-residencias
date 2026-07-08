@@ -3,11 +3,13 @@ import CreateTicket from "@/components/tickets/createTicketModal/CreateTicket";
 import EditTicket from "@/components/tickets/editTicketModal/EditTicket";
 import RenderTickets from "@/components/tickets/RenderTickets";
 import { useRolMapper } from "@/hooks/useRolMapper";
-import { getUsers } from "@/utils/getFunctions";
+import { getProjects, getUsers } from "@/utils/getFunctions";
 
 export default async function Tickets() {
   const { user } = await getUsers();
   const { activeRol } = await useRolMapper();
+  const { projects } = await getProjects();
+
   return (
     <>
       <div className="flex justify-end my-4">
@@ -30,8 +32,8 @@ export default async function Tickets() {
         <RenderTickets />
       </table>
 
-      <CreateTicket user={user} />
-      <EditTicket user={user} rol={activeRol} />
+      <CreateTicket user={user} projects={projects} rol={activeRol} />
+      <EditTicket user={user} rol={activeRol} projects={projects} />
     </>
   );
 }

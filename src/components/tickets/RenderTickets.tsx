@@ -44,11 +44,13 @@ export default async function RenderTickets() {
                 {capitalizeFirstLetter(usuarioAsignado.nombre)}
               </td>
               <td className="border-r p-2 text-center">
-                {fechaCreacion.toDateString()}, {fechaCreacion.getHours()}:
-                {fechaCreacion.getMinutes()}
+                {new Intl.DateTimeFormat("es-MX", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                }).format(fechaCreacion)}
               </td>
               <td>
-                <ActionButtons id={id} />
+                <ActionButtons id={id} userRol={rolText} />
               </td>
             </tr>
           </tbody>

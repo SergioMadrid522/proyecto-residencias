@@ -3,9 +3,13 @@
 import { GLOBAL } from "@/icons.data";
 import CreateTicketForm from "./CreateTicketForm";
 import { useOpenModal } from "@/context/ModalContext";
-import type { Username } from "@/types";
+import type { CreateTicketProps } from "@/types";
 
-export default function CreateTicket({ user }: Username) {
+export default function CreateTicket({
+  user,
+  rol,
+  projects,
+}: CreateTicketProps) {
   const { modal, setModal } = useOpenModal();
   const isOpen = modal?.type === "create-ticket";
   const { crossIcon: Icon } = GLOBAL;
@@ -40,7 +44,7 @@ export default function CreateTicket({ user }: Username) {
         <div>
           <h2 className="p-4">Crear Ticket</h2>
 
-          <CreateTicketForm user={user} />
+          <CreateTicketForm user={user} rol={rol} projects={projects} />
         </div>
       </div>
     </>

@@ -14,13 +14,9 @@ export function useEditUser() {
   const [status, setStatus] = useState<number>(0);
   const [rol, setRol] = useState(0);
 
-  const getUserApiURL = process.env.NEXT_PUBLIC_GET_USER_BY_ID_API_URL;
-  const editUserApiURL = process.env.NEXT_PUBLIC_EDIT_USER_API_URL;
+  const apiURL = process.env.NEXT_PUBLIC_USERS_API_URL;
 
-  if (!getUserApiURL)
-    throw new Error("NEXT_PUBLIC_GET_USER_BY_ID_API_URL no está definida");
-  if (!editUserApiURL)
-    throw new Error("NEXT_PUBLIC_EDIT_USER_API_URL no está definida");
+  if (!apiURL) throw new Error("NEXT_PUBLIC_USERS_API_URL no está definida");
 
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -29,11 +25,9 @@ export function useEditUser() {
     if (modal?.type === "edit-user") {
       setIsFetching(true);
 
-      fetch(`${getUserApiURL}/${id}`)
+      fetch(`${apiURL}/${id}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-
           setNombre(data[0].nombre || "");
           setEmail(data[0].email || "");
           setRol(data[0].rolId || 0);
@@ -66,7 +60,7 @@ export function useEditUser() {
     try {
       setLoadingEdit(true);
 
-      const res = await fetch(editUserApiURL, {
+      const res = await fetch(apiURL, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, nombre, email, password, status, rol }),

@@ -52,24 +52,6 @@ export async function POST(request: Request) {
   }
 }
 
-export async function DELETE(request: Request) {
-  try {
-    const body = await request.json();
-    const ticket = await getTicketById(body.id);
-
-    await prisma.ticket.delete({
-      where: { id: ticket.id },
-    });
-
-    return NextResponse.json({ status: 200 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Error del servidor", error },
-      { status: 500 },
-    );
-  }
-}
-
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
@@ -92,6 +74,7 @@ export async function PUT(request: Request) {
           titulo: body.titulo,
           descripcion: body.descripcion,
           estado: body.estado,
+          proyectoId: body.proyectoId,
           prioridad: body.prioridad,
           usuarioReportaId: body.usuarioReporta,
         },

@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { findTicketById } from "@/services/ticket.service";
 import { findUserById } from "@/services/user.service";
 import { GetTicketResponse, GetUserResponse } from "@/types";
+import { formatDistanceToNow } from "date-fns";
+import { es } from "date-fns/locale";
 
 export async function getUserById(id: number): Promise<GetUserResponse> {
   try {
@@ -53,6 +55,7 @@ export async function getUsers(): Promise<GetUserResponse> {
 export async function getTickets() {
   try {
     const tickets = await prisma.ticket.findMany({
+      where: { activo: true },
       select: {
         id: true,
         titulo: true,
@@ -109,11 +112,8 @@ export async function getProjects() {
       success: true,
       projects,
     };
-  } catch (error) {
-    return {
-      success: false,
-      error: "Error al obtener los datos.",
-    };
+  } catch {
+    throw Error("Error al obtener los usuarios.");
   }
 }
 
@@ -216,6 +216,25 @@ export function getRolText(rolId: number): string {
   };
   return rolText[rolId] ?? "unknown";
 }
+
+export function severityStyles(severidad: string): string {
+  const severityColor: Record<string, string> = {
+    CRITICA: "text-red-500",
+    ALTA: "text-red-500",
+    MEDIA: "text-[#3b82f6]",
+    BAJA: "text-green-800",
+  };
+  return severityColor[severidad] ?? "text-black-500";
+}
+
+export function getTimeToCurrentDate(fechaCambio: Date) {
+  const time = formatDistanceToNow(new Date(fechaCambio), {
+    addSuffix: true,
+    locale: es,
+  });
+  return time;
+}
+
 export function getStatusBoolean(status: number): boolean {
   const statusBoolean: Record<number, boolean> = {
     0: true,

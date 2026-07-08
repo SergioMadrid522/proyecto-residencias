@@ -55,10 +55,12 @@ export async function GET() {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
     const buffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
 
+    const filename = "Reporte_Tickets.xlsx";
+
     return new Response(buffer, {
       status: 200,
       headers: {
-        "Content-Disposition": 'attachment; filename="server_report.xlsx"',
+        "Content-Disposition": `attachment; filename=${filename}`,
         "Content-Type":
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       },

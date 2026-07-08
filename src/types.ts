@@ -7,10 +7,16 @@ interface User {
   id: number;
   nombre: string;
 }
-export interface Username {
-  user: User[];
+interface Projects {
+  id: number;
+  nombreProyecto: string;
 }
-type Severidad = "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
+export interface CreateTicketProps {
+  user: User[];
+  rol: string;
+  projects: Projects[];
+}
+export type Severidad = "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
 
 export type StatsOverview = {
   icon: () => ReactNode;
@@ -57,6 +63,7 @@ export interface GetTicket {
 export interface EditTicketModal {
   user: User[];
   rol: string;
+  projects: Projects[];
 }
 
 export interface GetUserResponse {
@@ -74,6 +81,7 @@ export interface EditButtonProps {
   id: number;
   user: User[];
   rol: string;
+  projects: Projects[];
 }
 export interface GetTicketResponse {
   success: boolean;

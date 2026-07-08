@@ -1,4 +1,5 @@
 import {
+  getProjects,
   getTicket,
   getTicketLevel,
   getTicketModule,
@@ -16,6 +17,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
   const data = await getTicket(ticketId);
   const { user } = await getUsers();
   const { activeRol } = await useRolMapper();
+  const { projects } = await getProjects();
   const { ticket, error } = data;
 
   if (!ticket) {
@@ -23,8 +25,6 @@ export default async function TicketPageContent({ id }: { id: string }) {
   }
 
   const timeline = await ticketTimeline(ticketId);
-  const lastUser = timeline.map(({ usuario }) => usuario);
-  const userAsigned = lastUser[0].nombre;
   return (
     <div className="grid grid-cols-3 w-full">
       <div className="col-span-2 p-6">
@@ -80,8 +80,10 @@ export default async function TicketPageContent({ id }: { id: string }) {
                       {getTicketLevel(ticket.prioridad!)}
                     </td>
                     <td className="border-r p-2">
-                      {fechaCambio.toDateString()}, {fechaCambio.getHours()}:
-                      {String(fechaCambio.getMinutes()).padStart(2, "0")}
+                      {new Intl.DateTimeFormat("es-MX", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      }).format(fechaCambio)}
                     </td>
                   </tr>
                 ),
@@ -92,7 +94,12 @@ export default async function TicketPageContent({ id }: { id: string }) {
       </div>
 
       <div className="flex flex-col gap-6 p-17 h-fit mx-auto">
-        <EditButton id={ticketId} user={user} rol={activeRol} />
+        <EditButton
+          id={ticketId}
+          user={user}
+          rol={activeRol}
+          projects={projects}
+        />
 
         <PropertiesPanel.Property>
           <PropertiesPanel.Key>Proyecto:</PropertiesPanel.Key>
@@ -130,8 +137,10 @@ export default async function TicketPageContent({ id }: { id: string }) {
         </PropertiesPanel.Property>
 
         <PropertiesPanel.Property>
-          <PropertiesPanel.Key>Asignado a:</PropertiesPanel.Key>
-          <PropertiesPanel.Value>{userAsigned}</PropertiesPanel.Value>
+          <PropertiesPanel.Key>Responsable:</PropertiesPanel.Key>
+          <PropertiesPanel.Value>
+            {ticket.usuarioAsignado.nombre}
+          </PropertiesPanel.Value>
         </PropertiesPanel.Property>
       </div>
     </div>

@@ -1,9 +1,15 @@
 import { FormField } from "@/components/form/FormField";
 import { useCreateTicket } from "@/hooks/useCreateTicket";
 import { GLOBAL } from "@/icons.data";
-import { Username } from "@/types";
+import { CreateTicketProps } from "@/types";
 
-export default function CreateTicketForm({ user }: Username) {
+export default function CreateTicketForm({
+  user,
+  rol,
+  projects,
+}: CreateTicketProps) {
+  const isDev = rol === "dev";
+  const isTester = rol === "tester";
   const {
     titulo,
     setTitulo,
@@ -79,7 +85,11 @@ export default function CreateTicketForm({ user }: Username) {
           className="outline-1 rounded-sm px-2 py-1"
         >
           <option value="">Seleciona un proyecto</option>
-          <option value="1">proyecto 1</option>
+          {projects.map(({ id, nombreProyecto }) => (
+            <option key={id} value={id}>
+              {nombreProyecto}
+            </option>
+          ))}
         </select>
       </FormField>
 
@@ -91,14 +101,30 @@ export default function CreateTicketForm({ user }: Username) {
           className="outline-1 rounded-sm px-2 py-1"
         >
           <option value="">Seleciona el estado</option>
-          <option value="PENDIENTE">Pendiente</option>
-          <option value="EN_REVISION">En revisón</option>
-          <option value="ASIGNADO">Asignado</option>
-          <option value="EN_CORRECCION">En Corrección</option>
-          <option value="EN_PRUEBAS">En Pruebas</option>
-          <option value="REABIERTO">Reabierto</option>
-          <option value="CERRADO">Cerrado</option>
-          <option value="CANCELADO">Cancelado</option>
+          {isDev ? (
+            <>
+              <option value="EN_REVISION">En revisón</option>
+              <option value="ASIGNADO">Asignado</option>
+            </>
+          ) : isTester ? (
+            <>
+              <option value="EN_PRUEBAS">En Pruebas</option>
+              <option value="EN_CORRECCION">En Corrección</option>
+              <option value="CERRADO">Cerrado</option>
+              <option value="REABIERTO">Reabierto</option>
+            </>
+          ) : (
+            <>
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="EN_REVISION">En revisón</option>
+              <option value="ASIGNADO">Asignado</option>
+              <option value="EN_CORRECCION">En Corrección</option>
+              <option value="EN_PRUEBAS">En Pruebas</option>
+              <option value="REABIERTO">Reabierto</option>
+              <option value="CERRADO">Cerrado</option>
+              <option value="CANCELADO">Cancelado</option>
+            </>
+          )}
         </select>
       </FormField>
 

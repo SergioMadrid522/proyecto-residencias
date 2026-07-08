@@ -4,7 +4,11 @@ import { useEditTicket } from "@/hooks/useEditTicket";
 import { GLOBAL } from "@/icons.data";
 import type { EditTicketModal } from "@/types";
 
-export default function EditTicketForm({ user, rol }: EditTicketModal) {
+export default function EditTicketForm({
+  user,
+  rol,
+  projects,
+}: EditTicketModal) {
   const isDev = rol === "dev";
   const isTester = rol === "tester";
   const { circleSpin } = GLOBAL;
@@ -55,7 +59,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
             type="text"
             value={titulo || ""}
             onChange={(e) => setTitulo(e.target.value)}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev}
           />
         </FormField>
 
@@ -66,7 +71,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
             cols={20}
             value={descripcion || ""}
             onChange={(e) => setDescripcion(e.target.value)}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev}
           ></textarea>
         </FormField>
 
@@ -79,7 +85,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
             cols={20}
             value={pasosReproducir || ""}
             onChange={(e) => setPasosReproducir(e.target.value)}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev}
           ></textarea>
         </FormField>
 
@@ -89,12 +96,18 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
             value={proyectoId || ""}
             onChange={(e) => {
               const value = Number(e.target.value);
+              console.log(value);
               setProyectoId(value);
             }}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev || isTester ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev || isTester}
           >
             <option value="">Seleciona un proyecto</option>
-            <option value="1">proyecto 1</option>
+            {projects.map(({ id, nombreProyecto }) => (
+              <option key={id} value={id}>
+                {nombreProyecto}
+              </option>
+            ))}
           </select>
         </FormField>
 
@@ -102,34 +115,36 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
           <div className="text-[15px]">Estado</div>
           <select
             value={estado || ""}
-            onChange={(e) => setEstado(e.target.value)}
+            onChange={(e) => {
+              setEstado(e.target.value);
+            }}
             className="outline-1 rounded-sm px-2 py-1"
           >
-            <option value="">Seleciona el estado</option>
-            {isDev ? (
-              <>
-                <option value="EN_REVISION">En revisón</option>
-                <option value="ASIGNADO">Asignado</option>
-              </>
-            ) : isTester ? (
-              <>
-                <option value="EN_PRUEBAS">En Pruebas</option>
-                <option value="EN_CORRECCION">En Corrección</option>
-                <option value="CERRADO">Cerrado</option>
-                <option value="REABIERTO">Reabierto</option>
-              </>
-            ) : (
-              <>
-                <option value="PENDIENTE">Pendiente</option>
-                <option value="EN_REVISION">En revisón</option>
-                <option value="ASIGNADO">Asignado</option>
-                <option value="EN_CORRECCION">En Corrección</option>
-                <option value="EN_PRUEBAS">En Pruebas</option>
-                <option value="REABIERTO">Reabierto</option>
-                <option value="CERRADO">Cerrado</option>
-                <option value="CANCELADO">Cancelado</option>
-              </>
-            )}
+            <option value="">Selecciona el estado</option>
+            <option value="PENDIENTE" disabled={isDev || isTester}>
+              Pendiente
+            </option>
+            <option value="EN_REVISION" disabled={isTester}>
+              En revisión
+            </option>
+            <option value="ASIGNADO" disabled={isTester}>
+              Asignado
+            </option>
+            <option value="EN_CORRECCION" disabled={isDev}>
+              En Corrección
+            </option>
+            <option value="EN_PRUEBAS" disabled={isDev}>
+              En Pruebas
+            </option>
+            <option value="REABIERTO" disabled={isDev}>
+              Reabierto
+            </option>
+            <option value="CERRADO" disabled={isDev}>
+              Cerrado
+            </option>
+            <option value="CANCELADO" disabled={isDev || isTester}>
+              Cancelado
+            </option>
           </select>
         </FormField>
 
@@ -138,7 +153,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
           <select
             value={prioridad || ""}
             onChange={(e) => setPrioridad(e.target.value)}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev}
           >
             <option value="">Seleciona la prioridad</option>
             <option value="BAJA">Baja</option>
@@ -153,7 +169,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
           <select
             value={severidadIa || ""}
             onChange={(e) => setSeveridadIa(e.target.value)}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev}
           >
             <option value="">Seleciona la severidad</option>
             <option value="BAJA">Baja</option>
@@ -168,7 +185,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
           <select
             value={modulo || ""}
             onChange={(e) => setModulo(e.target.value)}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev}
           >
             <option value="">Seleciona un módulo</option>
             <option value="FRONTEND">Frontend</option>
@@ -187,7 +205,8 @@ export default function EditTicketForm({ user, rol }: EditTicketModal) {
               const value = Number(e.target.value);
               setUsuarioAsignadoId(value);
             }}
-            className="outline-1 rounded-sm px-2 py-1"
+            className={`${isDev || isTester ? "bg-gray-500/30 outline-1 rounded-sm px-2 py-1" : "outline-1 rounded-sm px-2 py-1}"}`}
+            disabled={isDev || isTester}
           >
             <option value="">Selecciona un usuario</option>
             {user.map(({ id, nombre }) => (

@@ -38,7 +38,6 @@ export function useCreateProject() {
       });
 
       const data = await res.json();
-      console.log(data);
       if (!res.ok) {
         toast.error(data.error || "Error al crear el proyecto");
         return;

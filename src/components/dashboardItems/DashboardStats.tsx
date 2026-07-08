@@ -7,16 +7,27 @@ import { StatsCard } from "./StatsCard";
 import { StatsTitle } from "./StatsTitle";
 import RecentTickets from "./graphs/RecentTickets";
 import { GLOBAL } from "@/icons.data";
+import {
+  getErrorTrend,
+  getPieChartData,
+  getReopenPercentage,
+  getUnstableModules,
+} from "@/rechartsData/getDashboardData";
 
-export default function DashboardStats() {
+export default async function DashboardStats() {
   const { chevronRight: Icon } = GLOBAL;
+  const pieChartData = await getPieChartData();
+  const reopenPercentage = await getReopenPercentage();
+  const simpleGraphData = await getErrorTrend();
+  const simpleBarGraphData = await getUnstableModules();
+
   return (
     <section className="grid grid-cols-2 gap-6 p-6">
       <StatsCard>
         <StatsTitle>Tasa de Reapertura de tickets</StatsTitle>
 
         <ChartContainer>
-          <PieGraph />
+          <PieGraph data={pieChartData} percentage={reopenPercentage} />
 
           <div className="flex flex-col gap-5 text-lg px-4">
             <div className="flex items-center gap-2">
@@ -35,7 +46,7 @@ export default function DashboardStats() {
         <StatsTitle>Tendencia de Errores</StatsTitle>
 
         <ChartContainer>
-          <SimpleGraphChart />
+          <SimpleGraphChart data={simpleGraphData} />
         </ChartContainer>
       </StatsCard>
 
@@ -68,7 +79,7 @@ export default function DashboardStats() {
         <StatsTitle>Módulos más inestables</StatsTitle>
 
         <ChartContainer>
-          <SimpleBarGraph />
+          <SimpleBarGraph data={simpleBarGraphData} />
         </ChartContainer>
       </StatsCard>
     </section>

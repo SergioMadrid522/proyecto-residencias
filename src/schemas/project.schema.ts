@@ -44,12 +44,16 @@ export const createTicketSchema = z
     titulo: z.string({ message: "Tiene que ser texto." }).trim().max(200),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(1000),
     pasosReproducir: z.string().trim().max(1000),
-    modulo: z.nativeEnum(Modulo),
-    prioridad: z.nativeEnum(Prioridad),
-    estado: z.nativeEnum(Estado),
-    severidadIa: z.enum(["BAJA", "MEDIA", "ALTA", "CRITICA"]), //será manual primero,
-    proyectoId: z.int(),
-    usuarioAsignadoId: z.int(),
+    modulo: z.nativeEnum(Modulo, { message: "Selecciona una modulo valido" }),
+    prioridad: z.nativeEnum(Prioridad, {
+      message: "Selecciona una prioridad valida",
+    }),
+    estado: z.nativeEnum(Estado, { message: "Selecciona un estado valido" }),
+    severidadIa: z.enum(["BAJA", "MEDIA", "ALTA", "CRITICA"], {
+      message: "Selecciona una severidad valida",
+    }), //será manual primero,
+    proyectoId: z.int({ message: "Selecciona un proyecto" }),
+    usuarioAsignadoId: z.int({ message: "Selecciona un usuario" }),
   })
   .superRefine((data, ctx) => {
     const { titulo, descripcion, pasosReproducir } = data;

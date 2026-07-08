@@ -50,6 +50,7 @@ export type UserContextProps = {
 
 export type ActionProps = {
   id: number;
+  userRol: string;
 };
 
 export interface UpdateUserData {

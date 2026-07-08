@@ -85,7 +85,7 @@ model Ticket {
   prioridad             Prioridad           @default(BAJA)
   estado                Estado              @default(PENDIENTE)
   severidadIa           String?             @map("severidad_ia")
-
+  activo                Boolean             @default(true)
   proyectoId            Int                 @map("id_proyecto")
   usuarioReportaId      Int?                @map("id_usuario_reporta")
   usuarioAsignadoId     Int                 @map("id_usuario_asignado")

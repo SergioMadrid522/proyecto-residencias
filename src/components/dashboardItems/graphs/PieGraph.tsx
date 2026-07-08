@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Pie,
   PieChart,
@@ -6,11 +7,6 @@ import {
   Sector,
   ResponsiveContainer,
 } from "recharts";
-
-const data = [
-  { name: "Reabiertos", value: 20 },
-  { name: "Cerrados", value: 40 },
-];
 
 const COLORS = ["#ef4444", "#3b82f6"];
 
@@ -27,8 +23,15 @@ const MyCustomPie = (props: PieSectorShapeProps) => {
 
 export default function PieGraph({
   isAnimationActive = true,
+  data,
+  percentage,
 }: {
   isAnimationActive?: boolean;
+  data: {
+    name: string;
+    value: number;
+  }[];
+  percentage: number;
 }) {
   return (
     <div className="relative w-56 h-56 flex items-center justify-center">
@@ -52,7 +55,9 @@ export default function PieGraph({
 
       <div className="absolute flex flex-col items-center justify-center pointer-events-none">
         <span className="text-sm font-bold text-gray-700">Reabiertos</span>
-        <span className="text-3xl font-extrabold text-gray-900">12%</span>
+        <span className="text-3xl font-extrabold text-gray-900">
+          {percentage}%
+        </span>
       </div>
     </div>
   );
