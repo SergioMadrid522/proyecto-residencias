@@ -147,7 +147,14 @@ export default function CreateTicketForm({
         <div className="text-[15px]">Severidad</div>
         <select
           value={severidadIa || ""}
-          onChange={(e) => setSeveridadIa(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value as
+              | "BAJA"
+              | "MEDIA"
+              | "ALTA"
+              | "CRITICA";
+            setSeveridadIa(value);
+          }}
           className="outline-1 rounded-sm px-2 py-1"
         >
           <option value="">Seleciona la severidad</option>

@@ -9,7 +9,9 @@ export function useCreateTicket() {
   const [modulo, setModulo] = useState("");
   const [estado, setEstado] = useState("");
   const [prioridad, setPrioridad] = useState("");
-  const [severidadIa, setSeveridadIa] = useState("");
+  const [severidadIa, setSeveridadIa] = useState<
+    "BAJA" | "MEDIA" | "ALTA" | "CRITICA" | undefined
+  >(undefined);
   const [proyectoId, setProyectoId] = useState(0);
   const [usuarioAsignadoId, setUsuarioAsignadoId] = useState(0);
   const [loading, setLoading] = useState(false);

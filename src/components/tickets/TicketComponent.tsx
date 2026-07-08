@@ -19,6 +19,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
   const { activeRol } = await useRolMapper();
   const { projects } = await getProjects();
   const { ticket, error } = data;
+  const isAPI = ticket?.modulo === "API";
 
   if (!ticket) {
     return <p>{error}</p>;
@@ -41,8 +42,8 @@ export default async function TicketPageContent({ id }: { id: string }) {
         {ticket.pasosReproducir !== "" && (
           <div className="pb-4">
             <p>Pasos a reproducir:</p>
-            {ticket.pasosReproducir
-              .split(/(?<!\w)(?=\d+\. )/)
+            {ticket
+              .pasosReproducir!.split(/(?<!\w)(?=\d+\. )/)
               .map((paso, index) => (
                 <p key={index}>{paso.trim()}</p>
               ))}
@@ -132,7 +133,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
         <PropertiesPanel.Property>
           <PropertiesPanel.Key>Módulo:</PropertiesPanel.Key>
           <PropertiesPanel.Value>
-            {getTicketModule(ticket.modulo)}
+            {isAPI ? ticket.modulo : getTicketModule(ticket.modulo)}
           </PropertiesPanel.Value>
         </PropertiesPanel.Property>
 

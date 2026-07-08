@@ -1,5 +1,6 @@
 import { Modulo, Prioridad, Estado } from "@prisma/client";
 import { ReactNode } from "react";
+import { CreateTicket } from "./types/users.type";
 
 export type RolText = "unkown" | "Admin" | "Dev" | "Tester";
 
@@ -33,7 +34,7 @@ export type Ticket = {
   modulo: Modulo;
   prioridad: Prioridad;
   estado: Estado;
-  severidadIa: Severidad;
+  severidadIa?: Severidad;
   proyectoId: number;
   usuarioAsignadoId: number;
 };
@@ -121,3 +122,31 @@ export interface Project {
   descripcion: string;
   status: number;
 }
+
+export interface AIPrompt {
+  titulo: string | undefined;
+  descripcion: string | undefined;
+  pasosReproducir: string;
+  modulo: "FRONTEND" | "BACKEND" | "API" | "MOBILE" | "BASE_DE_DATOS";
+}
+
+export type ValidationResult =
+  | {
+      success: true;
+      output: string;
+    }
+  | {
+      success: false;
+      error: string;
+      status: number;
+    };
+
+export type CreateTicketResult =
+  | {
+      success: true;
+      data: CreateTicket;
+    }
+  | {
+      success: false;
+      errors: string;
+    };

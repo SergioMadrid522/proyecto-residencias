@@ -72,6 +72,7 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
 };
 const openTicketsCount = await getOpenTickets();
 const rewiewTicketCount = await getReviewTickets();
+export const pieChartData = await getPieChartData();
 const criticalTicketCount = await getCriticalTickets();
 const mttr = await getMTTR();
 
@@ -101,36 +102,3 @@ export const statsOverview: StatsOverview[] = [
     stats: mttr,
   },
 ];
-
-export const recentTickets = [
-  {
-    id: 1026,
-    titulo: "Error en login",
-    severidad: "Alta",
-    ultimaActualizacion: "10 min",
-    link: "/user/admin/ticket/ticket",
-  },
-  {
-    id: 10,
-    titulo: "Error en login",
-    severidad: "Media",
-    ultimaActualizacion: "10 min",
-    link: "/user/admin/ticket/ticket",
-  },
-  {
-    id: 57,
-    titulo: "Error en login",
-    severidad: "Critica",
-    ultimaActualizacion: "10 min",
-    link: "/user/admin/ticket/ticket",
-  },
-  {
-    id: 59,
-    titulo: "Error en login",
-    severidad: "Baja",
-    ultimaActualizacion: "10 min",
-    link: "/user/admin/ticket/ticket",
-  },
-];
-
-export const pieChartData = await getPieChartData();

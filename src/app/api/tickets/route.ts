@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { validatePrompt } from "@/services/ai.service";
 import { createTicket } from "@/services/ticket.service";
 
 import { getTickets, getTicketById, getTicket } from "@/utils/getFunctions";
@@ -33,9 +34,29 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: validation.errors }, { status: 400 });
     }
 
+    const prompt = {
+      titulo: validation.data?.titulo,
+      descripcion: validation.data?.descripcion,
+      pasosReproducir: validation.data?.pasosReproducir ?? "No hay alguno",
+      modulo: validation.data?.modulo,
+    };
+
+    const { severidadIa, ...ticketData } = validation.data;
+    const genAI = await validatePrompt(prompt);
+
+    if (!genAI.success) {
+      return NextResponse.json(
+        {
+          error: genAI.error,
+        },
+        { status: genAI.status },
+      );
+    }
+
     await prisma.ticket.create({
       data: {
-        ...validation.data!,
+        ...ticketData,
+        severidadIa: genAI.output,
       },
     });
 

@@ -80,7 +80,7 @@ model Ticket {
   id                    Int                 @id @default(autoincrement())
   titulo                String
   descripcion           String
-  pasosReproducir       String              @map("pasos_reproducir")
+  pasosReproducir       String?             @map("pasos_reproducir")
   modulo                Modulo
   prioridad             Prioridad           @default(BAJA)
   estado                Estado              @default(PENDIENTE)

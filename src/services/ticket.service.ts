@@ -1,13 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { createTicketSchema } from "@/schemas/project.schema";
+import { CreateTicketResult } from "@/types";
 
-export async function createTicket(data: unknown) {
+export async function createTicket(data: unknown): Promise<CreateTicketResult> {
   const result = createTicketSchema.safeParse(data);
 
   if (!result.success) {
     return {
       success: false,
-      errors: result.error.flatten().fieldErrors,
+      errors: result.error.issues[0].message,
     };
   }
 

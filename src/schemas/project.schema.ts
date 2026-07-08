@@ -43,15 +43,17 @@ export const createTicketSchema = z
   .object({
     titulo: z.string({ message: "Tiene que ser texto." }).trim().max(200),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(1000),
-    pasosReproducir: z.string().trim().max(1000),
+    pasosReproducir: z.string().trim().max(1000).optional(),
     modulo: z.nativeEnum(Modulo, { message: "Selecciona una modulo valido" }),
     prioridad: z.nativeEnum(Prioridad, {
       message: "Selecciona una prioridad valida",
     }),
     estado: z.nativeEnum(Estado, { message: "Selecciona un estado valido" }),
-    severidadIa: z.enum(["BAJA", "MEDIA", "ALTA", "CRITICA"], {
-      message: "Selecciona una severidad valida",
-    }), //será manual primero,
+    severidadIa: z
+      .enum(["BAJA", "MEDIA", "ALTA", "CRITICA"], {
+        message: "Selecciona una severidad valida",
+      })
+      .optional(),
     proyectoId: z.int({ message: "Selecciona un proyecto" }),
     usuarioAsignadoId: z.int({ message: "Selecciona un usuario" }),
   })
@@ -86,7 +88,7 @@ export const createTicketSchema = z
         path: ["descripcion"],
       });
     }
-    if (pasosReproducir.length >= 1 && pasosReproducir.length <= 15) {
+    if (pasosReproducir && pasosReproducir.length <= 5) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Escribe al menos un paso para reproducir el bug.",

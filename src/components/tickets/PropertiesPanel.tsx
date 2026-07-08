@@ -9,7 +9,10 @@ export function Key({ children }: { children: React.ReactNode }) {
 }
 
 export function Value({ children }: { children: React.ReactNode }) {
-  return <p>{capitalizeFirstLetter(String(children))}</p>;
+  const isModuleAPI = children === "API";
+  return (
+    <p>{isModuleAPI ? children : capitalizeFirstLetter(String(children))}</p>
+  );
 }
 
 export const PropertiesPanel = Object.assign(Property, {
