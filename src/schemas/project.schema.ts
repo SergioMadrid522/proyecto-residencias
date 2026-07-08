@@ -3,12 +3,8 @@ import { z } from "zod";
 
 export const projectSchema = z
   .object({
-    nombreProyecto: z
-      .string({ message: "Tiene que ser texto." })
-      .trim()
-      .max(200),
+    nombreProyecto: z.string().trim().max(200),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(500),
-    //ticket: z.string({ message: "Tiene que ser texto." }).max(200),
   })
   .superRefine((data, ctx) => {
     const { nombreProyecto, descripcion } = data;
@@ -41,28 +37,25 @@ export const projectSchema = z
         path: ["descripcion"],
       });
     }
-    /* 
-      if (ticket === "") {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "El proyecto debe estar asignado a una",
-          path: ["descripcion"],
-        });
-      } 
-    */
   });
 
 export const createTicketSchema = z
   .object({
     titulo: z.string({ message: "Tiene que ser texto." }).trim().max(200),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(1000),
-    pasosReproducir: z.string().trim().max(1000),
-    modulo: z.nativeEnum(Modulo),
-    prioridad: z.nativeEnum(Prioridad),
-    estado: z.nativeEnum(Estado),
-    severidadIa: z.enum(["BAJA", "MEDIA", "ALTA", "CRITICA"]), //será manual primero,
-    proyectoId: z.int(),
-    usuarioAsignadoId: z.int(),
+    pasosReproducir: z.string().trim().max(1000).optional(),
+    modulo: z.nativeEnum(Modulo, { message: "Selecciona una modulo valido" }),
+    prioridad: z.nativeEnum(Prioridad, {
+      message: "Selecciona una prioridad valida",
+    }),
+    estado: z.nativeEnum(Estado, { message: "Selecciona un estado valido" }),
+    severidadIa: z
+      .enum(["BAJA", "MEDIA", "ALTA", "CRITICA"], {
+        message: "Selecciona una severidad valida",
+      })
+      .optional(),
+    proyectoId: z.int({ message: "Selecciona un proyecto" }),
+    usuarioAsignadoId: z.int({ message: "Selecciona un usuario" }),
   })
   .superRefine((data, ctx) => {
     const { titulo, descripcion, pasosReproducir } = data;
@@ -95,15 +88,7 @@ export const createTicketSchema = z
         path: ["descripcion"],
       });
     }
-    /* if (pasosReproducir === "") {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message:
-          "El ticket debe llevar al menos un paso para reproducir el bug.",
-        path: ["pasosReproducir"],
-      });
-    } */
-    if (pasosReproducir.length >= 1 && pasosReproducir.length <= 15) {
+    if (pasosReproducir && pasosReproducir.length <= 5) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Escribe al menos un paso para reproducir el bug.",

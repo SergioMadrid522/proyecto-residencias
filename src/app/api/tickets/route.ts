@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
+import { validatePrompt } from "@/services/ai.service";
 import { createTicket } from "@/services/ticket.service";
-import { findTicketById } from "@/services/user.service";
-import { getTickets, getTicketById } from "@/utils/getFunctions";
+
+import { getTickets, getTicketById, getTicket } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -33,9 +34,29 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: validation.errors }, { status: 400 });
     }
 
+    const prompt = {
+      titulo: validation.data?.titulo,
+      descripcion: validation.data?.descripcion,
+      pasosReproducir: validation.data?.pasosReproducir ?? "No hay alguno",
+      modulo: validation.data?.modulo,
+    };
+
+    const { severidadIa, ...ticketData } = validation.data;
+    const genAI = await validatePrompt(prompt);
+
+    if (!genAI.success) {
+      return NextResponse.json(
+        {
+          error: genAI.error,
+        },
+        { status: genAI.status },
+      );
+    }
+
     await prisma.ticket.create({
       data: {
-        ...validation.data,
+        ...ticketData,
+        severidadIa: genAI.output,
       },
     });
 
@@ -52,19 +73,47 @@ export async function POST(request: Request) {
   }
 }
 
-export async function DELETE(request: Request) {
+export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const ticket = await getTicketById(body.id);
 
-    await prisma.ticket.delete({
-      where: { id: ticket.id },
+    const result = await getTicket(body.id);
+
+    if (!result.success || !result.ticket) {
+      return NextResponse.json(
+        { message: "Ticket no encontrado" },
+        { status: 404 },
+      );
+    }
+
+    const { ticket } = result;
+
+    await prisma.$transaction(async (tx) => {
+      await tx.ticket.update({
+        where: { id: body.id },
+        data: {
+          titulo: body.titulo,
+          descripcion: body.descripcion,
+          estado: body.estado,
+          proyectoId: body.proyectoId,
+          prioridad: body.prioridad,
+          usuarioReportaId: body.usuarioReporta,
+        },
+      });
+
+      await tx.historial_ticket.create({
+        data: {
+          ticketId: ticket.id,
+          usuarioId: Number(body.usuarioAsignadoId),
+          estadoNuevo: body.estado,
+        },
+      });
     });
-
     return NextResponse.json({ status: 200 });
   } catch (error) {
+    console.error("error", error);
     return NextResponse.json(
-      { message: "Error del servidor", error },
+      { message: "Error en el servidor", error },
       { status: 500 },
     );
   }

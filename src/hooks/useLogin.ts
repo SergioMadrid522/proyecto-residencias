@@ -10,7 +10,7 @@ export function useLogin() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_LOGIN;
+    const apiURL = process.env.NEXT_PUBLIC_LOGIN_API_URL;
     e.preventDefault();
 
     const result = loginSchema.safeParse({ email, password });

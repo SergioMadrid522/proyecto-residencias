@@ -9,13 +9,18 @@ export function useCreateTicket() {
   const [modulo, setModulo] = useState("");
   const [estado, setEstado] = useState("");
   const [prioridad, setPrioridad] = useState("");
-  const [severidadIa, setSeveridadIa] = useState("");
+  const [severidadIa, setSeveridadIa] = useState<
+    "BAJA" | "MEDIA" | "ALTA" | "CRITICA" | undefined
+  >(undefined);
   const [proyectoId, setProyectoId] = useState(0);
   const [usuarioAsignadoId, setUsuarioAsignadoId] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  const apiURL = process.env.NEXT_PUBLIC_TICKET_API_URL;
+
+  if (!apiURL) throw new Error("NEXT_PUBLIC_TICKET_API_URL no está definida");
+
   const handleSubmit = async (e: React.FormEvent) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_CREATE_TICKET;
     e.preventDefault();
 
     const result = createTicketSchema.safeParse({
@@ -37,10 +42,6 @@ export function useCreateTicket() {
     }
 
     try {
-      if (!apiURL) {
-        return;
-      }
-
       setLoading(true);
 
       const res = await fetch(apiURL, {

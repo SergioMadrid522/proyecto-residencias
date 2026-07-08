@@ -1,38 +1,29 @@
-import { CreateProjectProps } from "@/types/types";
-import { projectSchema } from "@/schemas/project.schema";
+import { CreateProjectProps, CreateProjectResult } from "@/types/types";
 import { prisma } from "@/lib/prisma";
 
 export async function createProject(
-  data: unknown,
-): Promise<CreateProjectProps> {
-  const result = projectSchema.safeParse(data);
-  if (!result.success) {
-    return {
-      success: false,
-      errors: result.error.flatten().fieldErrors,
-    };
-  }
-
-  const existedProject = await findProyectByName(result.data.nombreProyecto);
+  data: CreateProjectProps,
+): Promise<CreateProjectResult> {
+  const existedProject = await findProyectByName(data.nombreProyecto);
 
   if (existedProject) {
     return {
       success: false,
-      errors: "El nombre del proyecto ya existe",
+      error: "El nombre del proyecto ya existe",
     };
   }
 
-  const { nombreProyecto, descripcion } = result.data;
   return {
     success: true,
     data: {
-      nombreProyecto,
-      descripcion,
+      nombreProyecto: data.nombreProyecto,
+      descripcion: data.descripcion,
+      activo: data.activo,
     },
   };
 }
 
-export async function findProyectByName(nombreProyecto: string | undefined) {
+export async function findProyectByName(nombreProyecto: string) {
   return await prisma.proyecto.findUnique({
     where: { nombreProyecto },
   });

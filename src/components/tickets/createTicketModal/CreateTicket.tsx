@@ -3,45 +3,78 @@
 import { GLOBAL } from "@/icons.data";
 import CreateTicketForm from "./CreateTicketForm";
 import { useOpenModal } from "@/context/ModalContext";
-import { Username } from "@/types";
+import type { CreateTicketProps } from "@/types";
 
-export default function CreateTicket({ user }: Username) {
+export default function CreateTicket({
+  user,
+  rol,
+  projects,
+}: CreateTicketProps) {
   const { modal, setModal } = useOpenModal();
-  const isOpen = modal?.type === "create";
-
-  const { crossIcon } = GLOBAL;
+  const isOpen = modal?.type === "create-ticket";
+  const { crossIcon: Icon } = GLOBAL;
 
   return (
     <>
       <div
-        className={`absolute inset-0 bg-black/50 backdrop-blur-sm ${isOpen ? "block" : "hidden"} `}
-      ></div>
+        className={`
+          fixed inset-0 z-40 bg-black/40 backdrop-blur-sm
+          transition-opacity
+          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
+        `}
+      />
+
       <div
-        className={`absolute inset-0 m-auto w-[70%] h-[80%] bg-white border rounded-md transition-all duration-300 p-4 overflow-y-scroll
-        ${isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"}`}
+        className={`
+          fixed inset-0 z-50 m-auto
+          w-[90%] max-w-3xl
+          h-[85%]
+          rounded-2xl
+          bg-white
+          shadow-2xl
+          transition-all duration-300
+          overflow-hidden
+          ${
+            isOpen
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-95 pointer-events-none"
+          }
+        `}
       >
-        <div className="absolute right-0 p-2.5">
+        <div className="flex items-center justify-between border-b px-6 py-4">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-800">
+              Crear Ticket
+            </h2>
+            <p className="text-sm text-gray-500">Registra un nuevo ticket</p>
+          </div>
+
           <button
             type="button"
             onClick={() => setModal(null)}
-            className="flex justify-end items-center cursor-pointer"
+            className="
+              rounded-lg p-2
+              text-gray-500
+              hover:bg-gray-100
+              hover:text-gray-800
+              transition
+              cursor-pointer
+            "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="27"
-              height="27"
+              width="22"
+              height="22"
               fill="currentColor"
               viewBox="0 0 16 16"
             >
-              <path d={crossIcon} />
+              <Icon />
             </svg>
           </button>
         </div>
 
-        <div>
-          <h2 className="p-4">Crear Ticket</h2>
-
-          <CreateTicketForm user={user} />
+        <div className="h-[calc(100%-80px)] overflow-y-auto p-6">
+          <CreateTicketForm user={user} rol={rol} projects={projects} />
         </div>
       </div>
     </>

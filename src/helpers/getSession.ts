@@ -10,7 +10,6 @@ export default async function getSession() {
     if (!token) return null;
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
     const { payload } = await jose.jwtVerify(token, secret);
-
     return {
       userId: Number(payload.userId),
       userRole: Number(payload.userRole),

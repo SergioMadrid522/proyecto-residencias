@@ -6,26 +6,29 @@ export function useEliminateTicket() {
   const [loadingEliminate, setLoadingEliminate] = useState(false);
 
   const handleEliminateSubmit = async (id: number) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_ELIMINATE_TICKET;
+    const apiURL = process.env.NEXT_PUBLIC_DELETE_TICKET_API_URL;
+
+    if (!apiURL)
+      throw new Error("NEXT_PUBLIC_DELETE_TICKET_API_URL no está definida");
+
     try {
       const deleteConfirmation = await deleteAlert();
 
       if (!deleteConfirmation) {
-        toast.error("Se ha cancelado la creación del ticket");
+        toast.error("Se ha cancelado la eliminación del ticket");
         return;
       }
-      if (!apiURL) return;
 
       setLoadingEliminate(true);
 
       const res = await fetch(apiURL, {
-        method: "DELETE",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
 
       if (!res.ok) {
-        toast.error("No se pudo eliminar el usuario");
+        toast.error("No se pudo eliminar el ticket");
         return;
       }
 

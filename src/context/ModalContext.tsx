@@ -1,5 +1,6 @@
 "use client";
-
+import EditProject from "@/components/projects/editProjectModal/EditProject";
+import EditUser from "@/components/users/editUserModal/EditUser";
 import { ModalState } from "@/types";
 import { ModalContextType } from "@/types/types";
 import { createContext, useContext, useState, ReactNode } from "react";
@@ -12,6 +13,8 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   return (
     <ModalContext.Provider value={{ modal, setModal }}>
       {children}
+
+      <EditUser />
     </ModalContext.Provider>
   );
 }

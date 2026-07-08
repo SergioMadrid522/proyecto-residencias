@@ -11,7 +11,6 @@ import {
   Cell,
   LabelList,
 } from "recharts";
-import { LabelFormatter } from "recharts/types/component/Label";
 
 const data = [
   { name: "Frontend", value: 32, color: "#4b5563" },
@@ -21,7 +20,15 @@ const data = [
   { name: "Mobile", value: 15, color: "#4ade80" },
 ];
 
-export default function SimpleBarGraph() {
+export default function SimpleBarGraph({
+  data,
+}: {
+  data: {
+    name: string;
+    value: number;
+    color: string;
+  }[];
+}) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
@@ -47,8 +54,8 @@ export default function SimpleBarGraph() {
         <Tooltip cursor={{ fill: "transparent" }} />
 
         <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color} />
+          {data.map(({ name, color }) => (
+            <Cell key={`cell-${name}`} fill={color} />
           ))}
 
           <LabelList

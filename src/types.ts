@@ -1,26 +1,29 @@
 import { Modulo, Prioridad, Estado } from "@prisma/client";
+import { ReactNode } from "react";
+import { CreateTicket } from "./types/users.type";
 
 export type RolText = "unkown" | "Admin" | "Dev" | "Tester";
-/*
-type Prioridad = "CRITICA" | "ALTA" | "MEDIA" | "BAJA";
-type Estado =
-  | "PENDIENTE"
-  | "EN_REVISION"
-  | "EN_CORRECCION"
-  | "REABIERTO"
-  | "CERRADO"; 
-*/
+
 interface User {
   id: number;
   nombre: string;
 }
-
-type Severidad = "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
+interface Projects {
+  id: number;
+  nombreProyecto: string;
+}
+export interface CreateTicketProps {
+  user: User[];
+  rol: string;
+  projects: Projects[];
+}
+export type Severidad = "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
 
 export type StatsOverview = {
-  icon: string;
+  icon: () => ReactNode;
   iconViewbox: string;
   title: string;
+  color: string;
   stats: number;
 };
 
@@ -32,7 +35,7 @@ export type Ticket = {
   modulo: Modulo;
   prioridad: Prioridad;
   estado: Estado;
-  severidadIa: Severidad;
+  severidadIa?: Severidad;
   proyectoId: number;
   usuarioAsignadoId: number;
 };
@@ -59,9 +62,12 @@ export interface GetTicket {
   error?: string;
   ticket?: Ticket;
 }
-export interface Username {
+export interface EditTicketModal {
   user: User[];
+  rol: string;
+  projects: Projects[];
 }
+
 export interface GetUserResponse {
   success: boolean;
   id?: number;
@@ -73,13 +79,75 @@ export interface GetUserResponse {
     fechaRegistro: Date;
   }[];
 }
-
+export interface EditButtonProps {
+  id: number;
+  user: User[];
+  rol: string;
+  projects: Projects[];
+}
 export interface GetTicketResponse {
   success: boolean;
   id?: number;
 }
 
 export type ModalState =
-  | { type: "create" }
-  | { type: "edit"; user: any }
+  | { type: "create-user" }
+  | { type: "edit-user"; user: { id: number } }
+  | { type: "create-ticket" }
+  | { type: "edit-ticket"; ticket: { id: number } }
+  | { type: "create-project" }
+  | { type: "edit-project"; project: { id: number } }
   | null;
+
+export type UserContext =
+  | { type: "inactive-users" }
+  | { type: "active-users" }
+  | null;
+
+export interface UserSettingsProps {
+  user: {
+    nombre: string;
+    email: string;
+    password: string;
+    id: number;
+    lastname: string | null;
+    rolId: number;
+    fechaRegistro: Date;
+    activo: boolean;
+  } | null;
+}
+
+export interface Project {
+  id: number;
+  nombreProyecto: string;
+  descripcion: string;
+  status: number;
+}
+
+export interface AIPrompt {
+  titulo: string | undefined;
+  descripcion: string | undefined;
+  pasosReproducir: string;
+  modulo: "FRONTEND" | "BACKEND" | "API" | "MOBILE" | "BASE_DE_DATOS";
+}
+
+export type ValidationResult =
+  | {
+      success: true;
+      output: string;
+    }
+  | {
+      success: false;
+      error: string;
+      status: number;
+    };
+
+export type CreateTicketResult =
+  | {
+      success: true;
+      data: CreateTicket;
+    }
+  | {
+      success: false;
+      errors: string;
+    };

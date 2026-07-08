@@ -9,25 +9,50 @@ export default function EditUserForm() {
     setEmail,
     password,
     setPassword,
+    status,
+    setStatus,
     rol,
     setRol,
     loadingEdit,
+    isFetching,
     handleEditSubmit,
   } = useEditUser();
+
   const { circleSpin } = GLOBAL;
+
+  if (isFetching) {
+    return (
+      <div className="flex w-full h-full justify-center items-center">
+        <h2 className="p-4">Cargando datos...</h2>
+      </div>
+    );
+  }
   return (
     <form
       onSubmit={handleEditSubmit}
-      className="flex flex-col justify-center w-[50%] h-full gap-5 m-auto"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-5"
     >
-      <h2>Editar usuario</h2>
       <FormField>
         <div className="text-[15px]">Nombre del usuario</div>
         <input
           type="text"
-          value={nombre}
+          value={nombre || ""}
           onChange={(e) => setNombre(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -35,9 +60,23 @@ export default function EditUserForm() {
         <div className="text-[15px]">Email</div>
         <input
           type="email"
-          value={email}
+          value={email || ""}
           onChange={(e) => setEmail(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -45,10 +84,55 @@ export default function EditUserForm() {
         <div className="text-[15px]">Contraseña</div>
         <input
           type="password"
-          value={password}
+          value={password || ""}
           onChange={(e) => setPassword(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
+      </FormField>
+
+      <FormField>
+        <div className="text-[15px]">¿Sigue Está activo?</div>
+        <select
+          name=""
+          id=""
+          value={status || 0}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+            setStatus(value);
+          }}
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
+        >
+          <option value="0">Sí</option>
+          <option value="1">No</option>
+        </select>
       </FormField>
 
       <FormField>
@@ -56,12 +140,26 @@ export default function EditUserForm() {
         <select
           name=""
           id=""
-          value={rol}
+          value={rol || 0}
           onChange={(e) => {
             const value = Number(e.target.value);
             setRol(value);
           }}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona un rol</option>
           <option value="1">Admin</option>

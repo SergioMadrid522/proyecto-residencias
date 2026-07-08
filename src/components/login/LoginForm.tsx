@@ -6,7 +6,7 @@ import { GLOBAL } from "@/icons.data";
 export default function LoginForm() {
   const { email, setEmail, password, setPassword, loading, handleSubmit } =
     useLogin();
-  const { circleSpin } = GLOBAL;
+  const { circleSpin: SpinIcon } = GLOBAL;
 
   return (
     <form
@@ -50,7 +50,7 @@ export default function LoginForm() {
               fill="none"
               viewBox="0 0 24 24"
             >
-              {circleSpin()}
+              <SpinIcon />
             </svg>
             Validando...
           </span>

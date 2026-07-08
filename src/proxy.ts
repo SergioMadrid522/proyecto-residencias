@@ -23,9 +23,11 @@ export async function proxy(request: NextRequest) {
       if (userRole === 1)
         return NextResponse.redirect(new URL("/user/admin", request.url));
       if (userRole === 2)
-        return NextResponse.redirect(new URL("/user/dev", request.url));
+        return NextResponse.redirect(new URL("/user/dev/tickets", request.url));
       if (userRole === 3)
-        return NextResponse.redirect(new URL("/user/tester", request.url));
+        return NextResponse.redirect(
+          new URL("/user/tester/tickets", request.url),
+        );
       return NextResponse.next();
     }
 
@@ -37,12 +39,16 @@ export async function proxy(request: NextRequest) {
         break;
       case 2: // Dev
         if (!currentPath.startsWith("/user/dev")) {
-          return NextResponse.redirect(new URL("/user/dev", request.url));
+          return NextResponse.redirect(
+            new URL("/user/dev/tickets", request.url),
+          );
         }
         break;
       case 3: // Tester
         if (!currentPath.startsWith("/user/tester")) {
-          return NextResponse.redirect(new URL("/user/tester", request.url));
+          return NextResponse.redirect(
+            new URL("/user/tester/tickets", request.url),
+          );
         }
         break;
       default:

@@ -9,3 +9,10 @@ export async function findUserByEmail(email: string | undefined) {
 export async function findUserById(id: number | undefined) {
   return await prisma.usuario.findUnique({ where: { id } });
 }
+
+export async function getUserPassword(id: number) {
+  return await prisma.usuario.findUnique({
+    where: { id },
+    select: { password: true },
+  });
+}

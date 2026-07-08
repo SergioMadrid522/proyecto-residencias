@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
@@ -32,9 +31,12 @@ enum Prioridad {
 enum Estado {
   PENDIENTE
   EN_REVISION
+  ASIGNADO
   EN_CORRECCION
+  EN_PRUEBAS
   REABIERTO
   CERRADO
+  CANCELADO
 }
 
 
@@ -49,6 +51,7 @@ model Rol {
 model Usuario {
   id              Int                 @id @default(autoincrement())
   nombre          String
+  lastname        String?
   email           String              @unique
   password        String
   rolId           Int                 @map("id_rol")
@@ -67,6 +70,7 @@ model Proyecto {
   id              Int       @id @default(autoincrement())
   nombreProyecto  String    @map("nombre_proyecto") @unique
   descripcion     String?
+  activo          Boolean   @default(true)
   ticket          Ticket[]
 
   @@map("proyecto")
@@ -76,14 +80,14 @@ model Ticket {
   id                    Int                 @id @default(autoincrement())
   titulo                String
   descripcion           String
-  pasosReproducir       String              @map("pasos_reproducir")
+  pasosReproducir       String?             @map("pasos_reproducir")
   modulo                Modulo
   prioridad             Prioridad           @default(BAJA)
   estado                Estado              @default(PENDIENTE)
   severidadIa           String?             @map("severidad_ia")
-
+  activo                Boolean             @default(true)
   proyectoId            Int                 @map("id_proyecto")
-  usuarioReportaId      Int?                 @map("id_usuario_reporta")
+  usuarioReportaId      Int?                @map("id_usuario_reporta")
   usuarioAsignadoId     Int                 @map("id_usuario_asignado")
 
   proyecto              Proyecto            @relation(fields: [proyectoId], references: [id])

@@ -18,16 +18,29 @@ export default function CreateUserForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center w-[50%] h-full gap-5 m-auto"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-5 "
     >
-      <h2>Crear usuario</h2>
       <FormField>
         <div className="text-[15px]">Nombre del usuario</div>
         <input
           type="text"
           value={nombre || ""}
           onChange={(e) => setNombre(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -37,7 +50,21 @@ export default function CreateUserForm() {
           type="email"
           value={email || ""}
           onChange={(e) => setEmail(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -47,7 +74,21 @@ export default function CreateUserForm() {
           type="password"
           value={password || ""}
           onChange={(e) => setPassword(e.target.value)}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         />
       </FormField>
 
@@ -61,7 +102,21 @@ export default function CreateUserForm() {
             const value = Number(e.target.value);
             setRol(value);
           }}
-          className="outline-1 rounded-sm px-2 py-1"
+          className="
+            w-full
+            rounded-lg
+            border
+            border-gray-400
+            px-3
+            py-2
+            text-sm
+            text-gray-700
+            outline-none
+            transition
+            focus:border-blue-500
+            focus:ring-2
+            focus:ring-blue-100
+          "
         >
           <option value="">Seleciona un rol</option>
           <option value="1">Admin</option>

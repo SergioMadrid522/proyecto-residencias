@@ -10,17 +10,16 @@ import {
   Legend,
 } from "recharts";
 
-// Datos de prueba basados en tu imagen
-const data = [
-  { name: "Mar", criticos: 45, medios: 20, leves: 10 },
-  { name: "Mar", criticos: 40, medios: 30, leves: 20 },
-  { name: "Abr", criticos: 65, medios: 45, leves: 35 },
-  { name: "May", criticos: 35, medios: 30, leves: 25 },
-  { name: "Jun", criticos: 25, medios: 65, leves: 55 },
-  { name: "Jul", criticos: 28, medios: 70, leves: 40 },
-];
-
-export default function TendenciaErroresChart() {
+export default function TendenciaErroresChart({
+  data,
+}: {
+  data: {
+    name: string;
+    criticos: number;
+    medios: number;
+    leves: number;
+  }[];
+}) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
@@ -55,7 +54,7 @@ export default function TendenciaErroresChart() {
           dataKey="name"
           axisLine={false}
           tickLine={false}
-          tick={{ fill: "#6b7280", fontSize: 12 }}
+          tick={{ fill: "#A6A6A6", fontSize: 12, fontWeight: 700 }}
           dy={10}
         />
 

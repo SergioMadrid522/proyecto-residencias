@@ -2,16 +2,29 @@
 import { useOpenModal } from "@/context/ModalContext";
 
 export default function AddNewUserButton() {
-  const { modal, setModal } = useOpenModal();
+  const { setModal } = useOpenModal();
 
   return (
-    <button
-      onClick={() => {
-        setModal({ type: "create" });
-      }}
-      className="border rounded-md px-2 py-1.5 cursor-pointer"
-    >
-      Agregar nuevo usuario
-    </button>
+    <>
+      <button
+        onClick={() => {
+          setModal({ type: "create-user" });
+        }}
+        className="
+          flex items-center gap-2
+          rounded-lg
+          px-4 py-2.5
+          text-sm font-medium
+          text-black
+          shadow-sm
+          transition
+          hover:bg-gray-200
+          active:scale-95
+          cursor-pointer
+        "
+      >
+        Agregar nuevo usuario
+      </button>
+    </>
   );
 }

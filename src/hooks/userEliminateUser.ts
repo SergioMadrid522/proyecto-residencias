@@ -6,16 +6,15 @@ export function useEliminateUser() {
   const [loadingEliminate, setLoading] = useState(false);
 
   const handleEliminateSubmit = async (id: number) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_ELIMINATE_USER;
+    const apiURL = process.env.NEXT_PUBLIC_USERS_API_URL;
+    if (!apiURL) throw new Error("NEXT_PUBLIC_USERS_API_URL no está definida");
     try {
       const deleteConfirmation = await deleteAlert();
 
       if (!deleteConfirmation) {
-        toast.error("Se ha cancelado la creación de usuario");
+        toast.error("Se ha cancelado la eliminación del usuario");
         return;
       }
-
-      if (!apiURL) return;
 
       setLoading(true);
 

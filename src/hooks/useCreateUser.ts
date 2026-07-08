@@ -10,7 +10,7 @@ export function useCreateUser() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    const apiURL = process.env.NEXT_PUBLIC_API_URL_REGISTER;
+    const apiURL = process.env.NEXT_PUBLIC_REGISTER_API_URL;
     e.preventDefault();
     const result = createUserSchema.safeParse({
       nombre,
