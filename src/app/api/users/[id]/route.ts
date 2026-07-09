@@ -7,7 +7,7 @@ import { hashPassword } from "@/utils/hashPassword";
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
