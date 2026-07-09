@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@prisma/client";
 import { validatePrompt } from "@/services/ai.service";
 import { createTicket } from "@/services/ticket.service";
 
@@ -88,7 +89,7 @@ export async function PUT(request: Request) {
 
     const { ticket } = result;
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.ticket.update({
         where: { id: body.id },
         data: {
