@@ -34,7 +34,7 @@ export async function GET() {
       },
     });
 
-    const rows = data.map((ticket) => ({
+    const rows = data.map((ticket: Awaited<typeof data>[number]) => ({
       ID: ticket.id,
       Titulo: ticket.titulo,
       Descripcion: ticket.descripcion,

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { ErrorTrendData, RecentTicket } from "@/types";
 /* Overview Stats */
 export async function getOpenTickets() {
   const count = await prisma.ticket.count({
@@ -98,7 +99,7 @@ export async function getReopenPercentage() {
 }
 
 /* Simple graph chart */
-export async function getErrorTrend() {
+export async function getErrorTrend(): Promise<ErrorTrendData[]> {
   const tickets = await prisma.ticket.findMany({
     where: {
       activo: true,
@@ -166,7 +167,7 @@ export async function getErrorTrend() {
   return Object.values(data);
 }
 /* Recent Tickets */
-export async function getRecetTickets() {
+export async function getRecetTickets(): Promise<RecentTicket[]> {
   const data = await prisma.ticket.findMany({
     take: 4,
     where: { activo: true },

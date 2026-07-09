@@ -4,6 +4,31 @@ import { CreateTicket } from "./types/users.type";
 
 export type RolText = "unkown" | "Admin" | "Dev" | "Tester";
 
+export interface ErrorTrendData {
+  name: string;
+  criticos: number;
+  medios: number;
+  leves: number;
+}
+export type RecentTicket = {
+  id: number;
+  titulo: string;
+  severidadIa: string | null;
+  historial: {
+    fechaCambio: Date;
+  }[];
+};
+export interface ProjectData {
+  id: number;
+  nombreProyecto: string;
+  descripcion: string | null;
+  activo: boolean;
+}
+
+export interface ResultProjects {
+  success: boolean;
+  projects: ProjectData[];
+}
 interface User {
   id: number;
   nombre: string;
@@ -151,3 +176,76 @@ export type CreateTicketResult =
       success: false;
       errors: string;
     };
+
+export type TicketTable = {
+  id: number;
+  titulo: string;
+  prioridad: "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
+  estado:
+    | "PENDIENTE"
+    | "EN_REVISION"
+    | "ASIGNADO"
+    | "EN_CORRECCION"
+    | "EN_PRUEBAS"
+    | "REABIERTO"
+    | "CERRADO"
+    | "CANCELADO";
+  fechaCreacion: Date;
+  usuarioAsignado: {
+    nombre: string;
+  };
+};
+
+export type GetTicketsResult =
+  | {
+      success: true;
+      tickets: TicketTable[];
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
+export type TicketTimelineItem = {
+  id: number;
+  usuario: {
+    rol: {
+      id: number;
+      nombreRol: string;
+    };
+    nombre: string;
+  };
+  ticket: {
+    id: number;
+    proyecto: {
+      id: number;
+      activo: boolean;
+      descripcion: string | null;
+      nombreProyecto: string;
+    };
+    prioridad: "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
+    estado:
+      | "PENDIENTE"
+      | "EN_REVISION"
+      | "ASIGNADO"
+      | "EN_CORRECCION"
+      | "EN_PRUEBAS"
+      | "REABIERTO"
+      | "CERRADO"
+      | "CANCELADO";
+    ultimaActualizacion: Date;
+    usuarioReporta: {
+      id: number;
+      nombre: string;
+      lastname: string | null;
+      email: string;
+      password: string;
+      rolId: number;
+      fechaRegistro: Date;
+      activo: boolean;
+    } | null;
+  };
+  usuarioId: number;
+  estadoNuevo: string;
+  fechaCambio: Date;
+};

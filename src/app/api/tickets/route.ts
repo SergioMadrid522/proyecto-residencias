@@ -2,8 +2,13 @@ import { prisma } from "@/lib/prisma";
 import { validatePrompt } from "@/services/ai.service";
 import { createTicket } from "@/services/ticket.service";
 
-import { getTickets, getTicketById, getTicket } from "@/utils/getFunctions";
+import { getTickets, getTicket } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
+
+type TransactionClient = Omit<
+  typeof prisma,
+  "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
+>;
 
 export async function GET() {
   try {
@@ -88,7 +93,7 @@ export async function PUT(request: Request) {
 
     const { ticket } = result;
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: TransactionClient) => {
       await tx.ticket.update({
         where: { id: body.id },
         data: {

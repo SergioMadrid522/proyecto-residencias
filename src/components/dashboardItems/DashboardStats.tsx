@@ -13,12 +13,13 @@ import {
   getReopenPercentage,
   getUnstableModules,
 } from "@/rechartsData/getDashboardData";
+import { ErrorTrendData } from "@/types";
 
 export default async function DashboardStats() {
   const { chevronRight: Icon } = GLOBAL;
   const pieChartData = await getPieChartData();
   const reopenPercentage = await getReopenPercentage();
-  const simpleGraphData = await getErrorTrend();
+  const simpleGraphData: ErrorTrendData[] = await getErrorTrend();
   const simpleBarGraphData = await getUnstableModules();
 
   return (

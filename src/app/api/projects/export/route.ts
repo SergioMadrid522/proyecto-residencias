@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import type { Proyecto } from "@prisma/client";
 import { NextResponse } from "next/server";
 import * as XLSX from "xlsx";
 
@@ -7,7 +6,7 @@ export async function GET() {
   try {
     const data = await prisma.proyecto.findMany();
 
-    const rows = data.map((proyecto: Proyecto) => ({
+    const rows = data.map((proyecto: Awaited<typeof data>[number]) => ({
       ID: proyecto.id,
       "Nombre del proyecto": proyecto.nombreProyecto,
       Descripcion: proyecto.descripcion,

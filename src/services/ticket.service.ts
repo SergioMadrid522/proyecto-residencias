@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { createTicketSchema } from "@/schemas/project.schema";
-import { CreateTicketResult } from "@/types";
+import { CreateTicketResult, TicketTimelineItem } from "@/types";
 
 export async function createTicket(data: unknown): Promise<CreateTicketResult> {
   const result = createTicketSchema.safeParse(data);
@@ -56,7 +56,9 @@ export async function findProjectById(id: number) {
   return await prisma.proyecto.findUnique({ where: { id } });
 }
 
-export async function ticketTimeline(id: number) {
+export async function ticketTimeline(
+  id: number,
+): Promise<TicketTimelineItem[]> {
   return await prisma.historial_ticket.findMany({
     take: 5,
     where: { ticketId: id },

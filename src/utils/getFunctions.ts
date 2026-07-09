@@ -2,7 +2,13 @@ import getSession from "@/helpers/getSession";
 import { prisma } from "@/lib/prisma";
 import { findTicketById } from "@/services/ticket.service";
 import { findUserById } from "@/services/user.service";
-import { AIPrompt, GetTicketResponse, GetUserResponse } from "@/types";
+import {
+  AIPrompt,
+  GetTicketResponse,
+  GetTicketsResult,
+  GetUserResponse,
+  ResultProjects,
+} from "@/types";
 import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
 
@@ -52,7 +58,7 @@ export async function getUsers(): Promise<GetUserResponse> {
   }
 }
 
-export async function getTickets() {
+export async function getTickets(): Promise<GetTicketsResult> {
   try {
     const tickets = await prisma.ticket.findMany({
       where: { activo: true },
@@ -102,7 +108,7 @@ export async function getTicket(id: number) {
   }
 }
 
-export async function getProjects() {
+export async function getProjects(): Promise<ResultProjects> {
   try {
     const projects = await prisma.proyecto.findMany({
       where: { activo: true },

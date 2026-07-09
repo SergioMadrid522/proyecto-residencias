@@ -11,13 +11,15 @@ import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import ActionButtons from "@/components/tickets/ActionsButtons";
 
 export default async function RenderTickets() {
-  const { tickets, error } = await getTickets();
+  const result = await getTickets();
   const { rolId } = await getUserSession();
   const rolText = getRolText(rolId).toLowerCase();
 
-  if (!tickets) {
-    return <p>{error}</p>;
+  if (!result.success) {
+    return <p>{result.error}</p>;
   }
+
+  const { tickets } = result;
 
   return (
     <>

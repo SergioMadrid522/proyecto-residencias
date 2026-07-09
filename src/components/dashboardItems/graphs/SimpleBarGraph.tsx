@@ -64,7 +64,7 @@ export default function SimpleBarGraph({
             fill="#ffffff"
             fontSize={14}
             fontWeight="bold"
-            formatter={(val: number) => `${val}%`}
+            formatter={(val) => `${val}%`}
             offset={10}
           />
         </Bar>
