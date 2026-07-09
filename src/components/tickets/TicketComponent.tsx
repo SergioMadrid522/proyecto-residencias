@@ -26,6 +26,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
   }
 
   const timeline = await ticketTimeline(ticketId);
+
   return (
     <div className="grid grid-cols-2 gap-8">
       <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">

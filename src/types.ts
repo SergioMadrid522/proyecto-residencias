@@ -205,3 +205,47 @@ export type GetTicketsResult =
       success: false;
       error: string;
     };
+
+export type TicketTimelineItem = {
+  id: number;
+  usuario: {
+    rol: {
+      id: number;
+      nombreRol: string;
+    };
+    nombre: string;
+  };
+  ticket: {
+    id: number;
+    proyecto: {
+      id: number;
+      activo: boolean;
+      descripcion: string | null;
+      nombreProyecto: string;
+    };
+    prioridad: "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
+    estado:
+      | "PENDIENTE"
+      | "EN_REVISION"
+      | "ASIGNADO"
+      | "EN_CORRECCION"
+      | "EN_PRUEBAS"
+      | "REABIERTO"
+      | "CERRADO"
+      | "CANCELADO";
+    ultimaActualizacion: Date;
+    usuarioReporta: {
+      id: number;
+      nombre: string;
+      lastname: string | null;
+      email: string;
+      password: string;
+      rolId: number;
+      fechaRegistro: Date;
+      activo: boolean;
+    } | null;
+  };
+  usuarioId: number;
+  estadoNuevo: string;
+  fechaCambio: Date;
+};
