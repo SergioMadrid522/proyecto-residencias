@@ -13,13 +13,7 @@ import {
   getReopenPercentage,
   getUnstableModules,
 } from "@/rechartsData/getDashboardData";
-
-type ErrorTrendData = {
-  name: string;
-  criticos: number;
-  medios: number;
-  leves: number;
-};
+import { ErrorTrendData } from "@/types";
 
 export default async function DashboardStats() {
   const { chevronRight: Icon } = GLOBAL;

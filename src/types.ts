@@ -4,6 +4,13 @@ import { CreateTicket } from "./types/users.type";
 
 export type RolText = "unkown" | "Admin" | "Dev" | "Tester";
 
+export interface ErrorTrendData {
+  name: string;
+  criticos: number;
+  medios: number;
+  leves: number;
+}
+
 interface User {
   id: number;
   nombre: string;
