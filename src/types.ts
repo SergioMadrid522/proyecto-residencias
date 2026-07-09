@@ -176,3 +176,32 @@ export type CreateTicketResult =
       success: false;
       errors: string;
     };
+
+export type TicketTable = {
+  id: number;
+  titulo: string;
+  prioridad: "BAJA" | "MEDIA" | "ALTA" | "CRITICA";
+  estado:
+    | "PENDIENTE"
+    | "EN_REVISION"
+    | "ASIGNADO"
+    | "EN_CORRECCION"
+    | "EN_PRUEBAS"
+    | "REABIERTO"
+    | "CERRADO"
+    | "CANCELADO";
+  fechaCreacion: Date;
+  usuarioAsignado: {
+    nombre: string;
+  };
+};
+
+export type GetTicketsResult =
+  | {
+      success: true;
+      tickets: TicketTable[];
+    }
+  | {
+      success: false;
+      error: string;
+    };

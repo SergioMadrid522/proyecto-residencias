@@ -5,6 +5,7 @@ import { findUserById } from "@/services/user.service";
 import {
   AIPrompt,
   GetTicketResponse,
+  GetTicketsResult,
   GetUserResponse,
   ResultProjects,
 } from "@/types";
@@ -57,7 +58,7 @@ export async function getUsers(): Promise<GetUserResponse> {
   }
 }
 
-export async function getTickets() {
+export async function getTickets(): Promise<GetTicketsResult> {
   try {
     const tickets = await prisma.ticket.findMany({
       where: { activo: true },
