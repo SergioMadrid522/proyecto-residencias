@@ -1,9 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import {
-  getTicketLevel,
-  getTicketModule,
-  getTicketStatus,
-} from "@/utils/getFunctions";
+import type { Proyecto } from "@prisma/client";
 import { NextResponse } from "next/server";
 import * as XLSX from "xlsx";
 
@@ -11,7 +7,7 @@ export async function GET() {
   try {
     const data = await prisma.proyecto.findMany();
 
-    const rows = data.map((proyecto) => ({
+    const rows = data.map((proyecto: Proyecto) => ({
       ID: proyecto.id,
       "Nombre del proyecto": proyecto.nombreProyecto,
       Descripcion: proyecto.descripcion,
