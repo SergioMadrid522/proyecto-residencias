@@ -10,7 +10,14 @@ export interface ErrorTrendData {
   medios: number;
   leves: number;
 }
-
+export type RecentTicket = {
+  id: number;
+  titulo: string;
+  severidadIa: string | null;
+  historial: {
+    fechaCambio: Date;
+  }[];
+};
 interface User {
   id: number;
   nombre: string;
