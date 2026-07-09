@@ -1,7 +1,7 @@
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 import LogoutButton from "./LogoutButton";
 import { getUserSession } from "@/utils/getFunctions";
-
+/*  */
 export default async function ProfileSection() {
   const { user, rol } = await getUserSession();
 

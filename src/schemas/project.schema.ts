@@ -1,4 +1,4 @@
-import { Modulo, Prioridad, Estado } from "@prisma/client";
+import { Estados, Modulos, Prioridades } from "@/constants/enums";
 import { z } from "zod";
 
 export const projectSchema = z
@@ -44,11 +44,11 @@ export const createTicketSchema = z
     titulo: z.string({ message: "Tiene que ser texto." }).trim().max(200),
     descripcion: z.string({ message: "Tiene que ser texto." }).trim().max(1000),
     pasosReproducir: z.string().trim().max(1000).optional(),
-    modulo: z.nativeEnum(Modulo, { message: "Selecciona una modulo valido" }),
-    prioridad: z.nativeEnum(Prioridad, {
+    modulo: z.enum(Modulos, { message: "Selecciona una modulo valido" }),
+    prioridad: z.enum(Prioridades, {
       message: "Selecciona una prioridad valida",
     }),
-    estado: z.nativeEnum(Estado, { message: "Selecciona un estado valido" }),
+    estado: z.enum(Estados, { message: "Selecciona un estado valido" }),
     severidadIa: z
       .enum(["BAJA", "MEDIA", "ALTA", "CRITICA"], {
         message: "Selecciona una severidad valida",
