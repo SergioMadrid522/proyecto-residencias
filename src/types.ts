@@ -18,6 +18,17 @@ export type RecentTicket = {
     fechaCambio: Date;
   }[];
 };
+export interface ProjectData {
+  id: number;
+  nombreProyecto: string;
+  descripcion: string | null;
+  activo: boolean;
+}
+
+export interface ResultProjects {
+  success: boolean;
+  projects: ProjectData[];
+}
 interface User {
   id: number;
   nombre: string;
