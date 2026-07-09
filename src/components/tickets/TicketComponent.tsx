@@ -58,7 +58,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
             <ol className="list-decimal space-y-2 pl-6 text-gray-700">
               {ticket.pasosReproducir
                 .split(/(?<!\w)(?=\d+\. )/)
-                .map((paso, index) => (
+                .map((paso: string, index: number) => (
                   <li key={index}>{paso.replace(/^\d+\.\s*/, "")}</li>
                 ))}
             </ol>
