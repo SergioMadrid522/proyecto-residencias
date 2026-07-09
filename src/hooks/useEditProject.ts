@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useOpenModal } from "@/context/ModalContext";
 import toast from "react-hot-toast";
 import { projectSchema } from "@/schemas/project.schema";
-import getSession from "@/helpers/getSession";
-import { getStatusNumber } from "@/utils/getFunctions";
+import { getStatusNumber } from "@/utils/getStatusNumber";
 
 export function useEditProject() {
   const { modal } = useOpenModal();
