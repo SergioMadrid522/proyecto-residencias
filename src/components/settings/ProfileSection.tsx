@@ -6,6 +6,11 @@ import PasswordForm from "./PasswordForm";
 
 export default async function ProfileSection() {
   const session = await getUserSession();
+
+  if (!session?.user?.id) {
+    return <p>No hay sesión activa</p>;
+  }
+
   const sessionUserId = Number(session.user.id);
   const user = await findUserById(sessionUserId);
 
