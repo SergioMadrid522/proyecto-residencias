@@ -32,6 +32,7 @@ export interface ResultProjects {
 interface User {
   id: number;
   nombre: string;
+  lastname?: string;
 }
 interface Projects {
   id: number;

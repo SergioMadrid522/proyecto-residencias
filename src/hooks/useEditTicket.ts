@@ -115,6 +115,7 @@ export function useEditTicket() {
       toast.success("Se ha modificado el ticket con éxito");
     } catch (error) {
       if (error instanceof Error) {
+        console.error(error);
         toast.error(error.message);
       } else {
         console.error("Error: ", error);

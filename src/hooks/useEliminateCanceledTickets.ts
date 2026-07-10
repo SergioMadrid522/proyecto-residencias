@@ -5,7 +5,6 @@ export function useEliminateCanceledTickets() {
   const [loadingCanceled, setLoadingCanceled] = useState(false);
 
   const apiURL = process.env.NEXT_PUBLIC_ARCHIVE_CANCELED_TICKET_API_URL;
-  console.log(apiURL);
 
   if (!apiURL)
     throw new Error(

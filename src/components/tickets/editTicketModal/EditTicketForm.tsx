@@ -108,7 +108,7 @@ export default function EditTicketForm({
           value={proyectoId || ""}
           onChange={(e) => {
             const value = Number(e.target.value);
-            console.log(value);
+
             setProyectoId(value);
           }}
           className={`

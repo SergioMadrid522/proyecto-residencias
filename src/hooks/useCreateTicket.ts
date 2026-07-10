@@ -68,9 +68,9 @@ export function useCreateTicket() {
       }
 
       setTitulo(data.titulo);
-      setDescripcion(data.email);
-      setPasosReproducir(data.password);
-      setModulo(data.rol);
+      setDescripcion(data.descripcion);
+      setPasosReproducir(data.pasosReproducir);
+      setModulo(data.modulo);
       setEstado(data.estado);
       setPrioridad(data.prioridad);
       setSeveridadIa(data.severidadIa);

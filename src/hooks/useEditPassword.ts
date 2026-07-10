@@ -7,8 +7,7 @@ export function useEditPassword(userId: number) {
   const [loading, setLoading] = useState(false);
 
   const apiURL = process.env.NEXT_PUBLIC_USERS_API_URL;
-  if (!apiURL)
-    throw new Error("NEXT_PUBLIC_USERS_API_URL no está definida");
+  if (!apiURL) throw new Error("NEXT_PUBLIC_USERS_API_URL no está definida");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,10 +24,10 @@ export function useEditPassword(userId: number) {
       const data = await res.json();
 
       if (!res.ok) {
-        const error = Object.values(data.errors!).flat()[0];
+        const error = Object.values(data.error!).flat()[0];
 
-        if (typeof data.errors === "string") {
-          toast.error(data.errors);
+        if (typeof data.error === "string") {
+          toast.error(data.error);
         } else {
           toast.error(error as string);
         }

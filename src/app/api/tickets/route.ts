@@ -100,8 +100,11 @@ export async function PUT(request: Request) {
           titulo: body.titulo,
           descripcion: body.descripcion,
           estado: body.estado,
+          pasosReproducir: body.pasosReproducir,
           proyectoId: body.proyectoId,
           prioridad: body.prioridad,
+          severidadIa: body.severidadIa,
+          modulo: body.modulo,
           usuarioReportaId: body.usuarioReporta,
         },
       });

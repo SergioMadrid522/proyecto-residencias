@@ -71,39 +71,3 @@ export const leftSideMenuOptions: LeftSideMenuOption = {
     },
   ],
 };
-const openTicketsCount = await getOpenTickets();
-const rewiewTicketCount = await getReviewTickets();
-export const pieChartData = await getPieChartData();
-const criticalTicketCount = await getCriticalTickets();
-const mttr = await getMTTR();
-
-export const statsOverview: StatsOverview[] = [
-  {
-    icon: GLOBAL.reportsIcon,
-    iconViewbox: "0 0 640 640",
-    title: "Tickets Abiertos",
-    color: "#F54927",
-    stats: openTicketsCount,
-  },
-  {
-    icon: GLOBAL.sandClockIcon,
-    iconViewbox: "0 0 16 16",
-    title: "Tickets En Revisión",
-    color: "#E0AF0B",
-    stats: rewiewTicketCount,
-  },
-  {
-    icon: GLOBAL.fireIcon,
-    iconViewbox: "0 0 16 16",
-    title: "Tickets con prioridad Crítica",
-    color: "#F54927",
-    stats: criticalTicketCount,
-  },
-  {
-    icon: GLOBAL.clockIcon,
-    iconViewbox: "0 0 16 16",
-    title: "MTTR Promedio",
-    color: "#66B555",
-    stats: mttr,
-  },
-];
