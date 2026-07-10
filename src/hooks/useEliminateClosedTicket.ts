@@ -5,7 +5,6 @@ export function useEliminateClosedTickets() {
   const [loadingClosed, setLoadingClosed] = useState(false);
 
   const apiURL = process.env.NEXT_PUBLIC_ARCHIVE_CLOSED_TICKET_API_URL;
-  console.log(apiURL);
 
   if (!apiURL)
     throw new Error(

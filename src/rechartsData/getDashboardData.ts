@@ -3,21 +3,31 @@ import { ErrorTrendData, RecentTicket } from "@/types";
 /* Overview Stats */
 export async function getOpenTickets() {
   const count = await prisma.ticket.count({
-    where: { activo: true },
+    where: {
+      activo: true,
+      NOT: {
+        estado: {
+          in: ["CANCELADO", "CERRADO"],
+        },
+      },
+    },
   });
   return count;
 }
 
 export async function getReviewTickets() {
   const count = await prisma.ticket.count({
-    where: { estado: "EN_REVISION" },
+    where: {
+      estado: "EN_REVISION",
+      activo: true,
+    },
   });
   return count;
 }
 
 export async function getCriticalTickets() {
   const count = await prisma.ticket.count({
-    where: { prioridad: "CRITICA" },
+    where: { prioridad: "CRITICA", activo: true },
   });
   return count;
 }
@@ -80,12 +90,6 @@ export async function getPieChartData() {
 }
 
 export async function getReopenPercentage() {
-  const totalTickets = await prisma.ticket.count({
-    where: {
-      activo: true,
-    },
-  });
-
   const reopenedTickets = await prisma.ticket.count({
     where: {
       estado: "REABIERTO",
@@ -93,11 +97,19 @@ export async function getReopenPercentage() {
     },
   });
 
-  if (totalTickets === 0) return 0;
+  const closedTickets = await prisma.ticket.count({
+    where: {
+      estado: "CERRADO",
+      activo: true,
+    },
+  });
 
-  return Number(((reopenedTickets / totalTickets) * 100).toFixed(2));
+  const totalResolvedTickets = reopenedTickets + closedTickets;
+
+  if (totalResolvedTickets === 0) return 0;
+
+  return Number(((reopenedTickets / totalResolvedTickets) * 100).toFixed(2));
 }
-
 /* Simple graph chart */
 export async function getErrorTrend(): Promise<ErrorTrendData[]> {
   const tickets = await prisma.ticket.findMany({

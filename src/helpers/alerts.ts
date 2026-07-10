@@ -8,8 +8,8 @@ export async function logoutAlert() {
 
     showCancelButton: true,
 
-    cancelButtonText: "Seguir aquí",
     confirmButtonText: "Sí, cerrar sesión",
+    cancelButtonText: "Seguir aquí",
 
     confirmButtonColor: "#2563eb",
     cancelButtonColor: "#9ca3af",

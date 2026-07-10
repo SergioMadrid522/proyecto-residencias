@@ -7,6 +7,7 @@ import { getProjects, getUsers } from "@/utils/getFunctions";
 
 export default async function Tickets() {
   const { user } = await getUsers();
+
   const { projects } = await getProjects();
 
   const { activeRol } = await useRolMapper();

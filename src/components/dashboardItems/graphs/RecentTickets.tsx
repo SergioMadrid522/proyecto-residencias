@@ -11,7 +11,8 @@ export default async function RecentTickets() {
   return (
     <>
       {data.map(({ id, titulo, severidadIa, historial }) => {
-        const lastUpdate = historial[0].fechaCambio;
+        const lastUpdate = historial[0]?.fechaCambio;
+
         return (
           <div
             className="flex items-center justify-between border-t py-4"
@@ -30,7 +31,9 @@ export default async function RecentTickets() {
             </Link>
 
             <p className="text-rigth text-sm text-gray-500">
-              Hace {getTimeToCurrentDate(lastUpdate)}
+              {lastUpdate
+                ? `Hace ${getTimeToCurrentDate(lastUpdate)}`
+                : "Sin historial"}
             </p>
           </div>
         );

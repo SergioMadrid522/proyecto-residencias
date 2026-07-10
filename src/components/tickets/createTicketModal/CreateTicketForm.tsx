@@ -2,6 +2,7 @@ import { FormField } from "@/components/form/FormField";
 import { useCreateTicket } from "@/hooks/useCreateTicket";
 import { GLOBAL } from "@/icons.data";
 import { CreateTicketProps } from "@/types";
+import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
 
 export default function CreateTicketForm({
   user,
@@ -318,9 +319,9 @@ export default function CreateTicketForm({
           "
         >
           <option value="">Selecciona un usuario</option>
-          {user.map(({ id, nombre }) => (
+          {user.map(({ id, nombre, lastname }) => (
             <option key={id} value={id}>
-              {nombre}
+              {capitalizeFirstLetter(nombre)} {capitalizeFirstLetter(lastname!)}
             </option>
           ))}
         </select>
