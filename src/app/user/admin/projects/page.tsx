@@ -3,10 +3,8 @@ import CreateProject from "@/components/projects/createProjectModal/CreateProjec
 import EditProject from "@/components/projects/editProjectModal/EditProject";
 import RenderProjects from "@/components/projects/RenderProjects";
 import { useRolMapper } from "@/hooks/useRolMapper";
-import { getUsers } from "@/utils/getFunctions";
 
 export default async function Projects() {
-  const { user } = await getUsers();
   const { activeRol } = await useRolMapper();
 
   return (
