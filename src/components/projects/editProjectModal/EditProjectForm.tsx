@@ -32,7 +32,7 @@ export default function EditProjectForm() {
       className="mx-auto flex w-full max-w-2xl flex-col gap-5"
     >
       <FormField>
-        <div className="text-[15px]">Titulo del proyecto</div>
+        <div className="text-[15px]">Nombre del proyecto</div>
         <input
           type="text"
           value={nombreProyecto || ""}
@@ -81,7 +81,7 @@ export default function EditProjectForm() {
       </FormField>
 
       <FormField>
-        <div className="text-[15px]">¿Sigue Está activo?</div>
+        <div className="text-[15px]">¿Está activo?</div>
         <select
           name=""
           id=""
