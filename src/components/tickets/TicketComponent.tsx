@@ -1,5 +1,6 @@
 import {
   getProjects,
+  getRolText,
   getTicket,
   getTicketLevel,
   getTicketModule,
@@ -103,7 +104,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
                         {usuario.nombre}
                       </td>
                       <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
-                        {ticket.usuarioReporta?.rolId}
+                        {getRolText(ticket.usuarioReporta?.rolId!)}
                       </td>
                       <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
                         {getTicketStatus(estadoNuevo)}

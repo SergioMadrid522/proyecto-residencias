@@ -94,7 +94,7 @@ export interface EditTicketModal {
   projects: Projects[];
 }
 
-export interface GetUserResponse {
+export type GetUserResponse = {
   success: boolean;
   id?: number;
   user: {
@@ -104,7 +104,7 @@ export interface GetUserResponse {
     rolId: number;
     fechaRegistro: Date;
   }[];
-}
+};
 export interface EditButtonProps {
   id: number;
   user: User[];
