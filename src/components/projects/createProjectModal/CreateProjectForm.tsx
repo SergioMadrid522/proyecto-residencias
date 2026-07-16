@@ -20,7 +20,7 @@ export default function CreateForm() {
       className="mx-auto flex w-full max-w-2xl flex-col gap-5"
     >
       <FormField>
-        <div>Titulo del ticket</div>
+        <div>Nombre del proyecto</div>
         <input
           type="text"
           value={nombreProyecto || ""}
