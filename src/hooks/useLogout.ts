@@ -24,7 +24,7 @@ export function useLogout() {
       });
 
       if (!res.ok) {
-        toast.error("Error al cerra r sesión");
+        toast.error("Error al cerrar sesión");
         return;
       }
       toast.success("Se ha cerrado la sesión con éxito");
