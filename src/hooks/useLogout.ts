@@ -19,10 +19,12 @@ export function useLogout() {
       const res = await fetch(apiURL, {
         method: "POST",
         headers: { "content-type": "application/json" },
+        credentials: "same-origin",
+        cache: "no-cache",
       });
 
       if (!res.ok) {
-        toast.error("Error al cerrar sesión");
+        toast.error("Error al cerra r sesión");
         return;
       }
       toast.success("Se ha cerrado la sesión con éxito");
