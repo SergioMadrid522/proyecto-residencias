@@ -28,7 +28,7 @@ export function useLogout() {
         return;
       }
       toast.success("Se ha cerrado la sesión con éxito");
-      router.push("/");
+      window.location.href = "/";
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
