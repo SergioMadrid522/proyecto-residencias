@@ -19,6 +19,8 @@ export function useLogout() {
       const res = await fetch(apiURL, {
         method: "POST",
         headers: { "content-type": "application/json" },
+        credentials: "same-origin",
+        cache: "no-cache",
       });
 
       if (!res.ok) {
