@@ -1,6 +1,9 @@
 import { getRolText } from "./getFunctions";
 
-export function capitalizeFirstLetter(text: string | number): string {
+export function capitalizeFirstLetter(text: string | number | null): string {
+  if (text == null) {
+    return "";
+  }
   if (typeof text === "number") {
     const value = getRolText(text);
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
