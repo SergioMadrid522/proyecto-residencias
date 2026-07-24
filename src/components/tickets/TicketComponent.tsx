@@ -101,7 +101,7 @@ export default async function TicketPageContent({ id }: { id: string }) {
                         {capitalizeFirstLetter(ticket.proyecto.nombreProyecto!)}
                       </td>
                       <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
-                        {usuario.nombre}
+                        {capitalizeFirstLetter(usuario.nombre)}
                       </td>
                       <td className="border-t border-gray-100 px-2  py-3 text-sm text-center text-gray-600">
                         {getRolText(ticket.usuarioReporta?.rolId!)}
