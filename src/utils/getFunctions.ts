@@ -62,8 +62,28 @@ export async function getUsers(): Promise<GetUserResponse> {
 
 export async function getTickets(): Promise<GetTicketsResult> {
   try {
+    const session = await getUserSession();
+
+    if (!session?.user?.id || !session.rol) {
+      return {
+        success: false,
+        error: "Usuario no autenticado.",
+      };
+    }
+    const {
+      user: { id },
+      rol,
+    } = session;
+
+    const isAdmin = rol.toUpperCase() === "ADMIN";
+
     const tickets = await prisma.ticket.findMany({
-      where: { activo: true },
+      where: {
+        activo: true,
+        ...(!isAdmin && {
+          usuarioAsignadoId: id,
+        }),
+      },
       select: {
         id: true,
         titulo: true,
@@ -75,7 +95,7 @@ export async function getTickets(): Promise<GetTicketsResult> {
         },
       },
     });
-
+    //console.log(tickets);
     return {
       success: true,
       tickets,
@@ -170,6 +190,7 @@ export async function getUserSession() {
       rolId = user.rol.id;
     }
   }
+  //console.log(session?.userId);
   return {
     user: {
       id: session?.userId,

@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { validatePrompt } from "@/services/ai.service";
 import { createTicket } from "@/services/ticket.service";
 
-import { getTickets, getTicket } from "@/utils/getFunctions";
+import { getTickets, getTicket, getUserSession } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 
 type TransactionClient = Omit<
@@ -38,32 +38,41 @@ export async function POST(request: Request) {
     if (!validation.success) {
       return NextResponse.json({ error: validation.errors }, { status: 400 });
     }
+    const hasManualSeverity = validation.data.severidadIa !== null;
 
-    const prompt = {
-      titulo: validation.data?.titulo,
-      descripcion: validation.data?.descripcion,
-      pasosReproducir: validation.data?.pasosReproducir ?? "No hay alguno",
-      modulo: validation.data?.modulo,
-    };
-
-    const { severidadIa, ...ticketData } = validation.data;
-    const genAI = await validatePrompt(prompt);
-
-    if (!genAI.success) {
-      return NextResponse.json(
-        {
-          error: genAI.error,
+    if (hasManualSeverity) {
+      await prisma.ticket.create({
+        data: {
+          ...validation.data,
         },
-        { status: genAI.status },
-      );
-    }
+      });
+    } else {
+      const prompt = {
+        titulo: validation.data?.titulo,
+        descripcion: validation.data?.descripcion,
+        pasosReproducir: validation.data?.pasosReproducir ?? "No hay alguno",
+        modulo: validation.data?.modulo,
+      };
 
-    await prisma.ticket.create({
-      data: {
-        ...ticketData,
-        severidadIa: genAI.output,
-      },
-    });
+      const { severidadIa, ...ticketData } = validation.data;
+      const genAI = await validatePrompt(prompt);
+
+      if (!genAI.success) {
+        return NextResponse.json(
+          {
+            error: genAI.error,
+          },
+          { status: genAI.status },
+        );
+      }
+
+      await prisma.ticket.create({
+        data: {
+          ...ticketData,
+          severidadIa: genAI.output,
+        },
+      });
+    }
 
     return NextResponse.json(
       { message: "El ticket se ha creado con éxito." },

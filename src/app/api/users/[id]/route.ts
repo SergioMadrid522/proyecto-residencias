@@ -1,4 +1,4 @@
-import { getUserById, getUserSession } from "@/utils/getFunctions";
+import { getUserById } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 import { validatePassword } from "@/services/validatePassword.service";
 import { prisma } from "@/lib/prisma";
