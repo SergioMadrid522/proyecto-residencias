@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
-import { getPrompt } from "@/utils/getFunctions";
-import { AIPrompt, ValidationResult } from "@/types";
+import { getCreateReportPrompt, getPrompt } from "@/utils/getFunctions";
+import type { AIPrompt, ValidationResult } from "@/types";
+import { getReportData } from "@/components/pdfComponent/getReportData";
 
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) throw new Error("GEMINI_API_KEY no está definida");
@@ -8,11 +9,18 @@ if (!apiKey) throw new Error("GEMINI_API_KEY no está definida");
 const genAI = new GoogleGenAI({ apiKey: apiKey });
 
 export async function validatePrompt(
-  data: AIPrompt,
+  data: AIPrompt | "CREATE_REPORT",
 ): Promise<ValidationResult> {
-  const prompt = getPrompt(data);
-
   try {
+    let prompt: string;
+
+    if (data === "CREATE_REPORT") {
+      const reportData = await getReportData();
+      prompt = getCreateReportPrompt(reportData);
+    } else {
+      prompt = getPrompt(data);
+    }
+
     const interaction = await genAI.interactions.create({
       model: "gemini-2.5-flash",
       input: prompt,
@@ -31,6 +39,7 @@ export async function validatePrompt(
       output: interaction.output_text,
     };
   } catch (error: any) {
+    console.error("error: ", error);
     if (error.status === 401) {
       return {
         success: false,

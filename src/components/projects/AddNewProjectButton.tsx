@@ -17,11 +17,11 @@ export default function AddNewProjectButton({
   };
 
   return (
-    <>
-      {activeRol.toLowerCase() === "admin" && (
-        <button
-          onClick={triggerDownloadExcelFile}
-          className="
+    <button
+      onClick={() => {
+        setModal({ type: "create-project" });
+      }}
+      className="
             flex items-center gap-2
             rounded-lg
             px-4 py-2.5
@@ -32,29 +32,8 @@ export default function AddNewProjectButton({
             hover:bg-gray-200
             active:scale-95
             cursor-pointer"
-        >
-          Exportar a excel
-        </button>
-      )}
-
-      <button
-        onClick={() => {
-          setModal({ type: "create-project" });
-        }}
-        className="
-            flex items-center gap-2
-            rounded-lg
-            px-4 py-2.5
-            text-sm font-medium
-            text-black
-            shadow-sm
-            transition
-            hover:bg-gray-200
-            active:scale-95
-            cursor-pointer"
-      >
-        Agregar Nuevo Proyecto
-      </button>
-    </>
+    >
+      Agregar Nuevo Proyecto
+    </button>
   );
 }

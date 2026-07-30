@@ -21,24 +21,6 @@ export default function AddNewTicketButton({
 
   return (
     <>
-      {isAdmin && (
-        <button
-          onClick={triggerDownloadExcelFile}
-          className="
-            flex items-center gap-2
-            rounded-lg
-            px-4 py-2.5
-            text-sm font-medium
-            text-black
-            shadow-sm
-            transition
-            hover:bg-gray-200
-            active:scale-95
-            cursor-pointer"
-        >
-          Exportar a excel
-        </button>
-      )}
       {!isDev && (
         <button
           onClick={() => {

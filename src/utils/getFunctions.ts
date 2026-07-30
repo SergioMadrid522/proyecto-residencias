@@ -1,3 +1,4 @@
+import { getReportData } from "@/components/pdfComponent/getReportData";
 import getSession from "@/helpers/getSession";
 import { prisma } from "@/lib/prisma";
 import { findTicketById } from "@/services/ticket.service";
@@ -7,6 +8,7 @@ import {
   GetTicketResponse,
   GetTicketsResult,
   GetUserResponse,
+  ReportData,
   ResultProjects,
 } from "@/types";
 import { formatDistanceToNow } from "date-fns";
@@ -255,67 +257,127 @@ export function getFirstLetter(text: string): string {
 
 export function getPrompt(data: AIPrompt): string {
   const prompt = `
-  Eres un clasificador de severidad de bugs/incidencias.
+    Eres un clasificador de severidad de bugs/incidencias.
 
-  Tu única función es analizar la información proporcionada y responder EXCLUSIVAMENTE con una de estas 4 palabras:
+    Tu única función es analizar la información proporcionada y responder EXCLUSIVAMENTE con una de estas 4 palabras:
 
-  BAJA
-  MEDIA
-  ALTA
-  CRITICA
+    BAJA
+    MEDIA
+    ALTA
+    CRITICA
 
-  No agregues explicaciones, comentarios, puntuación, markdown, comillas ni texto adicional.
+    No agregues explicaciones, comentarios, puntuación, markdown, comillas ni texto adicional.
 
-  Reglas de clasificación:
+    Reglas de clasificación:
 
-  CRITICA:
-  - El sistema está caído o una funcionalidad principal no puede utilizarse.
-  - Existe pérdida, corrupción o riesgo de pérdida de datos.
-  - Existe una vulnerabilidad de seguridad.
-  - Bloquea operaciones importantes sin alternativa viable.
+    CRITICA:
+    - El sistema está caído o una funcionalidad principal no puede utilizarse.
+    - Existe pérdida, corrupción o riesgo de pérdida de datos.
+    - Existe una vulnerabilidad de seguridad.
+    - Bloquea operaciones importantes sin alternativa viable.
 
-  ALTA:
-  - Una funcionalidad importante está rota.
-  - Afecta a varios usuarios o un módulo importante.
-  - Existe una solución temporal o workaround parcial.
+    ALTA:
+    - Una funcionalidad importante está rota.
+    - Afecta a varios usuarios o un módulo importante.
+    - Existe una solución temporal o workaround parcial.
 
-  MEDIA:
-  - Afecta una funcionalidad secundaria.
-  - Existe un workaround claro.
-  - El impacto está limitado a pocos usuarios.
+    MEDIA:
+    - Afecta una funcionalidad secundaria.
+    - Existe un workaround claro.
+    - El impacto está limitado a pocos usuarios.
 
-  BAJA:
-  - Errores visuales, textos incorrectos, estilos, mejoras menores.
-  - No afecta la funcionalidad principal.
+    BAJA:
+    - Errores visuales, textos incorrectos, estilos, mejoras menores.
+    - No afecta la funcionalidad principal.
 
-  Considera también el módulo afectado:
-  - BASE_DE_DATOS: problemas de datos aumentan la severidad.
-  - API/BACKEND: errores de comunicación o servicios aumentan la severidad.
-  - FRONTEND: distingue entre errores visuales y errores funcionales.
-  - MOBILE: considera el impacto en usuarios móviles.
+    Considera también el módulo afectado:
+    - BASE_DE_DATOS: problemas de datos aumentan la severidad.
+    - API/BACKEND: errores de comunicación o servicios aumentan la severidad.
+    - FRONTEND: distingue entre errores visuales y errores funcionales.
+    - MOBILE: considera el impacto en usuarios móviles.
 
-  Analiza estos campos:
-  - titulo
-  - descripcion
-  - pasosReproducir
-  - modulo
+    Analiza estos campos:
+    - titulo
+    - descripcion
+    - pasosReproducir
+    - modulo
 
-  Responde únicamente con:
-  BAJA, MEDIA, ALTA o CRITICA.
+    Responde únicamente con:
+    BAJA, MEDIA, ALTA o CRITICA.
 
-  Datos del ticket:
+    Datos del ticket:
 
-  titulo:
-  ${data.titulo}
+    titulo:
+    ${data.titulo}
 
-  descripcion:
-  ${data.descripcion}
+    descripcion:
+    ${data.descripcion}
 
-  pasosReproducir:
-  ${data.pasosReproducir}
+    pasosReproducir:
+    ${data.pasosReproducir}
 
-  modulo:
-  ${data.modulo}
+    modulo:
+    ${data.modulo}
 `;
   return prompt;
+}
+
+export function getCreateReportPrompt(
+  data: Awaited<ReturnType<typeof getReportData>>,
+): string {
+  return `
+Eres un analista de calidad de software.
+
+Genera un reporte profesional en español utilizando únicamente los datos proporcionados.
+
+DATOS:
+${JSON.stringify(data, null, 2)}
+
+SIGNIFICADO DE LAS MÉTRICAS:
+- openTickets: cantidad actual de tickets activos que no están CERRADOS ni CANCELADOS.
+- reviewTickets: cantidad actual de tickets en estado EN_REVISION.
+- criticalTickets: cantidad actual de tickets activos con prioridad CRITICA.
+- mttr: tiempo promedio de resolución expresado en HORAS.
+- pieChartData: cantidad actual de tickets en estado REABIERTO y CERRADO.
+- reopenPercentage: porcentaje calculado usando tickets actualmente REABIERTO y CERRADO.
+- unstableModules: cantidad de tickets activos por módulo.
+- errorTrend: cantidad de tickets creados por mes y prioridad.
+- recentTickets: únicamente una lista de tickets recientes. No asumir su estado actual si no está incluido.
+
+Incluye exactamente estas secciones:
+
+RESUMEN GENERAL
+Describe únicamente las métricas disponibles.
+
+MÓDULO CON MÁS INCIDENCIAS
+Identifica el módulo con mayor cantidad de tickets activos usando unstableModules.
+
+ESTADO GENERAL DE LOS TICKETS
+Describe tickets abiertos, en revisión, cerrados y reabiertos utilizando únicamente las métricas disponibles.
+
+TENDENCIA DE INCIDENCIAS
+Resume los datos mensuales disponibles en errorTrend.
+
+PROBLEMAS DETECTADOS
+Menciona indicadores que merecen atención, pero no inventes causas ni afirmes que los procesos están estancados.
+
+RECOMENDACIONES
+Genera entre 3 y 5 recomendaciones prudentes basadas en las métricas.
+
+CONCLUSIÓN
+Escribe una conclusión breve y objetiva.
+
+REGLAS OBLIGATORIAS:
+- No inventes información.
+- No atribuyas causas que no estén demostradas.
+- No afirmes que existe falta de progreso, ineficiencia, estancamiento o mala gestión.
+- No supongas que recentTickets representa todos los tickets abiertos.
+- No supongas el estado de un ticket reciente si el dato no está incluido.
+- No confundas prioridad con severidad.
+- El MTTR siempre está expresado en horas.
+- No menciones "periodo analizado" porque no existe un filtro de fechas.
+- Si no existen tickets cerrados o reabiertos, solo indícalo de manera neutral.
+- No uses Markdown.
+- Devuelve solamente el contenido del reporte.
+`;
 }
