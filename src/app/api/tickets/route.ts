@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { validatePrompt } from "@/services/ai.service";
 import { createTicket } from "@/services/ticket.service";
 
-import { getTickets, getTicket } from "@/utils/getFunctions";
+import { getTickets, getTicket, getUserSession } from "@/utils/getFunctions";
 import { NextResponse } from "next/server";
 
 type TransactionClient = Omit<
