@@ -250,3 +250,18 @@ export type TicketTimelineItem = {
   estadoNuevo: string;
   fechaCambio: Date;
 };
+export interface ReportData {
+  openTickets: number;
+  reviewTickets: number;
+  criticalTickets: number;
+  mttr: number;
+  pieChartData: { name: string; value: number }[];
+  reopenPercentage: number;
+  errorTrend: ErrorTrendData[];
+  recentTickets: RecentTicket[];
+  unstableModules: {
+    name: string;
+    value: number;
+    color: string;
+  }[];
+}
