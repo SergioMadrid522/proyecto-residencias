@@ -1,52 +1,197 @@
-en el modal de editar usuario no muestra los datos del usuario
+# Bug Tracker
 
-Para instalar todas las dependencias
+A full-stack bug tracking system built with **Next.js**, **React**, **TypeScript**, **Prisma ORM**, and **PostgreSQL**. The application streamlines the software testing workflow by allowing teams to report, assign, manage, and validate software defects through a role-based workflow.
 
-```bash
-npm install 
-```
-o 
-```bash
-pnpm install 
-```
+The system also integrates **Google Gemini AI** to automatically classify ticket severity when it is not manually specified by the user.
 
-# Stack
+---
 
-1. Aplicación Full-Stack usando Next.js con React.js + TypeScript
+## Features
 
-- Next.js v16.1.5
+- JWT Authentication
+- Role-Based Access Control (RBAC)
+- User Management
+- Project Management
+- Ticket Management
+- Ticket History
+- Dashboard with Software Quality Metrics
+- AI-Powered Severity Classification
+- PDF Report Generation
+- Responsive User Interface
 
-2. BD.
+---
 
-- PostgreSQL v17
+## Tech Stack
 
-3. Graficas.
+### Frontend
+
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+
+### Backend
+
+- Next.js Route Handlers
+- Prisma ORM
+
+### Database
+
+- PostgreSQL
+
+### Charts
 
 - Recharts
 
-4. ORM
+### Artificial Intelligence
 
-- Prisma v6.2.1
+- Google Gemini API
 
-# Roles:
+---
 
-1. **Admin**: Gestión de proyectos, usuarios y visualización de KPIs globales.
+## Installation
 
-2. **Tester (QA)**: Responsable del ciclo de reporte y validación de correcciones.
-   (Puede ver todo el ciclo del reporte y validar las correcciones hechas por el dev).
+Clone the repository.
 
-3. **Developer**: Gestión de resolución de incidencias y carga de evidencia técnica.
-   (Puede ver los reporte de las corecciones y cargar evidencia de que ya fue arreglado)
+```bash
+git clone https://github.com/your-username/bug-tracker.git
+```
 
-# Flujo del proyecto.
+Navigate to the project directory.
 
-1. Aplicación full-stack usando Next.js.
-   - **Frontend**: Una interfaz rápida y moderna donde el usuario reporta un bug. 
-   - **IA (Gemini)**: Cuando el usuario escribe el error, la API de Gemini analiza el texto y dice: "Esto es una severidad CRÍTICA" automáticamente (esto será implementado después, primero será manual).
-   - **Backend**: Recibe la información y la guarda de forma segura en PostgreSQL. 
-   - **Dashboard**: Muestra gráficas de cuántos bugs se han resuelto (MTTR) para optimizar el equipo.
+```bash
+cd bug-tracker
+```
 
-2. Layout Visual
-   - **Sidebar Menu**: Navegación para los Proyectos, Tickets y Reportes. 
-   - **KPI Cards**: Rectángulos superiores que digan "Bugs Activos", "Tiempo de Respuesta", etc.
-   - **Main View**: Una tabla profesional o un tablero tipo Kanban (como Jira) para mover los tickets de estado.
+Install the dependencies.
+
+```bash
+npm install
+```
+
+or
+
+```bash
+pnpm install
+```
+
+Run the development server.
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+pnpm dev
+```
+
+---
+
+## User Roles
+
+### Administrator
+
+- Manage users
+- Manage projects
+- Manage tickets
+- View all tickets
+- Access global dashboard metrics
+- Generate PDF reports
+
+### QA Tester
+
+- View assigned tickets
+- Validate bug fixes
+- Reopen tickets when necessary
+- Close verified tickets
+
+### Developer
+
+- View assigned tickets
+- Update ticket status
+- Upload technical evidence
+- Resolve reported issues
+
+---
+
+## Ticket Workflow
+
+```text
+Bug Report
+    │
+    ▼
+Severity Selected?
+    │
+ ┌──┴──┐
+ │     │
+Yes    No
+ │      │
+ ▼      ▼
+Save   Google Gemini
+        Predicts Severity
+        │
+        ▼
+    Ticket Created
+        │
+        ▼
+Assigned to Developer
+        │
+        ▼
+Developer Fixes Issue
+        │
+        ▼
+QA Validation
+        │
+   ┌────┴────┐
+   │         │
+Closed   Reopened
+```
+
+---
+
+## Dashboard
+
+The dashboard provides real-time software quality metrics, including:
+
+- Open Tickets
+- Critical Tickets
+- Tickets Under Review
+- Mean Time To Resolution (MTTR)
+- Ticket Trends
+- Severity Distribution
+- Most Affected Modules
+- Recent Tickets
+
+---
+
+## Project Structure
+
+```text
+app/
+components/
+actions/
+lib/
+prisma/
+public/
+types/
+```
+
+---
+
+## Future Improvements
+
+- Email notifications
+- File attachments
+- Kanban board
+- Advanced filtering
+- Audit logs
+- Real-time notifications
+- Multi-tenant support
+
+---
+
+## License
+
+This project was developed as part of a Software Engineering internship project.
