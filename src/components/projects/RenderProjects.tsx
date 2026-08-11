@@ -25,7 +25,7 @@ export default async function RenderProjects() {
                 href={`/user/admin/projects/project/${id}`}
                 className="font-medium text-gray-700 hover:text-gray-900 hover:underline"
               >
-                {capitalizeFirstLetter(nombreProyecto)}
+                {nombreProyecto}
               </Link>
             </td>
 

@@ -5,14 +5,16 @@ export const ticketSchema = z.object({
   descripcion: z
     .string()
     .trim()
-    .min(1, { message: "Introduce una descripción válida" }),
+    .min(1, { message: "Introduce una descripción válida" })
+    .max(5000),
   pasosReproducir: z
     .string()
     .trim()
     .min(1, { message: "Introduce una descripción válida" })
+    .max(5000)
     .optional(),
   proyecto: z.array(
-    z.string().min(1, { message: "Selecciona una opción válida" }),
+    z.string().min(1, { message: "Selecciona una opción válida" }).max(5000),
   ),
   estatus: z.enum(
     [
